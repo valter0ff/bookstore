@@ -27,7 +27,7 @@
             %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
               - @categories.each do |category|
                 %li
-                  = link_to "#{category.title}", books_path(category_id: category.id), class: 'collapse-link'
+                  = link_to "#{category.title}", '#', class: 'collapse-link'
           %li
             %a{href: "#"}= t('.my_account')
       .hidden-xs
@@ -42,7 +42,7 @@
             %ul.dropdown-menu
               - @categories.each do |category|
                 %li
-                  = link_to "#{category.title}", books_path(category_id: category.id)
+                  = link_to "#{category.title}", '#'
               %li.divider{role: "separator"}
               %li
                 %a{href: "#"}= t('.log_out')

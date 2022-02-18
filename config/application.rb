@@ -20,5 +20,10 @@ module Bookstore
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.generators do |g|
+      g.stylesheet_engine :sass
+      g.template_engine :haml
+      g.test_framework :rspec, request_specs: false, helper_specs: false, controller_specs: true
+    end
   end
 end
