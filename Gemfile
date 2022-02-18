@@ -18,9 +18,10 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
 
 group :development, :test do
-  gem 'factory_bot_rails',  '~> 6.2.0'
+  gem 'factory_bot_rails', '~> 6.2.0'
   gem 'fasterer', '~> 0.9.0', require: false
   gem 'ffaker', '~> 2.20'
+  gem 'i18n-tasks', '~> 0.9.37'
   gem 'pry-byebug', '~> 3.9.0'
   gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails', '~> 5.1.0'
@@ -28,7 +29,6 @@ group :development, :test do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'simplecov', require: false
-  gem 'i18n-tasks', '~> 0.9.37'
 end
 
 group :development do
