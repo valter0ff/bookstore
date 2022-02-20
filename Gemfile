@@ -18,6 +18,7 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
 
 group :development, :test do
+  gem 'bullet', '~> 7.0.1'
   gem 'factory_bot_rails', '~> 6.2.0'
   gem 'fasterer', '~> 0.9.0', require: false
   gem 'ffaker', '~> 2.20'
@@ -33,7 +34,6 @@ end
 
 group :development do
   gem 'brakeman', '~> 5.2.1'
-  gem 'bullet', '~> 7.0.1'
   gem 'bundle-audit', '~> 0.1.0'
   gem 'database_consistency', '~> 1.1.12', require: false
   gem 'lefthook', '~> 0.7.7'
