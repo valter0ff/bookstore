@@ -30,3 +30,17 @@ en:
       buy_now_button: Buy Now
       previous_slider_button: Previous
       next_slider_button: Next
+
+  books:
+    catalog:
+      page_title: Сatalog
+      all_books: All books
+      category_filter: Filter by category
+      sort_by: Sort by
+      sorting_hash:
+        newest_first: Newest first
+        popular_first: Popular first
+        price_low_to_high: 'Price: Low to high'
+        price_high_to_low: 'Price: High to low'
+        title_a_z: 'Title: A - Z'
+        title_z_a: 'Title: Z - A'

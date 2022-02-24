@@ -10,15 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_17_224520) do
+ActiveRecord::Schema.define(version: 2022_02_24_000726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "books", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.integer "year_publication"
+    t.float "height"
+    t.float "width"
+    t.float "depth"
+    t.float "price"
+    t.integer "quantity"
+    t.bigint "category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_books_on_category_id"
+    t.index ["title"], name: "index_books_on_title"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "books_count"
   end
 
+  add_foreign_key "books", "categories"
 end

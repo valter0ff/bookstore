@@ -6,7 +6,7 @@
           %li
             = link_to t('.home'), root_path, class: 'nav-link'
           %li
-            = link_to t('.shop'), '#', class: 'nav-link'
+            = link_to t('.shop'), books_path(category_id: ''), class: 'nav-link'
           %li
             %a.nav-link{href: "#"}= t('.orders')
           %li
