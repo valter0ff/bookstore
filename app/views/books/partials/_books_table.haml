@@ -1,0 +1,26 @@
+- @books.each do |book|
+  .col-xs-6.col-sm-3
+    .general-thumb-wrap
+      .thumbnail.general-thumbnail
+        = image_tag "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg",
+        class: 'img-shadow general-thumbnail-img',
+        alt: 'design-book'
+        .thumb-hover
+          .general-thumb-link-wrap
+            = link_to book, class: 'thumb-hover-link' do
+              %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
+            = link_to "#", class: 'thumb-hover-link' do
+              %i.fa.fa-shopping-cart.thumb-icon
+    .general-thumb-info
+
+      %p
+        Created: #{book.created_at}
+      %p
+        = book.title
+        //%p.font-16.in-gold-500
+        //= book.price_with_currency
+        //%span.divider-sm
+        //%p.lead.small
+        //-book.authors.each do |author|
+        //- present author do |person|
+        //%p= person.full_name

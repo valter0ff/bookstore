@@ -1,0 +1,38 @@
+/- @catalog = view_object(:catalog_view_object)
+%main.container
+  %h1.general-title-margin= (@category.title if @category) || t('.page_title')
+  .hidden-xs.clearfix
+    .dropdowns.pull-right
+      .dropdown.width-240
+        //= form_tag(books_path, method: :get) do
+        //= @catalog.sorting_dropdown
+
+    %ul.list-inline.pt-10.mb-25.mr-240
+      %li.mr-35
+        = link_to books_path(category_id: ''), class: 'filter-link' do
+          = t('.all_books')
+          %span.badge.general-badge
+            = all_books_count
+        - @categories.each do |category|
+          %li.mr-35
+            = link_to books_path(category_id: category.id), class: 'filter-link' do
+              = category.title
+              %span.badge.general-badge
+                = category.books.size
+
+  .dropdowns.mb-25.visible-xs
+    %p.lead.small.mb-10= t('.category_filter')
+    .dropdown
+      = form_tag(books_path, method: :get) do
+        = @catalog.category_dropdown(@categories)
+    //%p.lead.small.mb-10= t('.sort_by')
+    //.dropdown
+    //= form_tag(books_path, method: :get) do
+    //= @catalog.sorting_dropdown
+
+  .mb-120
+    .row#books_table
+      =render 'books/partials/books_table'
+
+    //.text-center#div_next_link
+    //= render 'books/partials/next_link'
