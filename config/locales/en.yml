@@ -1,0 +1,32 @@
+en:
+  partials:
+    head:
+      window_title: Bookstore
+    header:
+      site_title: Bookstore
+      home_link: Home
+      shop_link: Shop
+      my_account: My account
+      log_out: Log out
+      categories:
+        mobile_dev_category: Mobile development
+        photo_category: Photo
+        web_design_category: Web design
+        web_development_category: Web development
+    footer:
+      home: Home
+      shop: Shop
+      orders: Orders
+      settings: Settings
+      support_email: support@bookstore.com
+      support_phone_number: (555)-555-5555
+
+  home_pages:
+    index:
+      welcome: Welcome to our amazing Bookstore!
+      five_best_message: We pore through hundreds of new books each month and select the five best we can find to share with our members.
+      get_started_button: Get Started
+      best_sellers_title: Best Sellers
+      buy_now_button: Buy Now
+      previous_slider_button: Previous
+      next_slider_button: Next
