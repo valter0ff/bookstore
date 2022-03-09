@@ -44,7 +44,10 @@ en:
         price_high_to_low: 'Price: High to low'
         title_a_z: 'Title: A - Z'
         title_z_a: 'Title: Z - A'
-      view_more: View more
+    partials:
+      next_link:
+        view_more: View more
+        
   time:
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z"
