@@ -4,8 +4,8 @@
   .hidden-xs.clearfix
     .dropdowns.pull-right
       .dropdown.width-240
-        //= form_tag(books_path, method: :get) do
-        //= @catalog.sorting_dropdown
+        = form_tag(books_path, method: :get) do
+          = @catalog.sorting_dropdown
 
     %ul.list-inline.pt-10.mb-25.mr-240
       %li.mr-35
@@ -25,10 +25,10 @@
     .dropdown
       = form_tag(books_path, method: :get) do
         = @catalog.category_dropdown(@categories)
-    //%p.lead.small.mb-10= t('.sort_by')
-    //.dropdown
-    //= form_tag(books_path, method: :get) do
-    //= @catalog.sorting_dropdown
+    %p.lead.small.mb-10= t('.sort_by')
+    .dropdown
+      = form_tag(books_path, method: :get) do
+        = @catalog.sorting_dropdown
 
   .mb-120
     .row#books_table

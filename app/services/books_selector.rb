@@ -8,7 +8,7 @@ class BooksSelector < ApplicationService
 
   def call
     setup_books
-#     sort_books
+    sort_books
     @books
   end
 
@@ -22,7 +22,7 @@ class BooksSelector < ApplicationService
              end
   end
 
-#   def sort_books
-#     @books = SortingSelector.call(@books, __getobj__)
-#   end
+  def sort_books
+    @books = SortingSelector.call(@books, __getobj__)
+  end
 end
