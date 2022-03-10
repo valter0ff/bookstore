@@ -21,7 +21,7 @@ class CategorySelector < ApplicationService
   def handle_category
     return if session[:category_id].blank?
 
-    #     @category = @categories.includes(books: [:authors]).find_by(id: session[:category_id])
-    @category = @categories.find_by(id: session[:category_id])
+        @category = @categories.includes(books: [:authors]).find_by(id: session[:category_id])
+#     @category = @categories.includes([:author_books]).find_by(id: session[:category_id])
   end
 end
