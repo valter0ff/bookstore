@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe Category do
   subject(:category) { described_class.new }
 
+  let(:good_title) { FFaker::Book.unique.genre }
+
   it 'is valid with provided title' do
-    category.title = FFaker::Book.unique.genre
+    category.title = good_title
     expect(category).to be_valid
   end
 

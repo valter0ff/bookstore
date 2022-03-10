@@ -47,6 +47,17 @@ en:
     partials:
       next_link:
         view_more: View more
+    book_page:
+      back_button: Back to results
+      add_to_cart: Add to Cart
+      descriprion: Description
+      read_more: Read More
+      year_publication: Year of publication
+      dimensions_title: Dimensions
+      dimensions: "H: %{height}\" x W: %{width}\" x D: %{depth}\""
+      materials: Materials
+      write_review: Write a Review
+      score: Score
         
   time:
     formats:

@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 class BooksController < ApplicationController
+  before_action :all_categories
+
   def index
-    @categories = Category.all
     @category = CategorySelector.call(@categories, self)
     @books = BooksSelector.call(@category, self)
     @catalog = CatalogViewObject.new(view_context)
@@ -9,5 +12,17 @@ class BooksController < ApplicationController
       format.html { render 'catalog' }
       format.js
     end
+  end
+
+  def show
+    book = Book.find_by(id: params[:id])
+    @book = BookPresenter.new(book, view_context)
+    render 'book_page'
+  end
+
+  private
+
+  def all_categories
+    @categories = Category.all
   end
 end

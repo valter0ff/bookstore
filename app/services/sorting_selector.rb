@@ -34,14 +34,13 @@ class SortingSelector < ApplicationService
     @books = @books.order(SORTING[session[:sorted_by]])
   end
 
-#   def average_book_rating(book)
-#     rev = book.reviews.pluck(:rating)
-#     rev.sum(0.0) / rev.size
-#   end
+  #   def average_book_rating(book)
+  #     rev = book.reviews.pluck(:rating)
+  #     rev.sum(0.0) / rev.size
+  #   end
 
   def popular_books
-#     @books.sort_by { |book| average_book_rating(book) }.reverse
-      @books
+    #     @books.sort_by { |book| average_book_rating(book) }.reverse
+    @books
   end
 end
- 
