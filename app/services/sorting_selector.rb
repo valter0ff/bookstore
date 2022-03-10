@@ -31,7 +31,7 @@ class SortingSelector < ApplicationService
     return unless SORTING.key?(session[:sorted_by])
     return @books = popular_books if session[:sorted_by] == 'popular_first'
 
-    @books = @books.order(SORTING[session[:sorted_by]])
+    @books = @books.includes(:authors).order(SORTING[session[:sorted_by]])
   end
 
   #   def average_book_rating(book)
