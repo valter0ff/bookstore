@@ -9,9 +9,9 @@ ActiveRecord::Base.transaction do
                 FactoryBot.create(:category, title: name)
                end
   60.times do
-    FactoryBot.create(:book, #:book_with_reviews,
+    FactoryBot.create(:book_with_reviews,
                       category: categories.sample,
-                      authors: authors.sample(2))
-#                     materials: materials.sample(2))
+                      authors: authors.sample(2),
+                      materials: materials.sample(2))
     end
 end

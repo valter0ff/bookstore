@@ -41,6 +41,6 @@ class SortingSelector < ApplicationService
 
   def popular_books
     #     @books.sort_by { |book| average_book_rating(book) }.reverse
-    @books
+    @books.includes(:authors)
   end
 end

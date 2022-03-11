@@ -6,6 +6,7 @@ class Book < ApplicationRecord
   has_many :authors, through: :author_books
   has_many :book_materials, dependent: :destroy
   has_many :materials, through: :book_materials
+  has_many :reviews
   
   validates_presence_of :title
 end

@@ -12,16 +12,16 @@ FactoryBot.define do
     quantity { rand(1..20) }
     category
 
-    #     factory :book_with_reviews do
-    #       transient do
-    #         reviews_count { 5 }
-    #       end
-    #
-    #       after(:create) do |book, evaluator|
-    #         create_list(:review, evaluator.reviews_count, book: book)
-    #
-    #         book.reload
-    #       end
-    #     end
+    factory :book_with_reviews do
+      transient do
+        reviews_count { 5 }
+      end
+
+      after(:create) do |book, evaluator|
+        create_list(:review, evaluator.reviews_count, book: book)
+
+        book.reload
+      end
+    end
   end
 end
