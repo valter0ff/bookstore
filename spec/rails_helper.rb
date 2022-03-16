@@ -39,8 +39,6 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-Dir['spec/support/sections/*.rb', 'spec/support/**/**/*.rb'].each { |file| require Rails.root.join(file) }
-
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
@@ -79,6 +77,9 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.include ActionView::TestCase::Behavior
+
   if Bullet.enable?
     config.before do
       Bullet.start_request
