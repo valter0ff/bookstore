@@ -6,6 +6,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(File.expand_path('.ruby-version', __dir__)).strip
 
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'factory_bot_rails', '~> 6.2.0'
+gem 'ffaker', '~> 2.20'
 gem 'haml', '~> 5.2.2'
 gem 'haml-rails', '~> 2.0.1'
 gem 'jbuilder', '~> 2.7'
@@ -19,9 +21,7 @@ gem 'webpacker', '~> 5.0'
 
 group :development, :test do
   gem 'bullet', '~> 7.0.1'
-  gem 'factory_bot_rails', '~> 6.2.0'
   gem 'fasterer', '~> 0.9.0', require: false
-  gem 'ffaker', '~> 2.20'
   gem 'i18n-tasks', '~> 0.9.37'
   gem 'pry-byebug', '~> 3.9.0'
   gem 'pry-rails', '~> 0.3.9'

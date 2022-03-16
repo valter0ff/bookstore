@@ -16,7 +16,7 @@ class BooksSelector < ApplicationService
 
   def setup_books
     @books = if @category.blank?
-               Book.all  # Book.includes(:authors, :reviews).all
+               Book.all
              else
                @category.books
              end

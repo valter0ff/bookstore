@@ -5,7 +5,7 @@ RSpec.describe Book do
 
   let(:good_title) { FFaker::Book.unique.genre }
   let(:category) { Category.new(title: good_title) }
-  
+
   it 'is valid with valid attributes' do
     expect(book).to be_valid
   end

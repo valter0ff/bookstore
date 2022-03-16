@@ -1,5 +1,13 @@
-require 'rails_helper'
+# frozen_string_literal: true
 
-RSpec.describe Author, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe Author do
+  subject(:author) { build(:author) }
+
+  it 'has a valid factory' do
+    expect(build(:author)).to be_valid
+  end
+
+  it 'is valid with valid attributes' do
+    expect(author).to be_valid
+  end
 end
