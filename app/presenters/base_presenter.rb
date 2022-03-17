@@ -6,7 +6,7 @@ class BasePresenter < SimpleDelegator
     super(model)
   end
 
-  def h
+  def view_object
     @view
   end
 

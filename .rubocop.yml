@@ -15,6 +15,9 @@ AllCops:
 RSpec/DescribeClass:
   Exclude:
     - 'spec/features/**/*'
+    
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
 
 Metrics/ModuleLength:
   Exclude:
