@@ -1,5 +1,5 @@
 = select_tag 'sorted_by',
-  options_for_select(t('books.catalog.sorting_hash').invert, params[:sorted_by]),
+  options_for_select(t('books.sorting_hash').invert, params[:sorted_by]),
   { data: { toggle: 'dropdown' },
   aria: { haspopup: 'true', expanded: 'false' },
   onchange: 'this.form.submit();',

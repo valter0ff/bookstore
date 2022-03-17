@@ -32,22 +32,24 @@ en:
       next_slider_button: Next
 
   books:
-    catalog:
+    index:
       page_title: Сatalog
       all_books: All books
       category_filter: Filter by category
       sort_by: Sort by
-      sorting_hash:
-        newest_first: Newest first
-        popular_first: Popular first
-        price_low_to_high: 'Price: Low to high'
-        price_high_to_low: 'Price: High to low'
-        title_a_z: 'Title: A - Z'
-        title_z_a: 'Title: Z - A'
-    partials:
-      next_link:
-        view_more: View more
-    book_page:
+    sorting_hash:
+      newest_first: Newest first
+      popular_first: Popular first
+      price_low_to_high: 'Price: Low to high'
+      price_high_to_low: 'Price: High to low'
+      title_a_z: 'Title: A - Z'
+      title_z_a: 'Title: Z - A'
+    books_table:
+      rating: "Rating: %{value}"
+      created: "Created: "  
+    next_link:
+      view_more: View more
+    show:
       back_button: Back to results
       add_to_cart: Add to Cart
       descriprion: Description
