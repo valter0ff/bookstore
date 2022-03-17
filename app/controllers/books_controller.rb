@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 class BooksController < ApplicationController
-  before_action :all_categories
+  before_action :all_categories, only: :index
+  before_action :select_category, only: :index
 
   def index
-    @category = CategorySelector.call(@categories, self)
     @books = BooksSelector.call(@category, self)
-    @catalog = CatalogViewObject.new(view_context)
     @pagy, @books = pagy_array(@books.to_a, items: 12, link_extra: 'data-remote="true"')
     respond_to do |format|
       format.html { render 'catalog' }
@@ -24,5 +23,9 @@ class BooksController < ApplicationController
 
   def all_categories
     @categories = Category.all
+  end
+  
+  def select_category
+    @category = @categories.find_by(id: params[:category_id])
   end
 end

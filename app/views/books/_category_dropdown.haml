@@ -1,0 +1,7 @@
+= select_tag 'category_id',
+  options_from_collection_for_select(categories, 'id', 'title', params[:category_id]),
+  { include_blank: 'All',
+  data: { toggle: 'dropdown' },
+  aria: { haspopup: 'true', expanded: 'false' },
+  onchange: 'this.form.submit();',
+  class: 'dropdown-toggle lead small select-tag' } 
