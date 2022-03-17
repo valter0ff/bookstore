@@ -14,7 +14,7 @@ RSpec.describe BooksController, type: :controller do
     end
 
     it 'renders index template' do
-      expect(response).to render_template(:catalog)
+      expect(response).to render_template(:index)
     end
 
     context 'when some category choosen' do
@@ -55,7 +55,7 @@ RSpec.describe BooksController, type: :controller do
     end
 
     it 'renders book_page template' do
-      expect(response).to render_template(:book_page)
+      expect(response).to render_template(:show)
     end
 
     it 'assigns all categories to @categories' do
