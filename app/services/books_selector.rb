@@ -28,7 +28,7 @@ class BooksSelector < ApplicationService
   end
   
   def sort_books
-    return unless SORTING.key?(params[:sorted_by])
+    return @books unless SORTING.key?(params[:sorted_by])
     return popular_books if params[:sorted_by] == 'popular_first'
 
     @books = @books.order(SORTING[params[:sorted_by]])

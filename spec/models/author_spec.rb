@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 RSpec.describe Author do
-  subject(:author) { build(:author) }
+  let(:author) { create(:author) }
 
-  it 'has a valid factory' do
-    expect(build(:author)).to be_valid
+  describe 'ActiveRecord associations' do
+    it { expect(author).to have_many(:author_books).dependent(:destroy) }
+    it { expect(author).to have_many(:books).through(:author_books) }
   end
-
-  it 'is valid with valid attributes' do
-    expect(author).to be_valid
+  
+  describe 'database columns exists' do
+    it { expect(author).to have_db_column(:first_name).of_type(:string) }
+    it { expect(author).to have_db_column(:last_name).of_type(:string) }
   end
 end

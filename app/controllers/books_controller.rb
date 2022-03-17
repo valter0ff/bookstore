@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class BooksController < ApplicationController
+  ITEMS_PER_PAGE = 12
+  
   before_action :all_categories, only: :index
   before_action :select_category, only: :index
 
   def index
     @books = BooksSelector.call(@category, self)
-    @pagy, @books = pagy_array(@books.to_a, items: 12, link_extra: 'data-remote="true"')
+    @pagy, @books = pagy_array(@books.to_a, items: ITEMS_PER_PAGE, link_extra: 'data-remote="true"')
     respond_to do |format|
       format.html { render 'catalog' }
       format.js
