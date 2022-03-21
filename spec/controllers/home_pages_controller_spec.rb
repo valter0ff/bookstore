@@ -15,6 +15,10 @@ RSpec.describe HomePagesController do
       expect(response).to render_template(:index)
     end
 
+    it 'does not render a different template' do
+      expect(response).not_to render_template(:show)
+    end
+
     it 'assigns all categories to @categories' do
       expect(assigns(:categories)).to eq(Category.all)
     end

@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :book do
-    title { FFaker::Book.unique.genre }
+    title { FFaker::Book.genre + rand(999).to_s }
     year_publication { rand(1990..2020) }
     description { FFaker::Book.unique.description * rand(1..3) }
     height { rand(5.0..10.0).round(1) }

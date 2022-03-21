@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.describe BooksController, type: :controller do
+RSpec.describe BooksController, type: :controller, bullet: :skip do
   let(:success_status) { 200 }
-  let(:categories_count) { rand(2..10) }
 
-  before { create_list(:category, categories_count) }
+  before { create_list(:category, rand(3..10)) }
 
   describe '#index' do
     before { get :index }
@@ -48,18 +47,35 @@ RSpec.describe BooksController, type: :controller do
   describe '#show' do
     let(:book) { create :book, category: Category.first }
 
-    before { get :show, params: { id: book.id } }
+    context 'when book exists' do
+      before { get :show, params: { id: book.id } }
 
-    it 'has a 200 status code' do
-      expect(response.status).to eq(success_status)
+      it 'has a 200 status code' do
+        expect(response.status).to eq(success_status)
+      end
+
+      it 'renders book_page template' do
+        expect(response).to render_template(:show)
+      end
+
+      it 'assigns book to @book' do
+        expect(assigns(:book)).to eq(book)
+      end
     end
 
-    it 'renders book_page template' do
-      expect(response).to render_template(:show)
-    end
+    context 'when book does not exists' do
+      let(:book_id) { SecureRandom.uuid }
+      let(:error_message) { I18n.t('books.errors.record_not_found') }
 
-    it 'assigns all categories to @categories' do
-      expect(assigns(:book)).to eq(book)
+      before { get :show, params: { id: book_id } }
+
+      it 'redirects to #index action' do
+        expect(response).to redirect_to(action: :index)
+      end
+
+      it 'assigns error message to flash' do
+        expect(flash[:error]).to eq(error_message)
+      end
     end
   end
 end

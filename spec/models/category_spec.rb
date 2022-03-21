@@ -2,15 +2,15 @@
 
 RSpec.describe Category do
   subject(:category) { create(:category, title: good_title) }
-  
+
   let(:good_title) { FFaker::Book.unique.genre }
 
   describe 'ActiveRecord associations' do
-    it { should have_many(:books).dependent(:destroy) }
+    it { is_expected.to have_many(:books).dependent(:destroy) }
   end
 
   describe 'ActiveModel validations' do
-    it { should validate_presence_of(:title) }
+    it { is_expected.to validate_presence_of(:title) }
 
     it 'is valid with title' do
       expect(category).to be_valid
@@ -23,7 +23,7 @@ RSpec.describe Category do
   end
 
   describe 'database columns exists' do
-    it { should have_db_column(:title).of_type(:string) }
-    it { should have_db_column(:books_count).of_type(:integer) }
+    it { is_expected.to have_db_column(:title).of_type(:string) }
+    it { is_expected.to have_db_column(:books_count).of_type(:integer) }
   end
 end
