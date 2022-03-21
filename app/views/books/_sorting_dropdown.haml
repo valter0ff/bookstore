@@ -1,6 +1,8 @@
-= select_tag 'sorted_by',
-  options_for_select(t('books.sorting_hash').invert, params[:sorted_by]),
-  { data: { toggle: 'dropdown' },
-  aria: { haspopup: 'true', expanded: 'false' },
-  onchange: 'this.form.submit();',
-  class: 'dropdown-toggle lead small select-tag' } 
+= form_tag(books_path, method: :get) do
+  = select_tag 'sorted_by',
+    options_for_select(t('books.sorting_hash').invert, params[:sorted_by]),
+    { data: { toggle: 'dropdown' },
+    aria: { haspopup: 'true', expanded: 'false' },
+    onchange: 'this.form.submit();',
+    class: 'dropdown-toggle lead small select-tag' } 
+  = hidden_field_tag :category_id, params[:category_id], id: nil

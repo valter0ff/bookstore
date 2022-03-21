@@ -1,11 +1,10 @@
 %main.container
   %h1.general-title-margin= (@category.title if @category) || t('.page_title')
+  = render 'flash_error' if flash[:error].present?
   .hidden-xs.clearfix
     .dropdowns.pull-right
       .dropdown.width-240
-        = form_tag(books_path, method: :get) do
-          = render 'sorting_dropdown'
-          = hidden_field_tag :category_id, params[:category_id]
+        = render 'sorting_dropdown'
           
     %ul.list-inline.pt-10.mb-25.mr-240
       %li.mr-35
@@ -23,19 +22,16 @@
   .dropdowns.mb-25.visible-xs
     %p.lead.small.mb-10= t('.category_filter')
     .dropdown
-      = form_tag(books_path, method: :get) do
-        = render 'category_dropdown', categories: @categories
-        = hidden_field_tag :sorted_by, params[:sorted_by]
+      = render 'category_dropdown', categories: @categories
         
     %p.lead.small.mb-10= t('.sort_by')
     .dropdown
-      = form_tag(books_path, method: :get) do
-        = render 'sorting_dropdown'
-        = hidden_field_tag :category_id, params[:category_id]
+      = render 'sorting_dropdown'
         
   .mb-120
     .row#books_table
       = render 'books_table'
 
-    .text-center#div_next_link
-      = render 'next_link'
+    - if @pagy.pages > 1
+      .text-center#div_next_link
+        = render 'next_page_button'
