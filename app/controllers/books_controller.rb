@@ -8,7 +8,7 @@ class BooksController < ApplicationController
   before_action :set_category, only: :index
 
   def index
-    @books = BooksSelectorService.call(@category, self)
+    @books = BooksSelectorService.call(@category, params[:sorted_by])
     @pagy, @books = pagy_array(@books.to_a, items: ITEMS_PER_PAGE, link_extra: 'data-remote="true"')
     respond_to :html, :js
   end

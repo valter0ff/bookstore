@@ -10,9 +10,9 @@ class BooksSelectorService < ApplicationService
   }.freeze
   POPULAR_FIRST_ORDER = 'popular_first'
 
-  def initialize(category, controller_context)
+  def initialize(category, sorting_value)
     @category = category
-    super(controller_context)
+    @sorting_value = sorting_value
   end
 
   def call
@@ -28,9 +28,9 @@ class BooksSelectorService < ApplicationService
   end
 
   def sort_books
-    return popular_books if params[:sorted_by] == POPULAR_FIRST_ORDER
+    return popular_books if @sorting_value == POPULAR_FIRST_ORDER
 
-    SORTING.key?(params[:sorted_by]) ? @books.order(SORTING[params[:sorted_by]]) : @books
+    SORTING.key?(@sorting_value) ? @books.order(SORTING[@sorting_value]) : @books
   end
 
   def popular_books

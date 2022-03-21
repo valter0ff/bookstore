@@ -3,13 +3,13 @@
 RSpec.describe BooksSelectorService do
   let(:category) { create(:category) }
   let!(:books) { Book.all }
-  let(:controller) { BooksController.new }
-  let(:sorted_books) { described_class.new(category, controller).call }
+#   let(:controller) { BooksController.new }
+  let(:sorted_books) { described_class.new(category, sorted_by).call }
 
   describe '#call', bullet: :skip do
     before do
       create_list(:book_with_reviews, rand(5..20), category: category)
-      allow(controller).to receive(:params).and_return({ sorted_by: sorted_by })
+#       allow(controller).to receive(:params).and_return({ sorted_by: sorted_by })
     end
 
     context 'when newest first' do

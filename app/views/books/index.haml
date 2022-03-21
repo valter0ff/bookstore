@@ -14,7 +14,7 @@
             = all_books_count
         - @categories.each do |category|
           %li.mr-35
-            = link_to request.params.merge(category_id: category.id), class: 'filter-link' do
+            = link_to request.params.merge(category_id: category.id), class: 'filter-link custom-filter' do
               = category.title
               %span.badge.general-badge
                 = category.books.size
