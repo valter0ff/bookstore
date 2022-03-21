@@ -7,12 +7,13 @@ module Pages
 
       element :page_title, 'h1.general-title-margin'
       element :category_dropdown, 'form.category-dropdown'
-      element :all_books_link, 'a.filter-link', text: t('books.index.all_books')
+      element :all_books_link, 'a.filter-link', text: I18n.t('books.index.all_books')
       element :next_page_button, '#div_next_link'
       elements :sorting_dropdowns, 'form.sorting-dropdown'
       elements :category_filters, '.filter-link.custom-filter'
+      elements :sorting_options, 'select#sorted_by option'
       
-      section :book_card do
+      sections :books, '.book_card' do
         element :show_link, '.show-link'
         element :buy_link, '.buy-link'
         element :book_title, '.general-thumb-info .title'
