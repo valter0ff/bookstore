@@ -33,6 +33,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'awesome_print', '~>1.9.2'
   gem 'brakeman', '~> 5.2.1'
   gem 'bundle-audit', '~> 0.1.0'
   gem 'database_consistency', '~> 1.1.12', require: false
@@ -40,6 +41,7 @@ group :development do
   gem 'listen', '~> 3.7.1'
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'spring', '~> 4.0.0'
+  gem 'table_print', '~>1.5.7'
   gem 'web-console', '>= 4.1.0'
 end
 

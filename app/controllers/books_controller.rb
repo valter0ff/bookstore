@@ -2,8 +2,9 @@
 
 class BooksController < ApplicationController
   ITEMS_PER_PAGE = 12
-
-  before_action :set_all_categories, only: :index
+  
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  before_action :set_all_categories
   before_action :set_category, only: :index
 
   def index
@@ -13,7 +14,7 @@ class BooksController < ApplicationController
   end
 
   def show
-    book = Book.find_by(id: params[:id])
+    book = Book.find_by!(id: params[:id])
     @book = BookPresenter.new(book, view_context)
   end
 
@@ -25,5 +26,10 @@ class BooksController < ApplicationController
 
   def set_category
     @category = @categories.find_by(id: params[:category_id])
+  end
+  
+  def record_not_found
+    flash[:error] = I18n.t('books.errors.record_not_found')
+    redirect_to action: :index
   end
 end
