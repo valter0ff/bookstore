@@ -10,9 +10,9 @@ class BooksSelectorService < ApplicationService
   }.freeze
   POPULAR_FIRST_ORDER = 'popular_first'
 
-  def initialize(category, sorting_value)
+  def initialize(category, sorting_param)
     @category = category
-    @sorting_value = sorting_value
+    @sorting_param = sorting_param
   end
 
   def call
@@ -28,9 +28,9 @@ class BooksSelectorService < ApplicationService
   end
 
   def sort_books
-    return popular_books if @sorting_value == POPULAR_FIRST_ORDER
+    return popular_books if @sorting_param == POPULAR_FIRST_ORDER
 
-    SORTING.key?(@sorting_value) ? @books.order(SORTING[@sorting_value]) : @books
+    SORTING.key?(@sorting_param) ? @books.order(SORTING[@sorting_param]) : @books
   end
 
   def popular_books

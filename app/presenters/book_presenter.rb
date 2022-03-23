@@ -22,14 +22,14 @@ class BookPresenter < BasePresenter
   end
 
   def dimensions
-    I18n.t('books.book_page.dimensions', height: height, width: width, depth: depth)
+    I18n.t('books.show.dimensions', height: height, width: width, depth: depth)
   end
 
   def truncated_description
     return description if description.length < DESCRIPTION_LEHGTH
 
     view_object.truncate(description, length: DESCRIPTION_LEHGTH, omission: '...', separator: ' ') do
-      view_object.link_to I18n.t('books.book_page.read_more'), '#', class: 'in-gold-500 ml-10 read-more'
+      view_object.link_to I18n.t('books.show.read_more'), '#', class: 'in-gold-500 ml-10 read-more'
     end
   end
 end
