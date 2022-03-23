@@ -8,6 +8,7 @@ ruby File.read(File.expand_path('.ruby-version', __dir__)).strip
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'factory_bot_rails', '~> 6.2.0'
 gem 'ffaker', '~> 2.20'
+gem 'gon', '~> 6.4.0'
 gem 'haml', '~> 5.2.2'
 gem 'haml-rails', '~> 2.0.1'
 gem 'jbuilder', '~> 2.7'

@@ -1,17 +1,7 @@
 $(document).ready(function(){
   $('.read-more').on('click', function(e) {
-    let fullContent = $(this).parent().attr('data-full-content')
+//    let fullContent = $(this).parent().attr('data-full-content')
     e.preventDefault()
-    $(this).parent().html(fullContent)
+    $(this).parent().html(gon.book_full_description)
   })
-
-  $('i.fa-plus').click(function(e){
-    e.preventDefault();
-    $('input.quantity-input').val(parseInt($('input.quantity-input').val()) + 1 );
-  });
-
-  $('i.fa-minus').click(function(e){
-    e.preventDefault();
-    $('input.quantity-input').val(parseInt($('input.quantity-input').val()) - 1 );
-  });
 });

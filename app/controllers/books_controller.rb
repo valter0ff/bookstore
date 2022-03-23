@@ -15,6 +15,7 @@ class BooksController < ApplicationController
 
   def show
     book = Book.find(params[:id])
+    gon.book_full_description = book.description
     @book = BookPresenter.new(book, view_context)
   end
 
