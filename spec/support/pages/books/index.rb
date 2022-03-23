@@ -12,7 +12,7 @@ module Pages
       elements :sorting_dropdowns, 'form.sorting-dropdown'
       elements :category_filters, '.filter-link.custom-filter'
       elements :sorting_options, 'select#sorted_by option'
-      
+
       sections :books, '.book_card' do
         element :show_link, '.show-link'
         element :buy_link, '.buy-link'
