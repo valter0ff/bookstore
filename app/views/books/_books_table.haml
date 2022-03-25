@@ -1,0 +1,21 @@
+- @books.each do |book|
+  .col-xs-6.col-sm-3.book_card
+    .general-thumb-wrap
+      .thumbnail.general-thumbnail
+        = image_tag "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg",
+          class: 'img-shadow general-thumbnail-img',
+          alt: 'design-book'
+        .thumb-hover
+          .general-thumb-link-wrap
+            = link_to book, class: 'thumb-hover-link show-link' do
+              %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
+            = link_to "#", class: 'thumb-hover-link buy-link' do
+              %i.fa.fa-shopping-cart.thumb-icon
+    .general-thumb-info
+      - present book do |presented_book|
+        %p= t('.rating', value: presented_book.average_rating)
+        %p #{ t('.created')+l(presented_book.created_at, format: :long) }
+        %p.title= presented_book.title
+        %p.font-16.in-gold-500.price= presented_book.price_with_currency
+        %span.divider-sm
+        %p.lead.small.authors= presented_book.all_authors

@@ -15,6 +15,15 @@ AllCops:
 RSpec/DescribeClass:
   Exclude:
     - 'spec/features/**/*'
+    
+RSpec/MessageSpies:
+  EnforcedStyle: receive
+    
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
+  
+RSpec/MultipleExpectations:
+  Max: 5
 
 Metrics/ModuleLength:
   Exclude:
@@ -28,9 +37,9 @@ Rails/FilePath:
 
 Layout/LineLength:
   Max: 120
-
-RSpec/MessageSpies:
-  EnforcedStyle: receive
+  
+Lint/MissingSuper:
+  Enabled: false
 
 Metrics/BlockLength:
   Exclude:

@@ -51,7 +51,7 @@ jobs:
 
       - run:
           name: Database setup
-          command: bundle exec rake db:create db:schema:load db:seed --trace
+          command: bundle exec rake db:create db:schema:load --trace
 
       # Run test suits
       - run:
