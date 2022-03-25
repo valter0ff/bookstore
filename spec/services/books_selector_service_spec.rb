@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe BooksSelectorService do
-  let(:category) { create(:category) }
+  let(:category1) { create(:category) }
   let!(:books) { Book.all }
-  let(:sorted_books) { described_class.new(category, sorted_by).call }
+  let(:sorted_books) { described_class.new(category1, sorted_by).call }
 
   describe '#call', bullet: :skip do
-    before { create_list(:book_with_reviews, rand(5..20), category: category) }
+    before { create_list(:book_with_reviews, rand(5..20), category: category1) }
 
     context 'when newest first' do
       let(:sorted_by) { 'newest_first' }
@@ -24,7 +24,7 @@ RSpec.describe BooksSelectorService do
       let(:sorted_by) { 'price_low_to_high' }
 
       it 'returns cheapest book first' do
-        expect(sorted_books[1..].pluck(:price)).to all(be > sorted_books.first.price)
+        expect(sorted_books[1..].pluck(:price)).to all(be >= sorted_books.first.price)
       end
 
       it 'changes books order' do
@@ -62,6 +62,28 @@ RSpec.describe BooksSelectorService do
 
       it 'not changes books order' do
         expect(sorted_books).to eq(books)
+      end
+    end
+
+    context 'when category filter used' do
+      let(:category2) { create(:category) }
+      let(:books_cat2) { create_list(:book, rand(5..20), category: category2) }
+      let(:filtered_books) { described_class.new(category2, nil).call }
+
+      it 'returns books of exact category' do
+        expect(filtered_books).to eq(category2.books)
+      end
+
+      it 'not returns books of other category' do
+        expect(filtered_books).not_to eq(category1.books)
+      end
+    end
+
+    context 'when category doesn`t exists' do
+      let(:filtered_books) { described_class.new(nil, nil).call }
+
+      it 'returns all books' do
+        expect(filtered_books).to eq(books)
       end
     end
   end

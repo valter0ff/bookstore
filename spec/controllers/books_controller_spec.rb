@@ -2,25 +2,28 @@
 
 RSpec.describe BooksController, type: :controller, bullet: :skip do
   let(:success_status) { 200 }
-
-  before { create_list(:category, rand(3..10)) }
+  let!(:categories) { create_list(:category, rand(3..10)) }
 
   describe '#index' do
+    let!(:books) { create_list(:book, rand(2..12), category: categories.sample) }
+
     before { get :index }
 
-    it 'has a 200 status code' do
-      expect(response.status).to eq(success_status)
-    end
+    context 'with success response' do
+      it 'has a 200 status code' do
+        expect(response.status).to eq(success_status)
+      end
 
-    it 'renders index template' do
-      expect(response).to render_template(:index)
+      it 'renders index template' do
+        expect(response).to render_template(:index)
+      end
     end
 
     context 'when some category choosen' do
       let(:last_category) { Category.last }
       let(:other_category) { Category.first }
 
-      before { get :index, params: { category_id: Category.last.id } }
+      before { get :index, params: { category_id: last_category.id } }
 
       it 'assigns exact category' do
         expect(assigns(:category)).to eq(last_category)
@@ -40,6 +43,22 @@ RSpec.describe BooksController, type: :controller, bullet: :skip do
 
       it 'assigns all categories to @categories' do
         expect(assigns(:categories)).to eq(Category.all)
+      end
+    end
+
+    context 'when sorting choosen' do
+      before { get :index, params: { sorted_by: 'newest_first' } }
+
+      it 'returns books in specified order' do
+        expect(assigns(:books).first.created_at).to eq(books.pluck(:created_at).max)
+      end
+    end
+
+    context 'when sorting param is wrong' do
+      before { get :index, params: { sorted_by: FFaker::Lorem.word } }
+
+      it 'returns all books without any changes' do
+        expect(assigns(:books)).to eq(books)
       end
     end
   end

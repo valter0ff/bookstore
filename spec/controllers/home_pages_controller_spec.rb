@@ -7,24 +7,26 @@ RSpec.describe HomePagesController do
       get :index
     end
 
-    it 'has a 200 status code' do
-      expect(response.status).to eq(200)
-    end
+    context 'when request successful' do
+      it 'has a 200 status code' do
+        expect(response.status).to eq(200)
+      end
 
-    it 'renders index template' do
-      expect(response).to render_template(:index)
-    end
+      it 'renders index template' do
+        expect(response).to render_template(:index)
+      end
 
-    it 'does not render a different template' do
-      expect(response).not_to render_template(:show)
-    end
+      it 'does not render a different template' do
+        expect(response).not_to render_template(:show)
+      end
 
-    it 'assigns all categories to @categories' do
-      expect(assigns(:categories)).to eq(Category.all)
-    end
+      it 'assigns all categories to @categories' do
+        expect(assigns(:categories)).to eq(Category.all)
+      end
 
-    it 'not assigns all books to @categories' do
-      expect(assigns(:categories)).not_to eq(Book.all)
+      it 'not assigns all books to @categories' do
+        expect(assigns(:categories)).not_to eq(Book.all)
+      end
     end
   end
 end

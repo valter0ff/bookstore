@@ -16,15 +16,6 @@ RSpec.describe Book do
 
   describe 'ActiveModel validations' do
     it { is_expected.to validate_presence_of(:title) }
-
-    it 'is valid with title' do
-      expect(book).to be_valid
-    end
-
-    it 'is not valid without a title' do
-      book.title = nil
-      expect(book).not_to be_valid
-    end
   end
 
   describe 'database columns exists' do

@@ -20,6 +20,14 @@ module Pages
         element :price, '.general-thumb-info .price'
         element :authors, '.general-thumb-info .authors'
       end
+
+      def filter_books_by_category
+        category_filters.first.click
+      end
+
+      def change_books_order
+        sorting_options.first.select_option
+      end
     end
   end
 end

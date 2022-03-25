@@ -16,13 +16,13 @@ class BooksSelectorService < ApplicationService
   end
 
   def call
-    setup_books
+    filter_books
     sort_books
   end
 
   private
 
-  def setup_books
+  def filter_books
     books = @category.blank? ? Book.all : @category.books
     @books = books.includes(:authors)
   end
