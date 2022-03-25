@@ -16,7 +16,8 @@ RSpec.describe 'HomePages' do
 
       it { expect(header).to have_site_title }
       it { expect(header).to have_home_btn }
-      it { expect(header).to have_my_account_btn }
+      it { expect(header).to have_log_in_link }
+      it { expect(header).to have_sign_up_link }
       it { expect(header).to have_shop_btn }
       it { expect(header).to have_shop_menu }
       it { expect(shop_menu_block).to have_photo_btn }

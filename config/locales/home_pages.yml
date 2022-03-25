@@ -1,0 +1,10 @@
+en:
+  home_pages:
+    index:
+      welcome: Welcome to our amazing Bookstore!
+      five_best_message: We pore through hundreds of new books each month and select the five best we can find to share with our members.
+      get_started_button: Get Started
+      best_sellers_title: Best Sellers
+      buy_now_button: Buy Now
+      previous_slider_button: Previous
+      next_slider_button: Next 

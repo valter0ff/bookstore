@@ -1,0 +1,6 @@
+en:
+  user_mailer:
+    welcome_message:
+      message: Welcome to our amazing bookstore! You have successfully signed up.
+      visit_site: "To login to the site, just follow this link: %{url}."
+      subject: Welcome aboard!

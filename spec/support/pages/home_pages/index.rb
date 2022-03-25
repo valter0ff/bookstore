@@ -8,7 +8,8 @@ module Pages
       section :header, 'header' do
         element :site_title, 'a.navbar-brand', text: I18n.t('partials.header.site_title')
         element :home_btn, 'li>a', text: I18n.t('partials.header.home_link')
-        element :my_account_btn, 'li>a', text: I18n.t('partials.header.my_account')
+        element :log_in_link, 'li>a.log-in-link', text: I18n.t('partials.header.log_in')
+        element :sign_up_link, 'li>a.sign-up-link', text: I18n.t('partials.header.sign_up')
         element :shop_btn, 'li>a.dropdown-toggle', text: I18n.t('partials.header.shop_link')
         section :shop_menu, 'ul.dropdown-menu' do
           element :mobile_dev_btn, 'li>a', text: I18n.t('partials.header.categories.mobile_dev_category')
