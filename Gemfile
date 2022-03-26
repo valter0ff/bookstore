@@ -44,6 +44,7 @@ group :development do
   gem 'bundle-audit', '~> 0.1.0'
   gem 'database_consistency', '~> 1.1.12', require: false
   gem 'lefthook', '~> 0.7.7'
+  gem 'letter_opener', '~> 1.7.0'
   gem 'listen', '~> 3.7.1'
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'spring', '~> 4.0.0'
