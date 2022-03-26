@@ -7,7 +7,7 @@
             = link_to t('.home'), root_path, class: 'nav-link'
           %li
             = link_to t('.shop'), books_path(category_id: ''), class: 'nav-link'
-          - if true
+          - if current_user
             %li= link_to t('.orders'), '#user_profile_orders_path', class: 'orders-link nav-link'
             %li= link_to t('.settings'), '#user_profile_settings_path', class: 'settings-link nav-link'
       .col-sm-3

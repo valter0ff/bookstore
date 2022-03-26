@@ -27,18 +27,18 @@
             %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': 'false'}
               - @categories.each do |category|
                 %li= link_to "#{category.title}", books_path(category_id: category.id), class: 'collapse-link'
-          - if current_user_account
+          - if current_user
             %li= link_to t('.my_account'), '#my_account', class: 'my-account-link',
                 aria: {expanded: false, controls: 'menu'},
                 data: {toggle: 'collapse'}, type: "button"
             %ul#my_account.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': 'false'}
               %li= link_to t('.orders'), '#user_profile_orders_path', class: 'orders-link collapse-link'
               %li= link_to t('.settings'), '#user_profile_settings_path', class: 'settings-link collapse-link'
-            %li= link_to t('.log_out'), destroy_user_account_session_path,
+            %li= link_to t('.log_out'), destroy_user_session_path,
                 method: 'delete', class: 'log-in-link collapse-link'
           - else
-            %li= link_to t('.log_in'), new_user_account_session_path, class: 'log-in-link'
-            %li= link_to t('.sign_up'), new_user_account_registration_path, class: 'sign-up-link'
+            %li= link_to t('.log_in'), new_user_session_path, class: 'log-in-link'
+            %li= link_to t('.sign_up'), new_user_registration_path, class: 'sign-up-link'
       .hidden-xs
         %ul.nav.navbar-nav
           %li= link_to t('.home_link'), root_path
@@ -51,19 +51,19 @@
               - @categories.each do |category|
                 %li= link_to "#{category.title}", books_path(category_id: category.id)
               
-          - if current_user_account
+          - if current_user
             %li.dropdown
               = link_to t('.my_account'), '#',
                   aria: {expanded: false, haspopup: true},
                   data: {toggle: 'dropdown'}, role: 'button',
                   class: 'dropdown-toggle'
               %ul.dropdown-menu
-                %li= link_to t('.orders'), new_user_account_session_path, class: 'orders-link collapse-link'
-                %li= link_to t('.settings'), new_user_account_session_path, class: 'settings-link collapse-link'
+                %li= link_to t('.orders'), new_user_session_path, class: 'orders-link collapse-link'
+                %li= link_to t('.settings'), new_user_session_path, class: 'settings-link collapse-link'
                 %li.divider{role: "separator"}
-                %li= link_to t('.log_out'), destroy_user_account_session_path,
+                %li= link_to t('.log_out'), destroy_user_session_path,
                   method: 'delete', class: 'log-in-link collapse-link'
           - else
-            %li= link_to t('.log_in'), new_user_account_session_path, class: 'log-in-link'
-            %li= link_to t('.sign_up'), new_user_account_registration_path, class: 'sign-up-link'
+            %li= link_to t('.log_in'), new_user_session_path, class: 'log-in-link'
+            %li= link_to t('.sign_up'), new_user_registration_path, class: 'sign-up-link'
               

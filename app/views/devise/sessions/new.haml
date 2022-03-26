@@ -1,7 +1,7 @@
 %main.container.general-main-wrap
   .text-center
     %h3.general-login-title.page_title= t('.log_in')
-    = link_to "user_facebook_omniauth_authorize_path", class: 'general-login-icon facebook-login-btn', method: :post do
+    = link_to user_facebook_omniauth_authorize_path, class: 'general-login-icon facebook-login-btn', method: :post do
       %i.fa.fa-facebook-official
     %p.general-login-text= t('.or')
   = simple_form_for(resource, as: resource_name, url: session_path(resource_name),
@@ -16,10 +16,10 @@
       = f.input_field :password, autocomplete: 'current-password', id: 'password',
                       class: 'form-control', placeholder: t('.password')
       = f.full_error :password, class: 'text-danger'
-      = link_to t('.forgot_password'), new_user_account_password_path, class: 'help-block in-gold-500 forgot-password'
+      = link_to t('.forgot_password'), new_user_password_path, class: 'help-block in-gold-500 forgot-password'
     .form-group.checkbox.text-center.mb-30.remember-me-checkbox
       %label.checkbox-label
-        %input.checkbox-input{ type: 'checkbox', hidden: 'true', name: 'user_account[remember_me]', id: 'user_account_remember_me' }
+        %input.checkbox-input{ type: 'checkbox', hidden: 'true', name: 'user[remember_me]', id: 'user_remember_me' }
         %span.checkbox-icon
           %i.fa.fa-check
         %span.checkbox-text= t('.remember_me')
@@ -27,4 +27,4 @@
       = f.submit t('.log_in'), class: 'btn btn-default mb-20 submit-btn'
   %p.general-sign-text.text-center
     %span.account-question= t('.account_question')
-    = link_to t('.sign_up'), new_user_account_registration_path, class: 'in-gold-500 sign-up-link'
+    = link_to t('.sign_up'), new_user_registration_path, class: 'in-gold-500 sign-up-link'
