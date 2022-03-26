@@ -32,8 +32,6 @@ RSpec.describe 'HomePages' do
 
       it { expect(footer).to have_home_link }
       it { expect(footer).to have_shop_link }
-      it { expect(footer).to have_orders_link }
-      it { expect(footer).to have_settings_link }
       it { expect(footer).to have_email }
       it { expect(footer).to have_phone_number }
       it { expect(footer).to have_social_buttons }
