@@ -4,7 +4,6 @@ class BooksController < ApplicationController
   ITEMS_PER_PAGE = 12
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-  before_action :set_all_categories
   before_action :set_category, only: :index
 
   def index
@@ -20,10 +19,6 @@ class BooksController < ApplicationController
   end
 
   private
-
-  def set_all_categories
-    @categories = Category.all
-  end
 
   def set_category
     @category = @categories.find_by(id: params[:category_id])

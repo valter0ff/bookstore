@@ -58,7 +58,7 @@ RSpec.describe BooksController, type: :controller, bullet: :skip do
       before { get :index, params: { sorted_by: FFaker::Lorem.word } }
 
       it 'returns all books without any changes' do
-        expect(assigns(:books)).to eq(books)
+        expect(assigns(:books)).to eq(Book.all)
       end
     end
   end

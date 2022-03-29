@@ -1,0 +1,5 @@
+%p= t('.greeting', email: @resource.email)
+- if @resource.try(:unconfirmed_email?)
+  %p= t('.notification_unconfirmed', email: @resource.unconfirmed_email)
+- else
+  %p= t('.notification', email: @resource.email)

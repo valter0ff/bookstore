@@ -1,0 +1,26 @@
+en:
+  partials:
+    head:
+      window_title: Bookstore
+    header:
+      site_title: Bookstore
+      home_link: Home
+      shop_link: Shop
+      my_account: My account
+      orders: Orders
+      settings: Settings
+      log_out: Log out
+      log_in: Log in
+      sign_up: Sign Up
+      categories:
+        mobile_dev_category: Mobile development
+        photo_category: Photo
+        web_design_category: Web design
+        web_development_category: Web development
+    footer:
+      home: Home
+      shop: Shop
+      orders: Orders
+      settings: Settings
+      support_email: support@bookstore.com
+      support_phone_number: (555)-555-5555 

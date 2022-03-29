@@ -23,7 +23,10 @@ RSpec/MultipleMemoizedHelpers:
   Max: 10
   
 RSpec/MultipleExpectations:
-  Max: 5
+  Max: 12
+  
+RSpec/ExampleLength:
+  Max: 12
 
 Metrics/ModuleLength:
   Exclude:
@@ -37,6 +40,9 @@ Rails/FilePath:
 
 Layout/LineLength:
   Max: 120
+  Exclude:
+    - 'config/initializers/devise.rb'
+    - 'config/initializers/simple_form.rb'
   
 Lint/MissingSuper:
   Enabled: false

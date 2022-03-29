@@ -1,0 +1,18 @@
+%main.container.general-main-wrap
+  .text-center
+    %h3.general-login-title= t('.title')
+  = simple_form_for(resource, as: resource_name, url: password_path(resource_name),
+                    html: { method: :put, class: 'general-form' }) do |f|
+    = f.input :reset_password_token, as: :hidden
+    %form.general-form
+      .form-group.mb-30
+        = f.label :password, t('.password'), class: 'control-label input-label'
+        = f.input_field :password, autofocus: true, autocomplete: 'new-password', placeholder: t('.password'),
+                        id: 'password', class: 'form-control'
+        = f.full_error :password, class: 'text-danger'
+      .form-group.mb-40
+        = f.label :password_confirmation, t('.confirmation'), class: 'control-label input-label'
+        = f.input_field :password_confirmation, { autofocus: true, autocomplete: 'new-password',
+                        placeholder: t('.confirmation'), id: 'confirmPassword', class: 'form-control' }
+        = f.full_error :password_confirmation, class: 'text-danger'
+      = f.submit t('.submit'), class: 'btn btn-default center-block mb-20'
