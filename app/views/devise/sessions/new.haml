@@ -10,12 +10,10 @@
       = f.label :email, t('.email'), class: 'control-label input-label email-label'
       = f.input_field :email, autofocus: true, autocomplete: 'email', id: 'email',
                       class: 'form-control', placeholder: t('.email')
-      = f.full_error :email, class: 'text-danger'
     .form-group.mb-30
       = f.label :password, t('.password'), class: 'control-label input-label password-label'
       = f.input_field :password, autocomplete: 'current-password', id: 'password',
                       class: 'form-control', placeholder: t('.password')
-      = f.full_error :password, class: 'text-danger'
       = link_to t('.forgot_password'), new_user_password_path, class: 'help-block in-gold-500 forgot-password'
     .form-group.checkbox.text-center.mb-30.remember-me-checkbox
       %label.checkbox-label

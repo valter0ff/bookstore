@@ -67,8 +67,18 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: 'https://intership-bookstore.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: ENV['APPLICATION_HOST'] }
+  config.action_mailer.default_options = { from: ENV['MAILER_SENDER_EMAIL'] }
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    domain: ENV['APPLICATION_HOST'],
+    user_name: 'apikey',
+    password: Rails.application.credentials.dig(:sendgrid, :api_key),
+    authentication: 'plain',
+    enable_starttls_auto: true
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

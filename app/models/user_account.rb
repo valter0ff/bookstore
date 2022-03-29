@@ -9,7 +9,7 @@ class UserAccount < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :rememberable,
-         :recoverable, :omniauthable, omniauth_providers: [:facebook]
+         :recoverable, :validatable, :omniauthable, omniauth_providers: [:facebook]
 
   validates :email, :password, presence: true
   validates :password, format: { with: PASSWORD_FORMAT, message: I18n.t('errors.messages.password_complexity') }
