@@ -28,6 +28,9 @@ RSpec.describe Book do
     it { is_expected.to have_db_column(:price).of_type(:float) }
     it { is_expected.to have_db_column(:quantity).of_type(:integer) }
     it { is_expected.to have_db_column(:category_id).of_type(:integer).with_options(null: false) }
+  end
+
+  describe 'database indexes exists' do
     it { is_expected.to have_db_index(:title) }
     it { is_expected.to have_db_index(:category_id) }
   end

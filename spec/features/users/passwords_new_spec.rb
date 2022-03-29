@@ -11,11 +11,13 @@ RSpec.describe 'UserAccounts', type: :feature do
     before { new_password_page.load }
 
     context 'when all page elements present' do
-      it { expect(new_password_page).to have_page_title }
-      it { expect(new_password_page).to have_page_description }
-      it { expect(form).to have_email_input }
-      it { expect(form).to have_submit_button }
-      it { expect(form).to have_cancel_button }
+      it do
+        expect(new_password_page).to have_page_title
+        expect(new_password_page).to have_page_description
+        expect(form).to have_email_input
+        expect(form).to have_submit_button
+        expect(form).to have_cancel_button
+      end
     end
 
     context 'when email exists' do

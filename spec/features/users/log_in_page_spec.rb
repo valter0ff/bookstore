@@ -7,22 +7,26 @@ RSpec.describe 'UserAccounts', type: :feature do
     before { log_in_page.load }
 
     context 'when checks page elements' do
-      it { expect(log_in_page).to have_page_title }
-      it { expect(log_in_page).to have_facebook_login_button }
-      it { expect(log_in_page).to have_account_question }
-      it { expect(log_in_page).to have_sign_up_link }
+      it do
+        expect(log_in_page).to have_page_title
+        expect(log_in_page).to have_facebook_login_button
+        expect(log_in_page).to have_account_question
+        expect(log_in_page).to have_sign_up_link
+      end
     end
 
-    context 'when checks form elements' do
+    context 'when all form elements present' do
       let(:log_in_form) { log_in_page.form }
 
-      it { expect(log_in_form).to have_email_label }
-      it { expect(log_in_form).to have_email_input }
-      it { expect(log_in_form).to have_password_label }
-      it { expect(log_in_form).to have_password_input }
-      it { expect(log_in_form).to have_forgot_password }
-      it { expect(log_in_form).to have_remember_me_checkbox }
-      it { expect(log_in_form).to have_submit_button }
+      it do
+        expect(log_in_form).to have_email_label
+        expect(log_in_form).to have_email_input
+        expect(log_in_form).to have_password_label
+        expect(log_in_form).to have_password_input
+        expect(log_in_form).to have_forgot_password
+        expect(log_in_form).to have_remember_me_checkbox
+        expect(log_in_form).to have_submit_button
+      end
     end
 
     context 'when user signs in successfuly' do

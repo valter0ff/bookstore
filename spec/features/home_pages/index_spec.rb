@@ -14,42 +14,48 @@ RSpec.describe 'HomePages' do
       let(:header) { home_page.header }
       let(:shop_menu_block) { header.shop_menu }
 
-      it { expect(header).to have_site_title }
-      it { expect(header).to have_home_btn }
-      it { expect(header).to have_log_in_link }
-      it { expect(header).to have_sign_up_link }
-      it { expect(header).to have_shop_btn }
-      it { expect(header).to have_shop_menu }
-      it { expect(shop_menu_block).to have_photo_btn }
-      it { expect(shop_menu_block).to have_mobile_dev_btn }
-      it { expect(shop_menu_block).to have_web_design_btn }
-      it { expect(shop_menu_block).to have_web_dev_btn }
+      it do
+        expect(header).to have_site_title
+        expect(header).to have_home_btn
+        expect(header).to have_log_in_link
+        expect(header).to have_sign_up_link
+        expect(header).to have_shop_btn
+        expect(header).to have_shop_menu
+        expect(shop_menu_block).to have_photo_btn
+        expect(shop_menu_block).to have_mobile_dev_btn
+        expect(shop_menu_block).to have_web_design_btn
+        expect(shop_menu_block).to have_web_dev_btn
+      end
     end
 
     context 'when footer elements present' do
       let(:footer) { home_page.footer }
       let(:social_block) { footer.social_buttons }
 
-      it { expect(footer).to have_home_link }
-      it { expect(footer).to have_shop_link }
-      it { expect(footer).to have_email }
-      it { expect(footer).to have_phone_number }
-      it { expect(footer).to have_social_buttons }
-      it { expect(social_block).to have_facebook }
-      it { expect(social_block).to have_twitter }
-      it { expect(social_block).to have_google_plus }
-      it { expect(social_block).to have_instagram }
+      it do
+        expect(footer).to have_home_link
+        expect(footer).to have_shop_link
+        expect(footer).to have_email
+        expect(footer).to have_phone_number
+        expect(footer).to have_social_buttons
+        expect(social_block).to have_facebook
+        expect(social_block).to have_twitter
+        expect(social_block).to have_google_plus
+        expect(social_block).to have_instagram
+      end
     end
 
     context 'when page elements present' do
       let(:best_sellers_block) { home_page.best_sellers }
 
-      it { expect(home_page).to have_carousel_left_btn }
-      it { expect(home_page).to have_carousel_right_btn }
-      it { expect(home_page).to have_get_started_btn }
-      it { expect(home_page).to have_best_sellers }
-      it { expect(best_sellers_block).to have_books_items }
-      it { expect(best_sellers_block).to have_best_sellers_title }
+      it do
+        expect(home_page).to have_carousel_left_btn
+        expect(home_page).to have_carousel_right_btn
+        expect(home_page).to have_get_started_btn
+        expect(home_page).to have_best_sellers
+        expect(best_sellers_block).to have_books_items
+        expect(best_sellers_block).to have_best_sellers_title
+      end
     end
 
     context 'when `Get started` button clicked' do

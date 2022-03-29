@@ -14,24 +14,28 @@ RSpec.describe 'Books' do
     context 'when all elements present' do
       let(:books_count) { rand(13..20) }
 
-      it { expect(index_page).to have_page_title }
-      it { expect(index_page).to have_next_page_button }
-      it { expect(index_page).to have_books }
-      it { expect(index_page).to have_all_books_link }
-      it { expect(index_page).to have_category_dropdown }
-      it { expect(index_page).to have_sorting_dropdowns }
-      it { expect(index_page).to have_sorting_options }
-      it { expect(index_page).to have_category_filters }
+      it do
+        expect(index_page).to have_page_title
+        expect(index_page).to have_next_page_button
+        expect(index_page).to have_books
+        expect(index_page).to have_all_books_link
+        expect(index_page).to have_category_dropdown
+        expect(index_page).to have_sorting_dropdowns
+        expect(index_page).to have_sorting_options
+        expect(index_page).to have_category_filters
+      end
     end
 
     context 'when all book card elements present' do
       let(:book_card) { index_page.books.first }
 
-      it { expect(book_card).to have_show_link }
-      it { expect(book_card).to have_buy_link }
-      it { expect(book_card).to have_book_title }
-      it { expect(book_card).to have_price }
-      it { expect(book_card).to have_authors }
+      it do
+        expect(book_card).to have_show_link
+        expect(book_card).to have_buy_link
+        expect(book_card).to have_book_title
+        expect(book_card).to have_price
+        expect(book_card).to have_authors
+      end
     end
 
     context 'when category filter used' do

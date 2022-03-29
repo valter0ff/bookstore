@@ -67,6 +67,13 @@ en:
         account_question:  Already have an Account?
         sign_up: Sign Up
         log_in: Log in
+      edit:
+        title: "Edit %{user}"
+        email: Email
+        password: Password
+        confirmation: Confirmation
+        current_password: Current password
+        update: Update
     sessions:
       new:
         or: or

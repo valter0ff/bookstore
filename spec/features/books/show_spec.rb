@@ -9,26 +9,36 @@ RSpec.describe 'Books' do
 
     before { show_page.load(id: book.id) }
 
-    context 'when all book elements present' do
-      it { expect(show_page).to have_back_button }
-      it { expect(show_page).to have_product_gallery }
-      it { expect(show_page).to have_book_info }
+    context 'when page elements present' do
+      it do
+        expect(show_page).to have_back_button
+        expect(show_page).to have_product_gallery
+        expect(show_page).to have_book_info
+      end
+    end
 
-      it { expect(show_page.product_gallery).to have_main_image }
-      it { expect(show_page.product_gallery).to have_preview_images }
+    context 'when product gallery elements present' do
+      it do
+        expect(show_page.product_gallery).to have_main_image
+        expect(show_page.product_gallery).to have_preview_images
+      end
+    end
 
-      it { expect(book_info).to have_book_title }
-      it { expect(book_info).to have_authors }
-      it { expect(book_info).to have_price }
-      it { expect(book_info).to have_description }
-      it { expect(book_info).to have_year_publication }
-      it { expect(book_info).to have_dimensions }
-      it { expect(book_info).to have_materials }
-      it { expect(book_info).to have_cart_button }
-      it { expect(book_info).to have_plus_button }
-      it { expect(book_info).to have_minus_button }
-      it { expect(book_info).to have_quantity_input }
-      it { expect(book_info).to have_read_more }
+    context 'when book info elements present' do
+      it do
+        expect(book_info).to have_book_title
+        expect(book_info).to have_authors
+        expect(book_info).to have_price
+        expect(book_info).to have_description
+        expect(book_info).to have_year_publication
+        expect(book_info).to have_dimensions
+        expect(book_info).to have_materials
+        expect(book_info).to have_cart_button
+        expect(book_info).to have_plus_button
+        expect(book_info).to have_minus_button
+        expect(book_info).to have_quantity_input
+        expect(book_info).to have_read_more
+      end
     end
 
     context 'when book description shorter than 250 symbols' do
