@@ -9,8 +9,8 @@ class UserAccount < ApplicationRecord
   devise :database_authenticatable, :registerable, :rememberable,
          :recoverable, :validatable, :omniauthable, omniauth_providers: [:facebook]
 
-  validates :email, :password, presence: true
-  validates :password, format: { with: PASSWORD_FORMAT, message: I18n.t('errors.messages.password_complexity') }
+  validates :email, :password, presence: true, on: :create
+  validates :password, format: { with: PASSWORD_FORMAT, message: I18n.t('errors.messages.password_complexity') }, allow_blank: true
   validates :email, format: { with: EMAIL_FORMAT, message: I18n.t('errors.messages.email_format') }
 
   after_create :send_welcome_email

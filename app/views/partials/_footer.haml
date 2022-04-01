@@ -7,7 +7,7 @@
             = link_to t('.home'), root_path, class: 'nav-link'
           %li
             = link_to t('.shop'), books_path(category_id: ''), class: 'nav-link'
-          - if current_user
+          - if user_signed_in?
             %li= link_to t('.orders'), '#', class: 'orders-link nav-link'
             %li= link_to t('.settings'), edit_user_registration_path, class: 'settings-link nav-link'
       .col-sm-3

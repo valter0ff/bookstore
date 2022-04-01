@@ -57,23 +57,6 @@ en:
       send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
       updated: "Your password has been changed successfully. You are now signed in."
       updated_not_active: "Your password has been changed successfully."
-    registrations:
-      new:
-        title: Sign Up
-        email: Email
-        password: Password
-        confirmation: Confirmation
-        remember_me: Remember me
-        account_question:  Already have an Account?
-        sign_up: Sign Up
-        log_in: Log in
-      edit:
-        title: "Edit %{user}"
-        email: Email
-        password: Password
-        confirmation: Confirmation
-        current_password: Current password
-        update: Update
     sessions:
       new:
         or: or
@@ -92,6 +75,29 @@ en:
       send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
       send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."
       unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+      
+  users:
+    registrations:
+      new:
+        title: Sign Up
+        email: Email
+        password: Password
+        confirmation: Confirmation
+        remember_me: Remember me
+        account_question:  Already have an Account?
+        sign_up: Sign Up
+        log_in: Log in
+      edit:
+        title: "Edit %{user}"
+        email: Email
+        password: Password
+        confirmation: Confirmation
+        current_password: Current password
+        update: Update
+        old_password: Old Password 
+        new_password: New Password    
+        confirm_password: Confirm Password
+      
   errors:
     messages:
       password_complexity: 'not met requirements: minimum 8 letters, at least 1 uppercase, at least 1 lowercase, at least 1 number'
