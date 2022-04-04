@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(File.expand_path('.ruby-version', __dir__)).strip
 
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'country_select', '~> 5.0.1'
 gem 'devise', '~> 4.8.0'
 gem 'factory_bot_rails', '~> 6.2.0'
 gem 'ffaker', '~> 2.20'

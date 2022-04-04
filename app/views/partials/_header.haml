@@ -33,7 +33,7 @@
                 data: {toggle: 'collapse'}, type: "button"
             %ul#my-account-xs.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': 'false'}
               %li= link_to t('.orders'), '#user_profile_orders_path', class: 'orders-link collapse-link'
-              %li= link_to t('.settings'), edit_user_registration_path, class: 'settings-link collapse-link'
+              %li= link_to t('.settings'), new_address_path, class: 'settings-link collapse-link'
             %li= link_to t('.log_out'), destroy_user_session_path,
                 method: 'delete', class: 'log-out-link collapse-link'
           - else
@@ -59,7 +59,7 @@
                   class: 'my-account-link dropdown-toggle'
               %ul.dropdown-menu#my-account
                 %li= link_to t('.orders'), '#', class: 'orders-link collapse-link'
-                %li= link_to t('.settings'), edit_user_registration_path, class: 'settings-link collapse-link'
+                %li= link_to t('.settings'), new_address_path, class: 'settings-link collapse-link'
                 %li.divider{role: "separator"}
                 %li= link_to t('.log_out'), destroy_user_session_path,
                   method: 'delete', class: 'log-out-link collapse-link'

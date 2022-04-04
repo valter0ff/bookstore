@@ -24,3 +24,7 @@ en:
       settings: Settings
       support_email: support@bookstore.com
       support_phone_number: (555)-555-5555 
+    account_settings_menu:
+      address: Address
+      privacy: Privacy
+      title: Settings

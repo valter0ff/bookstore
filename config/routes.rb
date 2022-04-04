@@ -8,4 +8,5 @@ Rails.application.routes.draw do
                             registrations: 'users/registrations' }
   root 'home_pages#index'
   resources :books, only: %i[index show]
+  resources :addresses, only: %i[new create]
 end

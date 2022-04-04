@@ -1,0 +1,21 @@
+en:
+  addresses:
+    address_form:
+      first_name: First Name
+      first_name_help: Please enter your first name
+      last_name: Last name
+      address: Address
+      city: City
+      zip: Zip
+      country: Country
+      country_placeholder: Select a country
+      phone: Phone
+      phone_placeholder: Example +355 66 123 4567
+      save: Save
+
+    new:
+      billing_title: Billing Address
+      shipping_title: Shipping Address
+
+    create:
+      success: Address successfully created 
