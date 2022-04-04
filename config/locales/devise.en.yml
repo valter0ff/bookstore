@@ -90,13 +90,18 @@ en:
       edit:
         title: "Edit %{user}"
         email: Email
+        enter_email: Enter Email
         password: Password
         confirmation: Confirmation
         current_password: Current password
         update: Update
+        save: Save
         old_password: Old Password 
         new_password: New Password    
         confirm_password: Confirm Password
+        remove_account_title: Remove Account
+        remove_account_button: Please Remove My Account
+        remove_confirmation: I understand that all data will be lost
       
   errors:
     messages:
