@@ -2,7 +2,8 @@
 
 RSpec.describe Address, type: :model do
   subject(:address) { create(:address, user_account: user) }
-  let(:user) { create (:user_account) }
+
+  let(:user) { create(:user_account) }
 
   describe 'ActiveRecord associations' do
     it { is_expected.to belong_to(:user_account) }
@@ -34,32 +35,6 @@ RSpec.describe Address, type: :model do
       it { is_expected.to validate_presence_of(:country_code) }
       it { is_expected.to validate_presence_of(:phone) }
       it { is_expected.to validate_presence_of(:type) }
-    end
-
-    context 'when validates format' do
-#       it 'allows valid passwords' do
-#         expect(user_account).to allow_value('open4G333', 'closG444ed')
-#           .for(:password)
-#           .with_message(I18n.t('errors.messages.password_complexity'))
-#       end
-# 
-#       it 'rejects invalid passwords' do
-#         expect(user_account).not_to allow_value('open33', 'closed')
-#           .for(:password)
-#           .with_message(I18n.t('errors.messages.password_complexity'))
-#       end
-# 
-#       it 'allows valid emails' do
-#         expect(user_account).to allow_value('example.!#$%&.444@dot4444.com', 'clos-G44-4ed.time*+-/=?^_`{|}~@000.000')
-#           .for(:email)
-#           .with_message(I18n.t('errors.messages.email_format'))
-#       end
-# 
-#       it 'rejects invalid emails' do
-#         expect(user_account).not_to allow_value('-open33-@ff.ff', 'clo--sed@aa.aa', '.open.@dd.dd', 'feat..ured@ww.ww')
-#           .for(:email)
-#           .with_message(I18n.t('errors.messages.email_format'))
-#       end
     end
   end
 end
