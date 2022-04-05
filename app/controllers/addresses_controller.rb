@@ -17,8 +17,8 @@ class AddressesController < ApplicationController
   private
 
   def init_addresses
-    @billing_address = current_user.billing_address || BillingAddress.new
-    @shipping_address = current_user.shipping_address || ShippingAddress.new
+    @billing_address = (current_user.billing_addres if user_signed_in?) || BillingAddress.new
+    @shipping_address = (current_user.shipping_address if user_signed_in?) || ShippingAddress.new
   end
 
   def build_address_with_params

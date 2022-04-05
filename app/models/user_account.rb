@@ -14,7 +14,7 @@ class UserAccount < ApplicationRecord
   validates :email, :password, presence: true, on: :create
   validates :password, format: { with: PASSWORD_FORMAT, message: ERROR_PASSWORD }, allow_blank: true
   validates :email, format: { with: EMAIL_FORMAT, message: ERROR_EMAIL }
-  
+
   has_one :shipping_address, dependent: :destroy
   has_one :billing_address, dependent: :destroy
 

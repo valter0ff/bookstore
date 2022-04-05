@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe AddressesController, type: :controller do
+  let(:success_status) { 200 }
+  
   describe '#new' do
     before { get :new }
     
@@ -19,10 +21,6 @@ RSpec.describe AddressesController, type: :controller do
         expect(assigns(:billing_address)).to be_kind_of(Address)
         expect(assigns(:billing_address)).to be_kind_of(Address)
       end
-
-#       it 'assigns books of exact category' do
-#         expect(assigns(:books)).to eq(last_category.books)
-#       end
     end
   end
 end
