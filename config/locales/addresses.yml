@@ -19,3 +19,12 @@ en:
 
     create:
       success: Address successfully created 
+    
+    errors:
+      only_letters: allows only letters
+      address: allows only letters, numbers, hyphens, commas, spaces
+      zip: allows only numbers and hyphens
+      phone: should start with plus and contain only numbers
+      
+    flash:
+      success: Address was successfully created.

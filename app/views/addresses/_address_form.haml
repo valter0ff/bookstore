@@ -31,6 +31,6 @@
       = f.input_field :phone, id: 'phone', class: 'form-control', placeholder: t('.phone_placeholder')
       = f.full_error :phone, class: 'text-danger'
       = f.hidden_field :user_account_id, value: current_user.id
-      = f.hidden_field :type, value: address_type
+      = f.hidden_field :type, value: address.type
     .text-center.general-text-align
       = f.submit t('.save'), class: 'btn submit-btn' 

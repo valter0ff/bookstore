@@ -12,8 +12,8 @@
         .col-md-5.mb-40.billing-form
           .visible-xs.visible-sm
             %h3.general-subtitle.mt-0= t('.billing_title')
-          = render 'address_form', address: @address, address_type: 'BillingAddress'
+          = render 'address_form', address: @billing_address
         .col-md-5.col-md-offset-1.mb-25.shipping-form
           .visible-xs.visible-sm
             %h3.general-subtitle.mt-0= t('.shipping_title')
-          = render 'address_form', address: @address, address_type: 'ShippingAddress'
+          = render 'address_form', address: @shipping_address
