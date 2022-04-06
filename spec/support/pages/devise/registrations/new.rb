@@ -7,14 +7,14 @@ module Pages
         set_url '/users/signup'
 
         element :flash_notice, '#flash_notice'
-        element :page_title, '.general-login-title', text: I18n.t('devise.registrations.new.title')
+        element :page_title, '.general-login-title', text: I18n.t('users.registrations.new.title')
 
         section :form, '.simple_form.general-form' do
-          element :email_label, 'label.email-label', text: I18n.t('devise.registrations.new.email')
+          element :email_label, 'label.email-label', text: I18n.t('users.registrations.new.email')
           element :email_input, 'input#email'
-          element :password_label, 'label.password-label', text: I18n.t('devise.registrations.new.password')
+          element :password_label, 'label.password-label', text: I18n.t('users.registrations.new.password')
           element :password_input, 'input#password'
-          element :confirmation_label, 'label.confirmation-label', text: I18n.t('devise.registrations.new.confirmation')
+          element :confirmation_label, 'label.confirmation-label', text: I18n.t('users.registrations.new.confirmation')
           element :confirmation_input, 'input#confirm'
           element :submit_button, '.submit-btn'
           element :error_message, '.error.text-danger'
@@ -27,8 +27,8 @@ module Pages
         end
 
         element :my_account_link, 'a.my-account-link', text: I18n.t('partials.header.my_account')
-        element :account_question, '.account-question', text: I18n.t('devise.registrations.new.account_question')
-        element :log_in_link, '.log-in-link', text: I18n.t('devise.registrations.new.log_in')
+        element :account_question, '.account-question', text: I18n.t('users.registrations.new.account_question')
+        element :log_in_link, '.log-in-link', text: I18n.t('users.registrations.new.log_in')
         element :facebook_login_button, 'a.facebook-login-btn'
 
         def sign_up_user(email, password, confirmation = password)

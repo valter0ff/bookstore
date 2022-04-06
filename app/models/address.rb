@@ -15,18 +15,21 @@ class Address < ApplicationRecord
 
   belongs_to :user_account
 
-  validates :type, :first_name, :last_name, presence: true
-  validates :address, :city, :country_code, :zip, :phone, presence: true
-  validates :first_name, :last_name, length: { maximum: MAX_INFORMATION_LENGTH }
-  validates :address, :city, :country_code, length: { maximum: MAX_INFORMATION_LENGTH }
-  validates :zip, length: { maximum: MAX_ZIP_LENGTH }
-  validates :phone, length: { maximum: PHONE_MAX_LENGTH }
-  validates :first_name, :last_name, format: { with: INFORMATION_FORMAT, message: ERROR_ONLY_LETTERS }
-  validates :city, :country_code, format: { with: INFORMATION_FORMAT, message: ERROR_ONLY_LETTERS }
-  validates :address, format: { with: ADDRESS_FORMAT, message: ERROR_ADDRESS }
-  validates :zip, format: { with: ZIP_FORMAT, message: ERROR_ZIP }
-  validates :phone, format: { with: PHONE_FORMAT, message: ERROR_PHONE }
-
+  validates :type, presence: true
+  validates :first_name, :last_name, presence: true,
+                                     length: { maximum: MAX_INFORMATION_LENGTH },
+                                     format: { with: INFORMATION_FORMAT, message: ERROR_ONLY_LETTERS }
+  validates :city, :country_code, presence: true,
+                                  length: { maximum: MAX_INFORMATION_LENGTH },
+                                  format: { with: INFORMATION_FORMAT, message: ERROR_ONLY_LETTERS }
+  validates :address, presence: true,
+                    length: { maximum: MAX_INFORMATION_LENGTH },
+                    format: { with: ADDRESS_FORMAT, message: ERROR_ADDRESS } 
+  validates :zip, presence: true, length: { maximum: MAX_ZIP_LENGTH },
+                  format: { with: ZIP_FORMAT, message: ERROR_ZIP }
+  validates :phone, presence: true, length: { maximum: PHONE_MAX_LENGTH },
+                    format: { with: PHONE_FORMAT, message: ERROR_PHONE }
+  
   def country_name
     country = ISO3166::Country[country_code]
     country.translations[I18n.locale.to_s] || country.common_name || country.iso_short_name

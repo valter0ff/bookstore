@@ -1,14 +1,25 @@
 # frozen_string_literal: true
 
 class AddressesController < ApplicationController
-  before_action :init_addresses, only: %i[new create]
+  before_action :authenticate_user!
+  before_action :init_addresses
+  before_action :find_address, only: :update
 
   def new; end
 
   def create
     @address = build_address_with_params
     if @address.save
-      redirect_to new_address_path, notice: I18n.t('address.flash.success')
+      redirect_to new_address_path, notice: I18n.t('addresses.create.success')
+    else
+      render :new
+    end
+  end
+
+  def update
+    set_address_for_form
+    if @address.update(address_params)
+      redirect_to new_address_path, notice: I18n.t('addresses.update.success')
     else
       render :new
     end
@@ -17,12 +28,16 @@ class AddressesController < ApplicationController
   private
 
   def init_addresses
-    @billing_address = (current_user.billing_addres if user_signed_in?) || BillingAddress.new
-    @shipping_address = (current_user.shipping_address if user_signed_in?) || ShippingAddress.new
+    @billing_address = current_user.billing_address || BillingAddress.new
+    @shipping_address = current_user.shipping_address || ShippingAddress.new
   end
 
   def build_address_with_params
     instance_variable_set("@#{address_type}", address_class_name.new(address_params))
+  end
+
+  def set_address_for_form
+    instance_variable_set("@#{@address.type.underscore}", @address)
   end
 
   def address_type
@@ -40,5 +55,9 @@ class AddressesController < ApplicationController
 
   def permitted_address_types
     Address.subclasses.map(&:name)
+  end
+
+  def find_address
+    @address = Address.find(params[:id])
   end
 end

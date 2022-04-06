@@ -18,13 +18,13 @@ en:
       shipping_title: Shipping Address
 
     create:
-      success: Address successfully created 
+      success: Address was successfully created.
+      
+    update:
+      success: Address was successfully updated.
     
     errors:
       only_letters: allows only letters
       address: allows only letters, numbers, hyphens, commas, spaces
       zip: allows only numbers and hyphens
       phone: should start with plus and contain only numbers
-      
-    flash:
-      success: Address was successfully created.

@@ -23,7 +23,7 @@ module Pages
         end
 
         element :account_question, '.account-question'
-        element :sign_up_link, 'a.sign-up-link', text: I18n.t('devise.registrations.new.sign_up')
+        element :sign_up_link, 'a.sign-up-link', text: I18n.t('users.registrations.new.sign_up')
 
         def log_in_user(email, password)
           form.email_input.set(email)
