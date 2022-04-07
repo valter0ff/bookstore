@@ -1,5 +1,5 @@
 .form
-  = simple_form_for address, url: choose_path(address), html: { method: choose_method(address) } do |f|
+  = simple_form_for address.becomes(Address) do |f|
     .form-group
       = f.label :first_name, t('.first_name'), class: 'control-label input-label first-name-label'
       = f.input_field :first_name, id: 'firstName', class: 'form-control', placeholder: t('.first_name')

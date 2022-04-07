@@ -12,19 +12,11 @@ en:
       phone: Phone
       phone_placeholder: Example +355 66 123 4567
       save: Save
-
     new:
       billing_title: Billing Address
       shipping_title: Shipping Address
-
     create:
       success: Address was successfully created.
-      
     update:
       success: Address was successfully updated.
-    
-    errors:
-      only_letters: allows only letters
-      address: allows only letters, numbers, hyphens, commas, spaces
-      zip: allows only numbers and hyphens
-      phone: should start with plus and contain only numbers
+

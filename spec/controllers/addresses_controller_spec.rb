@@ -32,14 +32,13 @@ RSpec.describe AddressesController, type: :controller do
   end
 
   describe '#create' do
-    let(:make_request) { post :create, params: { address => address_params } }
+    let(:make_request) { post :create, params: { :address => address_params } }
     let(:redirect_status) { 302 }
     
     before { |example| make_request unless example.metadata[:skip_request] }
 
     context 'when address created' do
-      let(:address) { :billing_address }
-      let(:address_params) { attributes_for(address, user_account_id: user.id) }
+      let(:address_params) { attributes_for(:address, user_account_id: user.id) }
 
       it { is_expected.to respond_with(redirect_status) }
       it { is_expected.to redirect_to(action: :new) }
