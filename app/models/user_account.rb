@@ -1,19 +1,11 @@
 # frozen_string_literal: true
 
 class UserAccount < ApplicationRecord
-  PASSWORD_FORMAT = /\A(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S{8,}\z/.freeze
-  EMAIL_LOCALPART = '\A(?!-)(?!\.)(?!.+--)(?!.+\.\.)([a-zA-Z0-9!#$%&\'.*+\-/=?^_`{|}~]){1,63}(?<!-)(?<!\.)'
-  EMAIL_DOMENPART = '(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})'
-  EMAIL_FORMAT = /#{EMAIL_LOCALPART}@#{EMAIL_DOMENPART}\z/.freeze
-  ERROR_PASSWORD = I18n.t('errors.messages.password_complexity')
-  ERROR_EMAIL = I18n.t('errors.messages.email_format')
-
   devise :database_authenticatable, :registerable, :rememberable,
          :recoverable, :validatable, :omniauthable, omniauth_providers: [:facebook]
 
-  validates :email, :password, presence: true, on: :create
-  validates :password, format: { with: PASSWORD_FORMAT, message: ERROR_PASSWORD }, allow_blank: true
-  validates :email, format: { with: EMAIL_FORMAT, message: ERROR_EMAIL }
+  validates :email, presence: true, format: { with: Constants::UserAccount::EMAIL_REGEXP }, on: :create
+  validates :password, presence: true, format: { with: Constants::UserAccount::PASSWORD_REGEXP }, on: :create
 
   has_one :shipping_address, dependent: :destroy
   has_one :billing_address, dependent: :destroy

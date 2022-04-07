@@ -105,8 +105,6 @@ en:
       
   errors:
     messages:
-      password_complexity: 'not met requirements: minimum 8 letters, at least 1 uppercase, at least 1 lowercase, at least 1 number'
-      email_format: "left part can consists of: a-z, A-Z, 0-9, dot or one of !#$%&'*+-/=?^_`{|}~, right part: numeric and alphabetical with dot"
       already_confirmed: "was already confirmed, please try signing in"
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "has expired, please request a new one"
