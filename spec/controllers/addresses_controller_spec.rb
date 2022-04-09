@@ -3,12 +3,12 @@
 RSpec.describe AddressesController, type: :controller do
   let(:success_status) { 200 }
   let(:user) { create(:user_account) }
-  
+
   before { |example| sign_in(user) unless example.metadata[:skip_sign_in] }
 
   describe '#new' do
     before { get :new }
-    
+
     context 'with success response' do
       it { is_expected.to respond_with(success_status) }
       it { is_expected.to render_template(:new) }
@@ -32,9 +32,9 @@ RSpec.describe AddressesController, type: :controller do
   end
 
   describe '#create' do
-    let(:make_request) { post :create, params: { :address => address_params } }
+    let(:make_request) { post :create, params: { address: address_params } }
     let(:redirect_status) { 302 }
-    
+
     before { |example| make_request unless example.metadata[:skip_request] }
 
     context 'when address created' do

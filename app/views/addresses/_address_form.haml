@@ -1,5 +1,5 @@
 .form
-  = simple_form_for address.becomes(Address) do |f|
+  = simple_form_for address.becomes(Address), namespace: namespace do |f|
     .form-group
       = f.label :first_name, t('.first_name'), class: 'control-label input-label first-name-label'
       = f.input_field :first_name, id: 'firstName', class: 'form-control', placeholder: t('.first_name')
@@ -24,7 +24,7 @@
     .form-group
       = f.label :country_code, t('.country'), class: 'control-label input-label country-label'
       = f.input_field :country_code, as: :country, id: 'country', class: 'form-control',
-                      include_blank: t('.country_placeholder')
+                      include_blank: t('.country_placeholder'), format: :with_data_attrs
       = f.full_error :country_code, class: 'text-danger'
     .form-group.mb-60
       = f.label :phone, t('.phone'), class: 'control-label input-label phone-label'

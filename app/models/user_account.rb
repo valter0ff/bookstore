@@ -4,8 +4,12 @@ class UserAccount < ApplicationRecord
   devise :database_authenticatable, :registerable, :rememberable,
          :recoverable, :validatable, :omniauthable, omniauth_providers: [:facebook]
 
-  validates :email, presence: true, format: { with: Constants::UserAccount::EMAIL_REGEXP }, on: :create
-  validates :password, presence: true, format: { with: Constants::UserAccount::PASSWORD_REGEXP }, on: :create
+  validates :email, presence: true, on: :create
+  validates :email, format: { with: Constants::UserAccount::EMAIL_REGEXP }
+  validates :password, presence: true, on: :create
+  validates :password, length: { minimum: Constants::UserAccount::PASSWORD_MIN_SIZE,
+                                 maximum: Constants::UserAccount::PASSWORD_MAX_SIZE },
+                       format: { with: Constants::UserAccount::PASSWORD_REGEXP }
 
   has_one :shipping_address, dependent: :destroy
   has_one :billing_address, dependent: :destroy

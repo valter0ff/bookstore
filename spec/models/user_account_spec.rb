@@ -4,33 +4,29 @@ RSpec.describe UserAccount, type: :model do
   subject(:user_account) { create(:user_account) }
 
   describe 'ActiveModel validations' do
+    let(:errors_path) { %w[activerecord errors models user_account attributes] }
+    let(:blank_error) { I18n.t('activerecord.errors.messages.blank') }
+
     it { is_expected.to validate_presence_of(:password).on(:create) }
     it { is_expected.to validate_presence_of(:email).on(:create) }
 
-    context 'when validates format' do
-      it 'allows valid passwords' do
-        expect(user_account).to allow_value('open4G333', 'closG444ed')
-          .for(:password)
-          .with_message(I18n.t('errors.messages.password_complexity'))
-      end
+    context 'when email' do
+      let(:taken_error) { I18n.t('email.taken', scope: errors_path) }
+      let(:invalid_error) { I18n.t('email.invalid', scope: errors_path) }
 
-      it 'rejects invalid passwords' do
-        expect(user_account).not_to allow_value('open33', 'closed')
-          .for(:password)
-          .with_message(I18n.t('errors.messages.password_complexity'))
-      end
+      it { is_expected.to validate_presence_of(:email).with_message(blank_error).on(:create) }
+      it { is_expected.to validate_uniqueness_of(:email).case_insensitive.with_message(taken_error) }
+      it { is_expected.to allow_value(FFaker::Internet.email).for(:email) }
+      it { is_expected.not_to allow_value(FFaker::Lorem.word).for(:email).with_message(invalid_error) }
+    end
 
-      it 'allows valid emails' do
-        expect(user_account).to allow_value('example.!#$%&.444@dot4444.com', 'clos-G44-4ed.time*+-/=?^_`{|}~@000.000')
-          .for(:email)
-          .with_message(I18n.t('errors.messages.email_format'))
-      end
+    context 'when password' do
+      let(:invalid_error) { I18n.t('password.invalid', scope: errors_path) }
 
-      it 'rejects invalid emails' do
-        expect(user_account).not_to allow_value('-open33-@ff.ff', 'clo--sed@aa.aa', '.open.@dd.dd', 'feat..ured@ww.ww')
-          .for(:email)
-          .with_message(I18n.t('errors.messages.email_format'))
-      end
+      it { is_expected.to validate_presence_of(:password).with_message(blank_error).on(:create) }
+      it { is_expected.to validate_length_of(:password).is_at_most(Constants::UserAccount::PASSWORD_MAX_SIZE) }
+      it { is_expected.to allow_value(FFaker::Internet.password).for(:password) }
+      it { is_expected.not_to allow_value(FFaker::Lorem.phrase).for(:password).with_message(invalid_error) }
     end
   end
 
@@ -45,5 +41,10 @@ RSpec.describe UserAccount, type: :model do
   describe 'database indexes exists' do
     it { is_expected.to have_db_index(:email) }
     it { is_expected.to have_db_index(:reset_password_token) }
+  end
+
+  describe 'associatios' do
+    it { is_expected.to have_one(:shipping_address).dependent(:destroy) }
+    it { is_expected.to have_one(:billing_address).dependent(:destroy) }
   end
 end

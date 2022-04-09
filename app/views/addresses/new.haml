@@ -12,8 +12,9 @@
         .col-md-5.mb-40.billing-form
           .visible-xs.visible-sm
             %h3.general-subtitle.mt-0= t('.billing_title')
-          = render 'address_form', address: @billing_address
+          = render 'address_form', address: @billing_address, namespace: :billing
         .col-md-5.col-md-offset-1.mb-25.shipping-form
           .visible-xs.visible-sm
             %h3.general-subtitle.mt-0= t('.shipping_title')
-          = render 'address_form', address: @shipping_address
+          = render 'address_form', address: @shipping_address, namespace: :shipping
+= javascript_pack_tag 'addresses/country_code_picker'

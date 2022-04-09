@@ -20,8 +20,8 @@
                     html: { class: 'general-form-md divider-lg-bottom pb-25' }) do |f|
           .form-group.mb-30  
             = f.label :current_password, t('.old_password'), class: 'control-label input-label current-password-label'
-            = f.input_field :current_password, autocomplete: 'current-password', id: 'current_password', class: 'form-control',
-                            placeholder: t('.old_password')
+            = f.input_field :current_password, autocomplete: 'current-password', id: 'current_password',
+                              class: 'form-control', placeholder: t('.old_password')
             = f.full_error :current_password, class: 'text-danger'
           .form-group.mb-30
             = f.label :password, t('.new_password'), class: 'control-label input-label password-label'

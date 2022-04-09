@@ -5,6 +5,7 @@ RSpec.describe 'UserAccounts', type: :feature do
     let(:sign_up_page) { Pages::Devise::Registrations::New.new }
     let!(:email) { FFaker::Internet.email }
     let!(:password) { '123456aA' }
+    let(:errors_path) { %w[activerecord errors models user_account attributes] }
 
     before { sign_up_page.load }
 
@@ -34,7 +35,7 @@ RSpec.describe 'UserAccounts', type: :feature do
     context 'when user registers successfuly' do
       let(:sign_up_user) { sign_up_page.sign_up_user(email, password) }
       let(:account_menu) { sign_up_page.account_menu }
-      let(:notice_message) { 'Welcome! You have signed up successfully.' }
+      let(:notice_message) { I18n.t('devise.registrations.signed_up') }
 
       it 'dispays Account menu in up right corner' do
         sign_up_user
@@ -68,22 +69,22 @@ RSpec.describe 'UserAccounts', type: :feature do
 
     context 'when not valid confirmation' do
       let(:sign_up_form) { sign_up_page.form }
-      let(:error_message) { 'Password confirmation doesn\'t match Password' }
+      let(:error_message) { Regexp.new(I18n.t('password_confirmation.confirmation', scope: errors_path)) }
 
       it 'shows error message' do
         sign_up_page.sign_up_user(email, password, "#{password}1")
-        expect(sign_up_form.error_message.text).to eq(error_message)
+        expect(sign_up_form.error_message.text).to match(error_message)
       end
     end
 
     context 'when email exists' do
       let(:sign_up_form) { sign_up_page.form }
-      let(:error_message) { 'Email has already been taken' }
+      let(:error_message) { Regexp.new(I18n.t('email.taken', scope: errors_path)) }
 
       it 'shows error message' do
         create(:user_account, email: email)
         sign_up_page.sign_up_user(email, password)
-        expect(sign_up_form.error_message.text).to eq(error_message)
+        expect(sign_up_form.error_message.text).to match(error_message)
       end
     end
   end

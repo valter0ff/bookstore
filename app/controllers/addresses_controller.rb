@@ -33,7 +33,7 @@ class AddressesController < ApplicationController
     @billing_address = current_user.billing_address || BillingAddress.new
     @shipping_address = current_user.shipping_address || ShippingAddress.new
   end
-  
+
   def build_address_with_params
     instance_variable_set("@#{address_type.underscore}", Address.new(address_params))
   end
@@ -49,12 +49,12 @@ class AddressesController < ApplicationController
   def address_type
     params.dig(:address, :type)
   end
- 
+
   def address_params
     params.require(:address).permit(:first_name, :last_name, :address,
                                     :city, :country_code, :zip, :phone, :type, :user_account_id)
   end
-  
+
   def permitted_address_types
     Address.subclasses.map(&:name)
   end
@@ -62,7 +62,7 @@ class AddressesController < ApplicationController
   def find_address
     @address = Address.find(params[:id])
   end
-  
+
   def subclass_not_found
     flash[:error] = I18n.t('addresses.errors.type_not_found')
     redirect_to action: :new

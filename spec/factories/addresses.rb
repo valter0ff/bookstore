@@ -6,7 +6,7 @@ FactoryBot.define do
     last_name { FFaker::Name.html_safe_last_name }
     address { FFaker::Address.street_address }
     country_code { FFaker::Address.country_code }
-    city { FFaker::Address.city }
+    city { FFaker::AddressAU.city }
     zip { FFaker::AddressUS.zip_code }
     phone { FFaker::PhoneNumberPL.international_mobile_phone_number }
     type { %w[BillingAddress ShippingAddress].sample }
