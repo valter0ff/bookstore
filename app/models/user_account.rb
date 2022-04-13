@@ -9,7 +9,8 @@ class UserAccount < ApplicationRecord
   validates :password, presence: true, on: :create
   validates :password, length: { minimum: Constants::UserAccount::PASSWORD_MIN_SIZE,
                                  maximum: Constants::UserAccount::PASSWORD_MAX_SIZE },
-                       format: { with: Constants::UserAccount::PASSWORD_REGEXP }
+                       format: { with: Constants::UserAccount::PASSWORD_REGEXP },
+                       unless: :email_updated?
 
   has_one :shipping_address, dependent: :destroy
   has_one :billing_address, dependent: :destroy
@@ -31,6 +32,10 @@ class UserAccount < ApplicationRecord
   end
 
   private
+
+  def email_updated?
+    email_changed? && persisted?
+  end
 
   def send_welcome_email
     UserMailer.welcome_message(self).deliver_now

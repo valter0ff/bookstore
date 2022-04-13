@@ -12,8 +12,8 @@ module Users
       end
     end
 
-    def after_update_path_for(resource)
-      edit_user_registration_path(resource)
+    def after_update_path_for(_resource)
+      edit_user_registration_path
     end
   end
 end

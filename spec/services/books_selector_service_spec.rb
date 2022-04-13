@@ -36,7 +36,7 @@ RSpec.describe BooksSelectorService do
       let(:sorted_by) { 'price_high_to_low' }
 
       it 'returns expensive book first' do
-        expect(sorted_books[1..].pluck(:price)).to all(be < sorted_books.first.price)
+        expect(sorted_books[1..].pluck(:price)).to all(be <= sorted_books.first.price)
       end
 
       it 'changes books order' do

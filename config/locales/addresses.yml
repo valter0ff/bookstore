@@ -19,4 +19,6 @@ en:
       success: Address was successfully created.
     update:
       success: Address was successfully updated.
+    errors:
+      type_not_allowed: Address type not allowed
 

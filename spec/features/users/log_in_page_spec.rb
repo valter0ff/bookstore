@@ -32,7 +32,7 @@ RSpec.describe 'UserAccounts', type: :feature do
     context 'when user signs in successfuly' do
       let(:user) { create(:user_account) }
       let(:log_in_user) { log_in_page.log_in_user(user.email, user.password) }
-      let(:notice_message) { 'Signed in successfully.' }
+      let(:notice_message) { I18n.t('devise.sessions.signed_in') }
 
       it 'redirects logged in user to root' do
         log_in_user
@@ -48,9 +48,9 @@ RSpec.describe 'UserAccounts', type: :feature do
 
     context 'when not valid email or password' do
       let(:user) { create(:user_account) }
-      let(:random_email) { 'hello@gmail.com' }
+      let(:random_email) { FFaker::Internet.email + rand(2).to_s }
       let(:log_in_user) { log_in_page.log_in_user(random_email, user.password) }
-      let(:error_message) { 'Invalid Email or password.' }
+      let(:error_message) { I18n.t('devise.failure.invalid', authentication_keys: 'Email') }
 
       it 'shows apropriate flash message' do
         log_in_user

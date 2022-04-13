@@ -4,7 +4,7 @@ RSpec.describe 'UserAccounts', type: :feature do
   describe 'registrations#new' do
     let(:sign_up_page) { Pages::Devise::Registrations::New.new }
     let!(:email) { FFaker::Internet.email }
-    let!(:password) { '123456aA' }
+    let!(:password) { FFaker::Internet.password + rand(2).to_s }
     let(:errors_path) { %w[activerecord errors models user_account attributes] }
 
     before { sign_up_page.load }
@@ -72,7 +72,7 @@ RSpec.describe 'UserAccounts', type: :feature do
       let(:error_message) { Regexp.new(I18n.t('password_confirmation.confirmation', scope: errors_path)) }
 
       it 'shows error message' do
-        sign_up_page.sign_up_user(email, password, "#{password}1")
+        sign_up_page.sign_up_user(email, password, password + rand(2).to_s)
         expect(sign_up_form.error_message.text).to match(error_message)
       end
     end

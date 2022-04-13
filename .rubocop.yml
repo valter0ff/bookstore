@@ -23,10 +23,13 @@ RSpec/MultipleMemoizedHelpers:
   Max: 10
   
 RSpec/MultipleExpectations:
-  Max: 12
+  Max: 15
   
 RSpec/ExampleLength:
-  Max: 12
+  Max: 15
+  
+RSpec/NestedGroups:
+  Max: 4
 
 Metrics/ModuleLength:
   Exclude:
@@ -52,3 +55,7 @@ Metrics/BlockLength:
     - 'spec/**/*'
     - 'config/environments/*.rb'
     - 'config/routes.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'spec/support/pages/**/*'

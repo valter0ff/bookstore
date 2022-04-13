@@ -25,7 +25,7 @@ RSpec.describe UserAccount, type: :model do
 
       it { is_expected.to validate_presence_of(:password).with_message(blank_error).on(:create) }
       it { is_expected.to validate_length_of(:password).is_at_most(Constants::UserAccount::PASSWORD_MAX_SIZE) }
-      it { is_expected.to allow_value(FFaker::Internet.password).for(:password) }
+      it { is_expected.to allow_value("#{FFaker::Internet.password}aA1").for(:password) }
       it { is_expected.not_to allow_value(FFaker::Lorem.phrase).for(:password).with_message(invalid_error) }
     end
   end
