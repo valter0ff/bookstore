@@ -48,7 +48,7 @@ end
 
 RSpec.shared_examples 'submitted form with error' do |attribute|
   let(:errors_path) { %w[activerecord errors models address attributes] }
-  let(:error_message) { Regexp.new(I18n.t("#{attribute}.invalid", scope: errors_path)) }
+  let(:error_message) { I18n.t("#{attribute}.invalid", scope: errors_path) }
 
   it 'does not creates new address', skip_before: true do
     expect { page.fill_and_submit_form(form, params) }.not_to change(Address, :count)

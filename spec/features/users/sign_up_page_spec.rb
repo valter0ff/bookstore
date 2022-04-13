@@ -69,7 +69,7 @@ RSpec.describe 'UserAccounts', type: :feature do
 
     context 'when not valid confirmation' do
       let(:sign_up_form) { sign_up_page.form }
-      let(:error_message) { Regexp.new(I18n.t('password_confirmation.confirmation', scope: errors_path)) }
+      let(:error_message) { I18n.t('password_confirmation.confirmation', scope: errors_path) }
 
       it 'shows error message' do
         sign_up_page.sign_up_user(email, password, password + rand(2).to_s)
@@ -79,7 +79,7 @@ RSpec.describe 'UserAccounts', type: :feature do
 
     context 'when email exists' do
       let(:sign_up_form) { sign_up_page.form }
-      let(:error_message) { Regexp.new(I18n.t('email.taken', scope: errors_path)) }
+      let(:error_message) { I18n.t('email.taken', scope: errors_path) }
 
       it 'shows error message' do
         create(:user_account, email: email)
