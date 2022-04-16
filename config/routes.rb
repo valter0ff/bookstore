@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   devise_for :users,
              class_name: 'UserAccount',
              path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'signup' },
