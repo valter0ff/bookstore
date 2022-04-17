@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-include ActiveAdmin::BooksHelper
-
 ActiveAdmin.register Book do
   config.filters = false
+  decorate_with BookDecorator
 
   permit_params :title, :description, :year_publication, :height, :width, :depth, :price, :quantity, :category_id,
                 author_ids: [], material_ids: []
@@ -15,9 +14,11 @@ ActiveAdmin.register Book do
     column :image
     column :category, sortable: 'categories.title'
     column :title
-    column(:authors) { |book| clickable_authors(book) }
+    column :authors do |book|
+      book.clickable_authors
+    end
     column I18n.t('active_admin.books.short_description') do |book|
-      truncate(book.description, length: BookPresenter::DESCRIPTION_LENGTH)
+      book.short_description
     end
     column :price
     actions name: :actions, defaults: false do |book|
@@ -32,14 +33,14 @@ ActiveAdmin.register Book do
   show do
     default_main_content do
       row(:materials) { |book| book.materials.map(&:title) }
-      row(:authors) { |book| clickable_authors(book) }
+      row(:authors) { |book| book.clickable_authors }
     end
   end
 
   form do |f|
     f.inputs do
       f.input :category, as: :select, prompt: I18n.t('active_admin.books.category_prompt')
-      f.input :authors, as: :select, member_label: proc { |a| "#{a.first_name} #{a.last_name}" }
+      f.input :authors, as: :select, member_label: proc { |author| author.decorate.full_name }
       f.input :materials, as: :check_boxes
       f.input :title
       f.input :description, as: :text
