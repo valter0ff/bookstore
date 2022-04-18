@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
-RSpec.describe 'AdminUsers->Index', type: :feature do
+RSpec.describe 'Books->Index', type: :feature do
   let(:index_books_page) { Pages::Admin::Books::Index.new }
   let(:admin) { create(:admin_user) }
   let(:books_count) { rand(2..20) }
 
-  before do |example|
-    unless example.metadata[:skip_before]
-      create_list(:book, books_count)
-      sign_in(admin)
-      index_books_page.load
-    end
+  before do
+    create_list(:book, books_count)
+    sign_in(admin)
+    index_books_page.load
   end
 
   context 'with page elemens' do
@@ -47,7 +45,6 @@ RSpec.describe 'AdminUsers->Index', type: :feature do
 
     it 'shows apropriate flash message' do
       index_books_page.batch_delete_books
-      sleep 4
       expect(index_books_page).to have_flash_notice
       expect(index_books_page.flash_notice.text).to match(notice_message)
     end

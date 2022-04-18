@@ -14,12 +14,8 @@ ActiveAdmin.register Book do
     column :image
     column :category, sortable: 'categories.title'
     column :title
-    column :authors do |book|
-      book.clickable_authors
-    end
-    column I18n.t('active_admin.books.short_description') do |book|
-      book.short_description
-    end
+    column :authors, &:clickable_authors
+    column I18n.t('active_admin.books.short_description'), &:short_description
     column :price
     actions name: :actions, defaults: false do |book|
       item I18n.t('active_admin.view'), edit_admin_book_path(book), class: 'member_link view_book'
@@ -33,7 +29,7 @@ ActiveAdmin.register Book do
   show do
     default_main_content do
       row(:materials) { |book| book.materials.map(&:title) }
-      row(:authors) { |book| book.clickable_authors }
+      row(:authors, &:clickable_authors)
     end
   end
 
@@ -52,5 +48,11 @@ ActiveAdmin.register Book do
       f.input :quantity
     end
     f.actions
+  end
+
+  controller do
+    def update
+      update! { edit_admin_book_path(resource) }
+    end
   end
 end
