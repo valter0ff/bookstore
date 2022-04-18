@@ -10,14 +10,16 @@ RSpec.describe 'Addresses' do
       page.load
     end
 
-    context 'when all page elements present' do
-      it { expect(page).to have_page_title }
-      it { expect(page).to have_address_tab }
-      it { expect(page).to have_privacy_tab }
-      it { expect(page).to have_billing_title }
-      it { expect(page).to have_shipping_title }
-      it { expect(page).to have_billing_form }
-      it { expect(page).to have_shipping_form }
+    context 'when renders page' do
+      it 'all page elements present' do
+        expect(page).to have_page_title
+        expect(page).to have_address_tab
+        expect(page).to have_privacy_tab
+        expect(page).to have_billing_title
+        expect(page).to have_shipping_title
+        expect(page).to have_billing_form
+        expect(page).to have_shipping_form
+      end
     end
 
     context 'when all elements in billing form present' do

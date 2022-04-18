@@ -12,41 +12,49 @@ RSpec.describe 'Users::Registrations', type: :feature do
     page.load
   end
 
-  context 'when all page elements present' do
-    it { expect(page).to have_page_title }
-    it { expect(page).to have_address_tab }
-    it { expect(page).to have_privacy_tab }
-    it { expect(page).to have_email_form }
-    it { expect(page).to have_password_form }
-    it { expect(page).to have_remove_account_form }
+  context 'when renders page' do
+    it 'all page elements present' do
+      expect(page).to have_page_title
+      expect(page).to have_address_tab
+      expect(page).to have_privacy_tab
+      expect(page).to have_email_form
+      expect(page).to have_password_form
+      expect(page).to have_remove_account_form
+    end
   end
 
-  context 'when all email form elements present' do
+  context 'when shows email form' do
     let(:email_form) { page.email_form }
 
-    it { expect(email_form).to have_email_label }
-    it { expect(email_form).to have_email_input }
-    it { expect(email_form).to have_submit_btn }
+    it 'all elements present' do
+      expect(email_form).to have_email_label
+      expect(email_form).to have_email_input
+      expect(email_form).to have_submit_btn
+    end
   end
 
-  context 'when all password form elements present' do
+  context 'when shows password form' do
     let(:password_form) { page.password_form }
 
-    it { expect(password_form).to have_current_password_label }
-    it { expect(password_form).to have_current_password_input }
-    it { expect(password_form).to have_new_password_label }
-    it { expect(password_form).to have_new_password_input }
-    it { expect(password_form).to have_password_confirmation_label }
-    it { expect(password_form).to have_password_confirmation_input }
-    it { expect(password_form).to have_submit_btn }
+    it 'all elements present' do
+      expect(password_form).to have_current_password_label
+      expect(password_form).to have_current_password_input
+      expect(password_form).to have_new_password_label
+      expect(password_form).to have_new_password_input
+      expect(password_form).to have_password_confirmation_label
+      expect(password_form).to have_password_confirmation_input
+      expect(password_form).to have_submit_btn
+    end
   end
 
-  context 'when all remove account form elements present' do
+  context 'when shows remove account form' do
     let(:remove_account_form) { page.remove_account_form }
 
-    it { expect(remove_account_form).to have_form_title }
-    it { expect(remove_account_form).to have_remove_account_button }
-    it { expect(remove_account_form).to have_confirmation_checkbox }
+    it 'all elements present' do
+      expect(remove_account_form).to have_form_title
+      expect(remove_account_form).to have_remove_account_button
+      expect(remove_account_form).to have_confirmation_checkbox
+    end
   end
 
   context 'when email update successful' do

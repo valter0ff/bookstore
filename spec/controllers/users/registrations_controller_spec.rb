@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 
 RSpec.describe Users::RegistrationsController, type: :controller do
-  let(:success_status) { 200 }
-  let(:redirect_status) { 302 }
   let(:user) { controller.current_user }
+  let(:user_account) { create(:user_account, password: password) }
   let(:password) { "#{FFaker::Internet.password}aA1" }
   let(:make_request) { put :update, params: { user: params } }
 
   before do |example|
     request.env['devise.mapping'] = Devise.mappings[:user]
-    sign_in(create(:user_account, password: password))
+    sign_in(user_account)
     get :edit
     make_request unless example.metadata[:skip_request]
   end
 
   context 'with success response', skip_request: true do
+    let(:success_status) { 200 }
+
     it { is_expected.to respond_with(success_status) }
     it { is_expected.to render_template(:edit) }
   end
@@ -22,6 +23,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
   describe 'update email' do
     context 'when email update successfull' do
       let(:params) { { email: FFaker::Internet.email } }
+      let(:redirect_status) { 302 }
 
       it 'updates user email' do
         expect(user.reload.email).to eq(params[:email])
@@ -48,6 +50,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
 
   describe 'update password' do
     context 'when password update successfull' do
+      let(:redirect_status) { 302 }
       let(:new_password) { "#{FFaker::Internet.password}aA1" }
       let(:params) { { current_password: password, password: new_password, password_confirmation: new_password } }
 
@@ -75,7 +78,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       end
 
       context 'with new password invalid format' do
-        let(:new_password) { FFaker::Lorem.word * rand(3..5) }
+        let(:new_password) { FFaker::Internet.email }
         let(:error_message) { I18n.t('password.invalid', scope: errors_path) }
 
         it_behaves_like 'update not successful', :password
