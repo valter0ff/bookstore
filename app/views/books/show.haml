@@ -48,7 +48,7 @@
       .general-info-wrap.divider-lg
         .clearfix
           %p.pull-left= t('.materials')
-          %p.lead.small.pull-right.materials= @book.all_materials
+          %p.lead.small.pull-right.materials= @book.all_materials.join(', ')
   .mb-80
     %h3= t('.write_review')
     %p.general-info-text= t('.score')
