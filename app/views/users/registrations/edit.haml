@@ -1,0 +1,51 @@
+%main.container.general-main-wrap
+  = render 'partials/account_settings_menu'
+  #privacy.tab-pane
+    .row.mb-60
+      .col-sm-5
+        %p.in-gold-500.font-18.mb-25= t('.email')
+        = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), method: :put,
+                    html: { class: 'general-form-md email-form' }) do |f|
+          .form-group.mb-35
+            = f.label :email, t('.enter_email'), class: 'control-label input-label email-label'
+            = f.input_field :email, autofocus: true, autocomplete: 'email', id: 'email', class: 'form-control',
+                            placeholder: t('.enter_email')
+            = f.full_error :email, class: 'text-danger'
+          .general-text-align
+            = f.submit t('.save'), class: 'btn btn-default mb-35 save-btn'    
+            
+      .col-sm-5.col-sm-offset-1
+        %p.in-gold-500.font-18.mb-25= t('.password')
+        = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), method: :put,
+                    html: { class: 'general-form-md divider-lg-bottom pb-25 password-form' }) do |f|
+          .form-group.mb-30  
+            = f.label :current_password, t('.old_password'), class: 'control-label input-label current-password-label'
+            = f.input_field :current_password, autocomplete: 'current-password', id: 'current_password',
+                              class: 'form-control', placeholder: t('.old_password')
+            = f.full_error :current_password, class: 'text-danger'
+          .form-group.mb-30
+            = f.label :password, t('.new_password'), class: 'control-label input-label password-label'
+            = f.input_field :password, autocomplete: 'new-password', id: 'password', class: 'form-control',
+                            placeholder: t('.new_password')
+            = f.full_error :password, class: 'text-danger'
+          .form-group.mb-40
+            = f.label :password_confirmation, t('.confirm_password'), class: 'control-label input-label confirmation-label'
+            = f.input_field :password_confirmation, autocomplete: 'new-password', id: 'confirm_password', class: 'form-control',
+                            placeholder: t('.confirm_password')
+            = f.full_error :password_confirmation, class: 'text-danger'
+          .general-text-align
+            = f.submit t('.save'), class: 'btn btn-default mb-10 save-btn'
+            
+      .col-sm-12.remove-account-block
+        %p.in-gold-500.font-18.mb-25= t('.remove_account_title')
+        .general-settings-btn
+          = link_to t('.remove_account_button'), user_registration_path,
+                      method: :delete, class: 'btn btn-default disabled mb-20'
+        .form-group.checkbox.general-settings-checkbox
+          %label.checkbox-label
+            %input.checkbox-input{type: 'checkbox', hidden: 'true'}
+            %span.checkbox-icon
+              %i.fa.fa-check
+            %span.checkbox-text= t('.remove_confirmation')
+            
+= javascript_pack_tag 'users/button-enabler'

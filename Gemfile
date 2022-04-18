@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(File.expand_path('.ruby-version', __dir__)).strip
 
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'country_select', '~> 7.0.0'
 gem 'devise', '~> 4.8.0'
 gem 'factory_bot_rails', '~> 6.2.0'
 gem 'ffaker', '~> 2.20'
@@ -40,13 +41,18 @@ end
 
 group :development do
   gem 'awesome_print', '~>1.9.2'
+  gem 'better_errors', '~>2.9.1'
+  gem 'binding_of_caller', '~>1.0.0'
   gem 'brakeman', '~> 5.2.1'
   gem 'bundle-audit', '~> 0.1.0'
   gem 'database_consistency', '~> 1.1.12', require: false
+  gem 'i18n-debug', '~> 1.2.0', require: false
   gem 'lefthook', '~> 0.7.7'
   gem 'letter_opener', '~> 1.7.0'
   gem 'listen', '~> 3.7.1'
+  gem 'meta_request', '~>0.7.3'
   gem 'rack-mini-profiler', '~> 2.0'
+  gem 'rails_db', '>= 2.3.1'
   gem 'spring', '~> 4.0.0'
   gem 'table_print', '~>1.5.7'
   gem 'web-console', '>= 4.1.0'

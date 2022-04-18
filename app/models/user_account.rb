@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
 class UserAccount < ApplicationRecord
-  PASSWORD_FORMAT = /\A(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S{8,}\z/.freeze
-  EMAIL_LOCALPART = '\A(?!-)(?!\.)(?!.+--)(?!.+\.\.)([a-zA-Z0-9!#$%&\'.*+\-/=?^_`{|}~]){1,63}(?<!-)(?<!\.)'
-  EMAIL_DOMENPART = '(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})'
-  EMAIL_FORMAT = /#{EMAIL_LOCALPART}@#{EMAIL_DOMENPART}\z/.freeze
-
   devise :database_authenticatable, :registerable, :rememberable,
          :recoverable, :validatable, :omniauthable, omniauth_providers: [:facebook]
 
-  validates :email, :password, presence: true
-  validates :password, format: { with: PASSWORD_FORMAT, message: I18n.t('errors.messages.password_complexity') }
-  validates :email, format: { with: EMAIL_FORMAT, message: I18n.t('errors.messages.email_format') }
+  validates :email, presence: true, on: :create
+  validates :email, format: { with: Constants::UserAccount::EMAIL_REGEXP }
+  validates :password, presence: true, on: :create
+  validates :password, length: { minimum: Constants::UserAccount::PASSWORD_MIN_SIZE,
+                                 maximum: Constants::UserAccount::PASSWORD_MAX_SIZE },
+                       format: { with: Constants::UserAccount::PASSWORD_REGEXP },
+                       unless: :email_updated?
+
+  has_one :shipping_address, dependent: :destroy
+  has_one :billing_address, dependent: :destroy
 
   after_create :send_welcome_email
 
@@ -30,6 +32,10 @@ class UserAccount < ApplicationRecord
   end
 
   private
+
+  def email_updated?
+    email_changed? && persisted?
+  end
 
   def send_welcome_email
     UserMailer.welcome_message(self).deliver_now

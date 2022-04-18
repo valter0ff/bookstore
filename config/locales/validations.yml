@@ -1,0 +1,32 @@
+en:
+  activerecord:
+    errors:
+      messages:
+        blank: can't be blank
+      models:
+        user_account:
+          attributes:
+            email:
+              taken: has already been taken
+              invalid: "format is incorrect. left part can consists of: a-z, A-Z, 0-9, dot or one of !#$%&'*+-/=?^_`{|}~, right part: numeric and alphabetical with dot"
+            password:
+              invalid: "format is incorrect. Please follow the next rules: use at least 8 characters, 1 upper case letter and at least 1 digit, without spaces inside"
+            password_confirmation:
+              confirmation: doesn't match Password
+        address:
+          attributes:
+            first_name:
+              invalid: must consist of only a-z and A-Z characters without special symbols
+            last_name:
+              invalid: must consist of only a-z and A-Z characters without special symbols
+            address:
+              invalid: must consist of a-z, A-Z, 0-9, space, comma and hyphen only, no special symbols
+            city:
+              invalid: must consist of only a-z and A-Z characters without special symbols
+            zip:
+              invalid: must consist of 0-9 only, ’-’, no special symbols
+            phone:
+              invalid: should start with plus and contain only numbers
+            country_code:
+              invalid: is invalid
+

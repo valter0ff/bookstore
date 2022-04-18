@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   devise_for :users,
              class_name: 'UserAccount',
              path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'signup' },
-             controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+             controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
+                            registrations: 'users/registrations' }
   root 'home_pages#index'
   resources :books, only: %i[index show]
+  scope '/settings' do
+    resources :addresses, only: %i[new create update]
+  end
 end

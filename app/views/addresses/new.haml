@@ -1,0 +1,20 @@
+%main.container
+  = render 'partials/account_settings_menu'
+  .tab-content
+    .tab-pane.fade.in.active.general-main-wrap#address{ role: 'tabpanel' }
+      .hidden-xs.hidden-sm
+        .row
+          .col-md-5
+            %h3.general-subtitle.mt-0.billing-title= t('.billing_title')
+          .col-md-5.col-md-offset-1
+            %h3.general-subtitle.mt-0.shipping-title= t('.shipping_title')
+      .row
+        .col-md-5.mb-40.billing-form
+          .visible-xs.visible-sm
+            %h3.general-subtitle.mt-0= t('.billing_title')
+          = render 'address_form', address: @billing_address, namespace: :billing
+        .col-md-5.col-md-offset-1.mb-25.shipping-form
+          .visible-xs.visible-sm
+            %h3.general-subtitle.mt-0= t('.shipping_title')
+          = render 'address_form', address: @shipping_address, namespace: :shipping
+= javascript_pack_tag 'addresses/country_code_picker'
