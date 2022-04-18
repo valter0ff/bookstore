@@ -31,9 +31,11 @@ module Pages
         element :depth_field, '#book_depth'
         element :price_field, '#book_price'
         element :quantity_field, '#book_quantity'
+        element :category_select, 'select#book_category_id'
 
         def fill_and_submit_form(params)
           title_field.set(params[:title])
+          category_select.select(Category.find_by_id(params[:category_id]).title)
           description_field.set(params[:description])
           year_publication_field.set(params[:year_publication])
           height_field.set(params[:height])

@@ -161,8 +161,3 @@ en:
       block: "List"
       grid: "Grid"
       blog: "Blog"
-    books:
-      category_prompt: Please select a category
-      short_description: Short description
-      authors: Authors
- 

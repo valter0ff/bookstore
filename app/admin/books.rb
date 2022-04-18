@@ -15,28 +15,24 @@ ActiveAdmin.register Book do
     column :category, sortable: 'categories.title'
     column :title
     column :authors, &:clickable_authors
-    column I18n.t('active_admin.books.short_description'), &:short_description
+    column I18n.t('books.admin.short_description'), &:short_description
     column :price
-    actions name: :actions, defaults: false do |book|
-      item I18n.t('active_admin.view'), edit_admin_book_path(book), class: 'member_link view_book'
-      item I18n.t('active_admin.delete'), admin_book_path(book),
-           method: :delete,
-           data: { confirm: I18n.t('active_admin.delete_confirmation') },
-           class: 'member_link delete_book'
-    end
+    actions
   end
 
   show do
     default_main_content do
-      row(:materials) { |book| book.materials.map(&:title) }
-      row(:authors, &:clickable_authors)
+      row :materials, &:all_materials
+      row :authors, &:clickable_authors
     end
   end
 
   form do |f|
     f.inputs do
-      f.input :category, as: :select, prompt: I18n.t('active_admin.books.category_prompt')
-      f.input :authors, as: :select, member_label: proc { |author| author.decorate.full_name }
+      f.input :category, as: :select, prompt: I18n.t('books.admin.category_prompt')
+      f.input :authors,
+              multiple: true,
+              collection: Author.all.decorate.map { |author| [author.full_name, author.id] }
       f.input :materials, as: :check_boxes
       f.input :title
       f.input :description, as: :text
@@ -48,11 +44,5 @@ ActiveAdmin.register Book do
       f.input :quantity
     end
     f.actions
-  end
-
-  controller do
-    def update
-      update! { edit_admin_book_path(resource) }
-    end
   end
 end

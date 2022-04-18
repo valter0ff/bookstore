@@ -6,6 +6,9 @@ module Pages
       class Index < SitePrism::Page
         set_url '/admin/books'
 
+        element :flash_notice, '.flash_notice'
+        element :flash_error, '.flash_error'
+        
         section :books_table, 'table.index_table' do
           element :select_column, 'th.col-selectable'
           element :select_all_checkbox, 'input.toggle_all'
@@ -15,12 +18,11 @@ module Pages
           element :description_column, 'th.col-short_description'
           element :price_column, 'th.col-price'
           element :actions_column, 'th.col-actions'
-          elements :view_book_buttons, 'a.member_link.view_book'
-          elements :delete_book_buttons, 'a.member_link.delete_book'
+          elements :view_book_buttons, 'a.view_link.member_link'
+          elements :edit_book_buttons, 'a.edit_link.member_link'
+          elements :delete_book_buttons, 'a.delete_link.member_link'
         end
 
-        element :flash_notice, '.flash_notice'
-        element :flash_error, '.flash_error'
         element :popup_ui_dialog, 'div.ui-dialog'
         element :popup_ui_dialog_ok_button, '.ui-button', text: 'OK'
         element :batch_menu_button, 'a.dropdown_menu_button'

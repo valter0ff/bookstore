@@ -22,16 +22,4 @@ end
 Capybara.register_driver :apparition do |app|
   Capybara::Apparition::Driver.new(app, headless: false)
 end
-# Capybara.register_driver :chrome_headless do |app|
-# #   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-# #     chromeOptions: {
-# #       args: %w[ no-sandbox headless disable-gpu ]
-# #     }
-# #   )
-#   options = Selenium::WebDriver::Chrome::Options.new
-#   options.add_argument('--no-sandbox')
-# #   options.add_argument('--disable-gpu')
-#   options.add_argument('--disable-popup-blocking')
-#
-#   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
-# end
+

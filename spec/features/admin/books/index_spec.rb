@@ -31,8 +31,9 @@ RSpec.describe 'Books->Index', type: :feature do
       expect(books_table).to have_description_column
       expect(books_table).to have_price_column
       expect(books_table).to have_actions_column
-      expect(books_table).to have_view_book_buttons(text: I18n.t('active_admin.view'))
-      expect(books_table).to have_delete_book_buttons(text: I18n.t('active_admin.delete'))
+      expect(books_table).to have_view_book_buttons
+      expect(books_table).to have_edit_book_buttons
+      expect(books_table).to have_delete_book_buttons
     end
   end
 
