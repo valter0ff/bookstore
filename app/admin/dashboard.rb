@@ -11,7 +11,7 @@ ActiveAdmin.register_page 'Dashboard' do
       end
     end
   end
-  
+
   action_item :view_site do
     link_to I18n.t('partials.head.window_title'), root_path
   end

@@ -22,4 +22,3 @@ end
 Capybara.register_driver :apparition do |app|
   Capybara::Apparition::Driver.new(app, headless: false)
 end
-

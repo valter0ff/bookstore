@@ -8,11 +8,12 @@ module Pages
 
         element :flash_notice, '.flash_notice'
         element :flash_error, '.flash_error'
-        
+
         section :books_table, 'table.index_table' do
           element :select_column, 'th.col-selectable'
           element :select_all_checkbox, 'input.toggle_all'
           element :image_column, 'th.col-image'
+          element :title_column, 'th.col-title'
           element :category_column, 'th.col-category'
           element :authors_column, 'th.col-authors'
           element :description_column, 'th.col-short_description'

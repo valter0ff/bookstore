@@ -26,6 +26,7 @@ RSpec.describe 'Books->Index', type: :feature do
       expect(books_table).to have_select_column
       expect(books_table).to have_select_all_checkbox
       expect(books_table).to have_image_column
+      expect(books_table).to have_title_column
       expect(books_table).to have_category_column
       expect(books_table).to have_authors_column
       expect(books_table).to have_description_column
@@ -41,7 +42,7 @@ RSpec.describe 'Books->Index', type: :feature do
     let(:notice_message) { /Successfully deleted .+ books/ }
 
     it 'deletes books from database' do
-      expect { index_books_page.batch_delete_books }.to change(Book, :count).by(-books_count)
+      expect { index_books_page.batch_delete_books }.to change(Book, :count).from(books_count).to(0)
     end
 
     it 'shows apropriate flash message' do

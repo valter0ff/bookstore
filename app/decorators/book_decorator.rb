@@ -17,7 +17,7 @@ class BookDecorator < Draper::Decorator
   def all_authors
     authors.map(&:full_name).join(', ')
   end
-  
+
   def clickable_authors
     authors.map { |author| link_to author.full_name, admin_author_path(author) }
   end
@@ -37,7 +37,7 @@ class BookDecorator < Draper::Decorator
   def short_description
     truncate(description, length: Constants::Book::DESCRIPTION_LENGTH)
   end
-  
+
   def all_materials
     materials.map(&:title)
   end

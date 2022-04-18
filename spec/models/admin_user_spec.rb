@@ -2,7 +2,7 @@
 
 RSpec.describe AdminUser, type: :model do
   subject(:admin_user) { create(:user_account) }
-  
+
   describe 'database columns exists' do
     it { is_expected.to have_db_column(:email).of_type(:string) }
     it { is_expected.to have_db_column(:encrypted_password).of_type(:string) }

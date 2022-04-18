@@ -3,11 +3,12 @@
 module Pages
   module Admin
     module Books
-      class View < SitePrism::Page
+      class Edit < SitePrism::Page
         set_url '/admin/books/{id}/edit'
 
         element :flash_notice, '.flash_notice'
-        element :flash_error, '.flash_error'
+        element :title_error, '#book_title_input p.inline-errors'
+
         element :category_label, 'li#book_category_input>label'
         element :authors_label, 'li#book_authors_input>label'
         element :materials_label, 'li#book_materials_input label'
@@ -35,7 +36,7 @@ module Pages
 
         def fill_and_submit_form(params)
           title_field.set(params[:title])
-          category_select.select(Category.find_by_id(params[:category_id]).title)
+          category_select.select(Category.find_by(id: params[:category_id]).title)
           description_field.set(params[:description])
           year_publication_field.set(params[:year_publication])
           height_field.set(params[:height])

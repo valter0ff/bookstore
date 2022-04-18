@@ -2,7 +2,7 @@
 
 describe BookDecorator do
   subject(:decorated_book) { described_class.new(book) }
-  
+
   let(:reviews) { create_list(:review, 5) }
   let(:book) { create(:book, reviews: reviews) }
   let(:expected_rating) { (book.reviews.sum(&:rating) / book.reviews.count.to_f).to_s }
