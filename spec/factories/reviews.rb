@@ -6,5 +6,6 @@ FactoryBot.define do
     rating { rand(1..5) }
     body { FFaker::Lorem.unique.paragraph }
     book
+    user_account
   end
 end
