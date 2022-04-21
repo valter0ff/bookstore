@@ -31,7 +31,6 @@ RSpec.describe 'Authors->Edit', type: :feature do
     let(:notice_message) { I18n.t('flash.actions.update.notice', resource_name: Author.to_s) }
 
     before do
-      edit_author_page.load(id: author.id)
       edit_author_page.fill_and_submit_form(params)
       author.reload
     end

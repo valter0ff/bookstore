@@ -34,8 +34,10 @@ RSpec.describe 'Authors->Index', type: :feature do
     end
   end
 
-  context 'when use batch destroy function', js: true, bullet: :skip do
-    let(:notice_message) { /Successfully deleted .+ authors/ }
+  context 'when use batch destroy function', js: true do
+    let(:notice_message) { I18n.t('active_admin.batch_actions.succesfully_destroyed',
+                                  count: authors_count,
+                                  plural_model: Author.to_s.pluralize.titleize.downcase) }
 
     it 'deletes authors from database' do
       expect { index_authors_page.batch_delete_authors }.to change(Author, :count).from(authors_count).to(0)

@@ -25,4 +25,12 @@ ActiveAdmin.register Author do
     end
     f.actions
   end
+  
+  batch_action :destroy, confirm: I18n.t('active_admin.delete_confirmation') do |ids|
+    Author.where(id: ids).includes([:author_books]).destroy_all
+    redirect_to admin_authors_path, notice: I18n.t('active_admin.batch_actions.succesfully_destroyed',
+                                                    count: ids.count,
+                                                    model: resource_class.to_s.downcase,
+                                                    plural_model: resource_class.to_s.pluralize.titleize.downcase)
+  end
 end
