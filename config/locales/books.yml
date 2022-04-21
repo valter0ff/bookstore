@@ -30,3 +30,7 @@ en:
       score: Score
     errors:
       record_not_found: Book with specified ID not found 
+    admin:
+      category_prompt: Please select a category
+      short_description: Short description
+      authors: Authors

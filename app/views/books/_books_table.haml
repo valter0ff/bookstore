@@ -12,10 +12,9 @@
             = link_to "#", class: 'thumb-hover-link buy-link' do
               %i.fa.fa-shopping-cart.thumb-icon
     .general-thumb-info
-      - present book do |presented_book|
-        %p= t('.rating', value: presented_book.average_rating)
-        %p #{ t('.created')+l(presented_book.created_at, format: :long) }
-        %p.title= presented_book.title
-        %p.font-16.in-gold-500.price= presented_book.price_with_currency
-        %span.divider-sm
-        %p.lead.small.authors= presented_book.all_authors
+      %p= t('.rating', value: book.average_rating)
+      %p #{ t('.created')+l(book.created_at, format: :long) }
+      %p.title= book.title
+      %p.font-16.in-gold-500.price= book.price_with_currency
+      %span.divider-sm
+      %p.lead.small.authors= book.all_authors

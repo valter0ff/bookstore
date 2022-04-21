@@ -55,6 +55,7 @@ Metrics/BlockLength:
     - 'spec/**/*'
     - 'config/environments/*.rb'
     - 'config/routes.rb'
+    - 'app/admin/*.rb'
 
 Metrics/AbcSize:
   Exclude:

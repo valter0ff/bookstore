@@ -5,9 +5,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby File.read(File.expand_path('.ruby-version', __dir__)).strip
 
+gem 'activeadmin', '~> 2.9'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'country_select', '~> 7.0.0'
 gem 'devise', '~> 4.8.0'
+gem 'draper', '~> 4.0.1'
 gem 'factory_bot_rails', '~> 6.2.0'
 gem 'ffaker', '~> 2.20'
 gem 'gon', '~> 6.4.0'
@@ -21,12 +23,14 @@ gem 'pagy', '~> 5.10.1'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.6'
+gem 'ransack', '~> 2.1', '>= 2.1.1'
 gem 'sass-rails', '>= 6'
 gem 'simple_form', '~> 5.1.0'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
 
 group :development, :test do
+  gem 'apparition', '~> 0.6.0'
   gem 'bullet', '~> 7.0.1'
   gem 'fasterer', '~> 0.9.0', require: false
   gem 'i18n-tasks', '~> 0.9.37'
