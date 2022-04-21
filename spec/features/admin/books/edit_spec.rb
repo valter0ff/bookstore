@@ -4,6 +4,7 @@ RSpec.describe 'Books->Edit', type: :feature do
   let(:edit_book_page) { Pages::Admin::Books::Edit.new }
   let(:admin) { create(:admin_user) }
   let(:category) { create(:category) }
+  let!(:other_category) { create(:category) }
   let(:book) { create(:book, category: category) }
 
   before do
@@ -42,30 +43,26 @@ RSpec.describe 'Books->Edit', type: :feature do
   end
 
   context 'when update book successfull' do
-    let!(:other_category) { create(:category) }
+    let!(:title) { book.title }
     let(:params) { attributes_for(:book, category_id: other_category.id) }
     let(:notice_message) { I18n.t('flash.actions.update.notice', resource_name: Book.to_s) }
+    let(:update_book) { edit_book_page.fill_and_submit_form(params) }
 
-    before do
-      edit_book_page.load(id: book.id)
-      edit_book_page.fill_and_submit_form(params)
-      book.reload
-    end
-
-    it 'updates book category' do
-      expect(book.category.id).to eq(other_category.id)
-    end
-
-    it 'updates book title' do
-      expect(book.title).to eq(params[:title])
+    it 'updates book`s attributes' do
+      expect { update_book }.to change { book.reload.category.id }.from(category.id).to(other_category.id)
+                                                                  .and change {
+                                                                         book.reload.title
+                                                                       }.from(title).to(params[:title])
     end
 
     it 'shows apropriate flash message' do
+      update_book
       expect(edit_book_page).to have_flash_notice
       expect(edit_book_page.flash_notice.text).to match(notice_message)
     end
 
     it 'redirects to show book path' do
+      update_book
       expect(page).to have_current_path(admin_book_path(book))
     end
   end
@@ -74,10 +71,7 @@ RSpec.describe 'Books->Edit', type: :feature do
     let(:params) { attributes_for(:book, title: '', category_id: category.id) }
     let(:error_message) { I18n.t('activerecord.errors.messages.blank') }
 
-    before do
-      edit_book_page.fill_and_submit_form(params)
-      book.reload
-    end
+    before { edit_book_page.fill_and_submit_form(params) }
 
     it 'returns blank error' do
       expect(edit_book_page).to have_title_error(text: error_message)

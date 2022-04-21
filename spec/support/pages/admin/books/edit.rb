@@ -35,15 +35,8 @@ module Pages
         element :category_select, 'select#book_category_id'
 
         def fill_and_submit_form(params)
-          title_field.set(params[:title])
-          category_select.select(Category.find_by(id: params[:category_id]).title)
-          description_field.set(params[:description])
-          year_publication_field.set(params[:year_publication])
-          height_field.set(params[:height])
-          width_field.set(params[:width])
-          depth_field.set(params[:depth])
-          price_field.set(params[:price])
-          quantity_field.set(params[:quantity])
+          category_select.select(Category.find_by(id: params.delete(:category_id)).title)
+          params.each { |param, value| public_send("#{param}_field").set(value) }
           submit_button.click
         end
       end
