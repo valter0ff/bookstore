@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :review do
-    title { FFaker::Lorem.unique.phrase }
+    title { FFaker::Lorem.unique.phrase[0..79] }
     rating { rand(1..5) }
     body { FFaker::Lorem.unique.paragraph }
     book

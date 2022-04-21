@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'Authors->Edit', type: :feature do
+RSpec.describe 'Authors->Show', type: :feature do
   let(:show_author_page) { Pages::Admin::Authors::Show.new }
   let(:admin) { create(:admin_user) }
   let(:author) { create(:author) }
