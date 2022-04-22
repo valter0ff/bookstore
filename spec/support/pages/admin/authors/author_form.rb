@@ -18,6 +18,13 @@ module Pages
 
         element :submit_button, '#author_submit_action>input'
         element :cancel_button, '.actions li.cancel>a'
+
+        def fill_and_submit_form(params)
+          first_name_field.set(params[:first_name])
+          last_name_field.set(params[:last_name])
+          description_field.set(params[:description])
+          submit_button.click
+        end
       end
     end
   end

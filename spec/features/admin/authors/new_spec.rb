@@ -12,13 +12,7 @@ RSpec.describe 'Authors->New', type: :feature do
   end
 
   context 'when shows elements on page' do
-    it 'all author attributes labels present' do
-      expect(author_form).to have_first_name_label
-      expect(author_form).to have_last_name_label
-      expect(author_form).to have_description_label
-      expect(author_form).to have_submit_button
-      expect(author_form).to have_cancel_button
-    end
+    it_behaves_like 'all attributes labels present'
   end
 
   context 'when create author successfull' do
@@ -26,22 +20,17 @@ RSpec.describe 'Authors->New', type: :feature do
     let(:notice_message) { I18n.t('flash.actions.create.notice', resource_name: Author.to_s) }
 
     before do |example|
-      new_author_page.create_author(author_form, params) unless example.metadata[:skip_before]
+      author_form.fill_and_submit_form(params) unless example.metadata[:skip_before]
     end
 
     it 'creates author in database', skip_before: true do
-      expect { new_author_page.create_author(author_form, params) }.to change(Author, :count).by(1)
+      expect { author_form.fill_and_submit_form(params) }.to change(Author, :count).by(1)
     end
 
-    it 'updates new author`s attributes' do
-      expect(author.first_name).to eq(params[:first_name])
-      expect(author.last_name).to eq(params[:last_name])
-      expect(author.description).to eq(params[:description])
-    end
+    it_behaves_like 'updates author`s attributes'
 
-    it 'shows apropriate flash message' do
-      expect(new_author_page).to have_flash_notice
-      expect(new_author_page.flash_notice.text).to match(notice_message)
+    it_behaves_like 'shows apropriate flash message' do
+      let(:page) { new_author_page }
     end
 
     it 'redirects to index authors page' do
@@ -50,15 +39,6 @@ RSpec.describe 'Authors->New', type: :feature do
   end
 
   context 'when create author failed' do
-    let(:params) { { first_name: '', last_name: '', description: '' } }
-    let(:error_message) { I18n.t('activerecord.errors.messages.blank') }
-
-    before { new_author_page.create_author(author_form, params) }
-
-    it 'returns blank error' do
-      expect(author_form).to have_first_name_error(text: error_message)
-      expect(author_form).to have_last_name_error(text: error_message)
-      expect(author_form).to have_description_error(text: error_message)
-    end
+    it_behaves_like 'returns blank errors'
   end
 end
