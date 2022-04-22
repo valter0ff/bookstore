@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddressesController < ApplicationController
+class AddressesController < ClientController
   rescue_from ActiveRecord::SubclassNotFound, with: :subclass_not_found
   before_action :authenticate_user!
   before_action :init_addresses

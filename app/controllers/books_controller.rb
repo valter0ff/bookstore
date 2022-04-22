@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class BooksController < ApplicationController
+class BooksController < ClientController
   ITEMS_PER_PAGE = 12
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found

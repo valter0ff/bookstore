@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Category do
-  skip_before_action :set_all_categories
-
   permit_params :title
 
   index do
