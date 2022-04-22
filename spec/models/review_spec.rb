@@ -9,9 +9,9 @@ RSpec.describe Review do
   end
 
   describe 'database columns exists' do
-    it { is_expected.to have_db_column(:title).of_type(:string) }
-    it { is_expected.to have_db_column(:rating).of_type(:integer) }
-    it { is_expected.to have_db_column(:body).of_type(:text) }
+    it { is_expected.to have_db_column(:title).of_type(:string).with_options(null: false) }
+    it { is_expected.to have_db_column(:rating).of_type(:integer).with_options(null: false) }
+    it { is_expected.to have_db_column(:body).of_type(:text).with_options(null: false) }
     it { is_expected.to have_db_column(:status).of_type(:integer) }
     it { is_expected.to have_db_column(:book_id).of_type(:integer).with_options(null: false) }
     it { is_expected.to have_db_column(:user_account_id).of_type(:integer).with_options(null: false) }

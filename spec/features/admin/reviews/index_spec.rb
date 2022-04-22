@@ -35,8 +35,12 @@ RSpec.describe 'Reviews->Index', type: :feature do
     end
   end
 
-  context 'when use batch destroy function', js: true, bullet: :skip do
-    let(:notice_message) { /Successfully deleted .+ reviews/ }
+  context 'when use batch destroy function', js: true do
+    let(:notice_message) do
+      I18n.t('active_admin.batch_actions.succesfully_destroyed',
+             count: reviews_count,
+             plural_model: Review.to_s.pluralize.titleize.downcase)
+    end
 
     it 'deletes reviews from database' do
       expect { index_reviews_page.batch_delete_reviews }.to change(Review, :count).from(reviews_count).to(0)

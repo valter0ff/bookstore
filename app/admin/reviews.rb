@@ -25,12 +25,12 @@ ActiveAdmin.register Review do
 
   member_action :approve, method: :put do
     resource.approved!
-    redirect_to admin_reviews_path, notice: I18n.t('reviews.admin.approved')
+    redirect_to admin_reviews_path, notice: I18n.t('flash.actions.update.notice', resource_name: resource_class.to_s)
   end
 
   member_action :reject, method: :put do
     resource.rejected!
-    redirect_to admin_reviews_path, notice: I18n.t('reviews.admin.rejected')
+    redirect_to admin_reviews_path, notice: I18n.t('flash.actions.update.notice', resource_name: resource_class.to_s)
   end
 
   action_item :approve, only: :show do
@@ -39,6 +39,14 @@ ActiveAdmin.register Review do
 
   action_item :reject, only: :show do
     link_to I18n.t('reviews.admin.reject'), reject_admin_review_path(review), method: :put
+  end
+
+  batch_action :destroy, confirm: I18n.t('active_admin.delete_confirmation') do |ids|
+    Review.where(id: ids).destroy_all
+    redirect_to admin_reviews_path, notice: I18n.t('active_admin.batch_actions.succesfully_destroyed',
+                                                   count: ids.count,
+                                                   model: resource_class.to_s.downcase,
+                                                   plural_model: resource_class.to_s.pluralize.titleize.downcase)
   end
 
   show do

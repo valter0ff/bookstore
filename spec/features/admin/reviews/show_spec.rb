@@ -56,7 +56,7 @@ RSpec.describe 'Reviews->Show', type: :feature do
 
   context 'when `Approve` button clicked' do
     let(:approve_review) { show_review_page.action_buttons.approve_button.click }
-    let(:notice_message) { I18n.t('reviews.admin.approved') }
+    let(:notice_message) { I18n.t('flash.actions.update.notice', resource_name: Review.to_s) }
 
     it 'changes review`s status' do
       expect { approve_review }.to change { review.reload.status }.from('unprocessed').to('approved')
@@ -71,7 +71,7 @@ RSpec.describe 'Reviews->Show', type: :feature do
 
   context 'when `Reject` button clicked' do
     let(:reject_review) { show_review_page.action_buttons.reject_button.click }
-    let(:notice_message) { I18n.t('reviews.admin.rejected') }
+    let(:notice_message) { I18n.t('flash.actions.update.notice', resource_name: Review.to_s) }
 
     it 'changes review`s status' do
       expect { reject_review }.to change { review.reload.status }.from('unprocessed').to('rejected')
