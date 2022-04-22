@@ -32,8 +32,12 @@ RSpec.describe 'Categories->Index', type: :feature do
     end
   end
 
-  context 'when use batch destroy function', js: true, bullet: :skip do
-    let(:notice_message) { /Successfully deleted .+ categories/ }
+  context 'when use batch destroy function', js: true do
+    let(:notice_message) do
+      I18n.t('active_admin.batch_actions.succesfully_destroyed',
+             count: categories_count,
+             plural_model: Category.to_s.pluralize.titleize.downcase)
+    end
 
     it 'deletes categories from database' do
       expect { index_categories_page.batch_delete_categories }.to change(Category, :count).from(categories_count).to(0)

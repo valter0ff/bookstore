@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-RSpec.describe 'Categories->Edit', type: :feature do
-  let(:edit_category_page) { Pages::Admin::Categories::Edit.new }
+RSpec.describe 'Categories->New', type: :feature do
+  let(:new_category_page) { Pages::Admin::Categories::New.new }
   let(:admin) { create(:admin_user) }
-  let(:category) { create(:category) }
-  let(:category_form) { edit_category_page.category_form }
+  let(:category) { Category.first }
+  let(:category_form) { new_category_page.category_form }
 
   before do
     sign_in(admin)
-    edit_category_page.load(id: category.id)
+    new_category_page.load
   end
 
   context 'when shows elements on page' do
@@ -17,15 +17,11 @@ RSpec.describe 'Categories->Edit', type: :feature do
       expect(category_form).to have_submit_button
       expect(category_form).to have_cancel_button
     end
-
-    it 'all fields have appropriate values' do
-      expect(category_form.title_field.value).to eq(category.title.to_s)
-    end
   end
 
-  context 'when update category successfull' do
+  context 'when create category successfull' do
     let(:params) { attributes_for(:category) }
-    let(:notice_message) { I18n.t('flash.actions.update.notice', resource_name: Category.to_s) }
+    let(:notice_message) { I18n.t('flash.actions.create.notice', resource_name: Category.to_s) }
 
     before do
       category_form.fill_and_submit_form(params)
@@ -37,8 +33,8 @@ RSpec.describe 'Categories->Edit', type: :feature do
     end
 
     it 'shows apropriate flash message' do
-      expect(edit_category_page).to have_flash_notice
-      expect(edit_category_page.flash_notice.text).to match(notice_message)
+      expect(new_category_page).to have_flash_notice
+      expect(new_category_page.flash_notice.text).to match(notice_message)
     end
 
     it 'redirects to show category path' do
@@ -46,7 +42,7 @@ RSpec.describe 'Categories->Edit', type: :feature do
     end
   end
 
-  context 'when update category failed' do
+  context 'when create category failed' do
     let(:params) { { title: '' } }
     let(:error_message) { I18n.t('activerecord.errors.messages.blank') }
 

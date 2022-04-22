@@ -5,12 +5,12 @@ require_relative './category_form'
 module Pages
   module Admin
     module Categories
-      class Edit < SitePrism::Page
-        set_url '/admin/categories/{id}/edit'
+      class New < SitePrism::Page
+        set_url '/admin/categories/new'
 
         element :flash_notice, '.flash_notice'
 
-        section :category_form, Pages::Admin::Categories::CategoryForm, 'form#edit_category'
+        section :category_form, Pages::Admin::Categories::CategoryForm, 'form#new_category'
       end
     end
   end
