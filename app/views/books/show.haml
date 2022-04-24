@@ -49,61 +49,11 @@
         .clearfix
           %p.pull-left= t('.materials')
           %p.lead.small.pull-right.materials= @book.all_materials.join(', ')
-  .mb-80
-    %h3= t('.write_review')
-    %p.general-info-text= t('.score')
-    .mb-15
-      %i.fa.fa-star.rate-empty
-      %i.fa.fa-star.rate-empty
-      %i.fa.fa-star.rate-empty
-      %i.fa.fa-star.rate-empty
-      %i.fa.fa-star.rate-empty
-    %form.row
-      .col-md-8
-        .mb-40
-          .form-group
-            %label.control-label.input-label.in-grey-600{for: 'title'} Title
-            %input#title.form-control{name:'title', type: 'text'}
-          .form-group
-            %label.control-label.input-label.in-grey-600{for: 'review'} Review
-            %textarea#review.form-control{name:'review', type: 'text'}
-        .text-right
-          %button.btn.disabled.mb-20 Post
-  .mb-80
-    %h3.in-gold-500.mb-25 Reviews (3)
-    .general-message-wrap.divider-lg
-      .clearfix
-        %span.img-circle.logo-size.inlide-block.pull-left.logo-empty F
-        .ml-70
-          %div
-            .general-message-date.hidden-xs 11/11/16
-            .max-240
-              .general-message-verified Verified Reviewer
-              .general-message-name Rita J. Lewis
-          .mb-15
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-          %p Thank you BookStore, I was very pleased to receive my order for the Moleskine diary so soon after placing the order.
-    .general-message-wrap.divider-lg
-      .clearfix
-        %span.img-circle.logo-size.inlide-block.pull-left.logo-empty M
-        .ml-70
-          %div
-            .general-message-date.hidden-xs 11/11/16
-            .max-240
-              .general-message-verified.pull-right Verified Reviewer
-              .general-message-name May J. Novoa
-          .mb-15
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star.rate-empty
-          %p If ‘Get a better job’ had landed on my desk a year ago, I might have been dismissive of it. Instead I was prepared to be open-minded. There have been many occasions where I turned to career books with practical activities to look for some inspiration when developing education activities for learners or assessment.
-
+          
+  - if user_signed_in?
+    = render 'reviews/review_form'
+  = render 'reviews/reviews'
+  
 = javascript_pack_tag 'book_page/read_more'
 = javascript_pack_tag 'book_page/quantity_changer'
  

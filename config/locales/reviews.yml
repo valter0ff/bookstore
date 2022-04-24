@@ -5,4 +5,11 @@ en:
       date: Date
       approve: Approve
       reject: Reject
-      
+    review_form:
+      title: Title
+      review: Review
+      post: Post
+    reviews:
+      verified_reviewer: Verified Reviewer
+    create:
+      success: Review was successfully created.

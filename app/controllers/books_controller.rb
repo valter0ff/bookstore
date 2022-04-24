@@ -15,6 +15,7 @@ class BooksController < ClientController
   def show
     @book = Book.find(params[:id]).decorate
     gon.book_full_description = @book.description
+    @review = Review.new
   end
 
   private

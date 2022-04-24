@@ -1,0 +1,26 @@
+.mb-80
+  %h3= t('.write_review')
+  %p.general-info-text= t('.score')
+  .mb-15
+    %i.fa.fa-star.rate-empty
+    %i.fa.fa-star.rate-empty
+    %i.fa.fa-star.rate-empty
+    %i.fa.fa-star.rate-empty
+    %i.fa.fa-star.rate-empty
+  .row
+    .col-md-8
+      .mb-40
+        = simple_form_for [@book, @review] do |f|
+          .form-group
+            = f.label :rating, class: 'control-label input-label in-grey-600 '
+            = f.input_field :rating, as: :integer, class: 'form-control'
+          .form-group
+            = f.label :title, t('.title'), class: 'control-label input-label in-grey-600 review-title-label'
+            = f.input_field :title, id: 'reviewTitle', class: 'form-control', placeholder: t('.title')
+            = f.full_error :title, class: 'text-danger'
+          .form-group
+            = f.label :body, t('.review'), class: 'control-label input-label in-grey-600 review-body-label'
+            = f.input_field :body, id: 'reviewBody', class: 'form-control', placeholder: t('.review')
+            = f.full_error :body, class: 'text-danger'
+          .text-right
+            = f.button :submit, t('.post'), class: 'btn mb-20 submit-btn' 
