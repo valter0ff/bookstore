@@ -3,6 +3,7 @@ en:
     errors:
       messages:
         blank: can't be blank
+        not_found: Record not found
       models:
         user_account:
           attributes:

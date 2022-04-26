@@ -14,6 +14,4 @@ class Review < ApplicationRecord
   validates :body, presence: true,
                    length: { maximum: Constants::Review::BODY_MAX_SIZE },
                    format: { with: Constants::Review::COMMON_REGEXP }
-
-  scope :order_newest, -> { order(:created_at) }
 end

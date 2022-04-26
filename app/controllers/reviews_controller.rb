@@ -2,12 +2,13 @@
 
 class ReviewsController < ClientController
   def create
-    @book = Book.find_by(id: params[:book_id]).decorate
+    @book = Book.find(params[:book_id]).decorate
     @review = @book.reviews.new(review_params)
     if @review.save
       redirect_to book_path(@book), notice: I18n.t('reviews.create.success')
     else
-      render 'books/show'
+      set_reviews
+      render 'books/show', status: 422
     end
   end
 
@@ -15,5 +16,9 @@ class ReviewsController < ClientController
 
   def review_params
     params.require(:review).permit(:title, :body, :rating).merge(user_account_id: current_user.id)
+  end
+  
+  def set_reviews
+    @reviews = @book.reviews.includes(user_account: [:billing_address, :shipping_address]).order(:created_at).decorate
   end
 end

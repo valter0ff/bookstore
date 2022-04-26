@@ -9,7 +9,9 @@ en:
       title: Title
       review: Review
       post: Post
+      rating: Rating
     reviews:
       verified_reviewer: Verified Reviewer
+      rating: Rating
     create:
       success: Review was successfully created.

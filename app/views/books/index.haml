@@ -1,6 +1,5 @@
 %main.container
   %h1.general-title-margin= (@category.title if @category) || t('.page_title')
-  = render 'flash_error' if flash[:error].present?
   .hidden-xs.clearfix
     .dropdowns.pull-right
       .dropdown.width-240

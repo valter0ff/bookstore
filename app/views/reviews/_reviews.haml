@@ -1,19 +1,16 @@
 .mb-80
   %h3.in-gold-500.mb-25 Reviews (3)
-  - @book.reviews.includes(:user_account).order_newest.decorate.each do |review|
+  - reviews.each do |review|
     .general-message-wrap.divider-lg
       .clearfix
         %span.img-circle.logo-size.inlide-block.pull-left.logo-empty F
         .ml-70
           %div
             .general-message-date.hidden-xs= l(review.created_at, format: :long)
-            .max-240
+            .max-340
               .general-message-verified= t('.verified_reviewer')
               .general-message-name= review.author
           .mb-15
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
-            %i.fa.fa-star.rate-star
+            %span= t('.rating')
+            %div#rateYo
           %p= review.body

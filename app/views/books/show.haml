@@ -51,9 +51,11 @@
           %p.lead.small.pull-right.materials= @book.all_materials.join(', ')
           
   - if user_signed_in?
-    = render 'reviews/review_form'
-  = render 'reviews/reviews'
+    = render 'reviews/review_form', book: @book, review: @review
+  = render 'reviews/reviews', reviews: @reviews
   
 = javascript_pack_tag 'book_page/read_more'
 = javascript_pack_tag 'book_page/quantity_changer'
+= javascript_pack_tag 'book_page/rateyo_star_rating'
+= javascript_pack_tag 'book_page/star_rating'
  

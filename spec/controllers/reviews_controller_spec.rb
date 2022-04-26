@@ -36,6 +36,7 @@ RSpec.describe ReviewsController, type: :controller do
       let(:error_message) { I18n.t('activerecord.errors.messages.blank') }
 
       it { is_expected.to render_template('books/show') }
+      it { expect(response.status).to eq(422) }
 
       it 'assigns variables with separate objects' do
         expect(assigns(:book)).to eq(book)

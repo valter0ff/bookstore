@@ -28,7 +28,7 @@ gem 'ransack', '~> 2.1', '>= 2.1.1'
 gem 'sass-rails', '>= 6'
 gem 'simple_form', '~> 5.1.0'
 gem 'turbolinks', '~> 5'
-gem 'webpacker', '~> 5.0'
+gem 'webpacker', '~> 5.x'
 
 group :development, :test do
   gem 'apparition', '~> 0.6.0'
