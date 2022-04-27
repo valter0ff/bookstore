@@ -14,7 +14,7 @@ en:
       title_z_a: 'Title: Z - A'
     books_table:
       rating: "Rating: %{value}"
-      created: "Created: "  
+      created: "Created: "
     next_page_button:
       view_more: View more
     show:
@@ -28,8 +28,6 @@ en:
       materials: Materials
       write_review: Write a Review
       score: Score
-    errors:
-      record_not_found: Book with specified ID not found 
     admin:
       category_prompt: Please select a category
       short_description: Short description

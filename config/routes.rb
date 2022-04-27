@@ -15,4 +15,7 @@ Rails.application.routes.draw do
   scope '/settings' do
     resources :addresses, only: %i[new create update]
   end
+  %w[404 422 500].each do |code|
+    match "/#{code}", to: 'errors#show', code: code, via: :all
+  end
 end
