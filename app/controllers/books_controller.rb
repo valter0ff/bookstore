@@ -21,15 +21,10 @@ class BooksController < ClientController
   private
 
   def set_category
-    @category = @categories.find_by(id: params[:category_id])
+    @category = @categories.find(params[:category_id])
   end
 
-  def record_not_found
-    flash[:error] = I18n.t('books.errors.record_not_found')
-    redirect_to action: :index
-  end
-  
   def set_reviews
-    @reviews = @book.reviews.includes(user_account: [:billing_address, :shipping_address]).order(:created_at).decorate
+    @reviews = @book.reviews.includes(user_account: %i[billing_address shipping_address]).order(:created_at).decorate
   end
 end

@@ -12,13 +12,12 @@
                             placeholder: t('.enter_email')
             = f.full_error :email, class: 'text-danger'
           .general-text-align
-            = f.submit t('.save'), class: 'btn btn-default mb-35 save-btn'    
-            
+            = f.submit t('.save'), class: 'btn btn-default mb-35 save-btn'
       .col-sm-5.col-sm-offset-1
         %p.in-gold-500.font-18.mb-25= t('.password')
         = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), method: :put,
                     html: { class: 'general-form-md divider-lg-bottom pb-25 password-form' }) do |f|
-          .form-group.mb-30  
+          .form-group.mb-30
             = f.label :current_password, t('.old_password'), class: 'control-label input-label current-password-label'
             = f.input_field :current_password, autocomplete: 'current-password', id: 'current_password',
                               class: 'form-control', placeholder: t('.old_password')
@@ -35,7 +34,6 @@
             = f.full_error :password_confirmation, class: 'text-danger'
           .general-text-align
             = f.submit t('.save'), class: 'btn btn-default mb-10 save-btn'
-            
       .col-sm-12.remove-account-block
         %p.in-gold-500.font-18.mb-25= t('.remove_account_title')
         .general-settings-btn
@@ -47,5 +45,4 @@
             %span.checkbox-icon
               %i.fa.fa-check
             %span.checkbox-text= t('.remove_confirmation')
-            
 = javascript_pack_tag 'users/button-enabler'

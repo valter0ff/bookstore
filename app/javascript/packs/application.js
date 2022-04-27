@@ -3,15 +3,9 @@ import 'regenerator-runtime/runtime'
 require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
-require("rateyo")
-require("packs/raty")
 
-import $ from 'jquery';
+import jQuery from 'jquery';
 
-window.$ = $;
-window.jQuery = $;
+window.$ = window.jQuery = jQuery;
 
 import 'bootstrap-sass/assets/javascripts/bootstrap';
-
-import 'packs/raty';
-import 'rateyo';

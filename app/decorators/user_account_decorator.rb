@@ -6,7 +6,7 @@ class UserAccountDecorator < ApplicationDecorator
   def full_name
     address = billing_address || shipping_address
     return unless address
-    
+
     "#{address.first_name} #{address.last_name}"
   end
 end

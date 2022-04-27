@@ -57,6 +57,7 @@ group :development do
   gem 'listen', '~> 3.7.1'
   gem 'meta_request', '~>0.7.3'
   gem 'rack-mini-profiler', '~> 2.0'
+  gem 'rails_best_practices', '~> 1.23.1'
   gem 'rails_db', '>= 2.3.1'
   gem 'spring', '~> 4.0.0'
   gem 'table_print', '~>1.5.7'

@@ -2,7 +2,6 @@
   = link_to :back, class: 'general-back-link' do
     %i.fa.fa-long-arrow-left.mr-15
     = t('.back_button')
-
   .row
     .col-sm-6
       .product-gallery
@@ -16,12 +15,10 @@
             = image_tag 'https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4a58b431-0903-4c14-8b38-9905fa42a305/smashing-book-5-hardcover-750-opt.jpg'
           = link_to '#', class: 'img-link preview' do
             = image_tag 'https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4a58b431-0903-4c14-8b38-9905fa42a305/smashing-book-5-hardcover-750-opt.jpg'
-          
     .col-sm-6.book-info
       %h1.mt-res-0.book-title= @book.title
       %p.lead.small.book-authors
         = @book.all_authors
-
       .row
         .col-xs-12.col-md-4
           %p.h1.price.in-gold-500.mt-10= @book.price_with_currency
@@ -49,13 +46,8 @@
         .clearfix
           %p.pull-left= t('.materials')
           %p.lead.small.pull-right.materials= @book.all_materials.join(', ')
-          
   - if user_signed_in?
     = render 'reviews/review_form', book: @book, review: @review
   = render 'reviews/reviews', reviews: @reviews
-  
 = javascript_pack_tag 'book_page/read_more'
 = javascript_pack_tag 'book_page/quantity_changer'
-= javascript_pack_tag 'book_page/rateyo_star_rating'
-= javascript_pack_tag 'book_page/star_rating'
- 

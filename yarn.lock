@@ -5758,11 +5758,6 @@ range-parser@^1.2.1, range-parser@~1.2.1:
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
   integrity sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
 
-rateyo@^3.0.0-alpha.2:
-  version "3.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/rateyo/-/rateyo-3.0.0-alpha.2.tgz#b9ec3e5194198ddf8352e972bf50e601a698f7ee"
-  integrity sha512-2SQnLpo0j1aWa5na28mpPjT73YNpt7Z58W5MqahqTAs0KmPdbjlbrFctDHd2NyaZfBiQoRFpK92ZzOm4NX92SQ==
-
 raw-body@2.5.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/raw-body/-/raw-body-2.5.1.tgz#fe1b1628b181b700215e5fd42389f98b71392857"

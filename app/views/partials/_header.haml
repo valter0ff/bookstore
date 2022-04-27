@@ -25,7 +25,7 @@
                 aria: {expanded: false, controls: 'menu'},
                 data: {toggle: 'collapse'}, type: "button"
             %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': 'false'}
-              - @categories.each do |category|
+              - categories.each do |category|
                 %li= link_to "#{category.title}", books_path(category_id: category.id), class: 'collapse-link'
           - if user_signed_in?
             %li= link_to t('.my_account'), '#my-account-xs', class: 'my-account-link',
@@ -48,9 +48,8 @@
                 data: {toggle: 'dropdown'}, role: 'button',
                 class: 'dropdown-toggle'
             %ul.dropdown-menu
-              - @categories.each do |category|
+              - categories.each do |category|
                 %li= link_to "#{category.title}", books_path(category_id: category.id)
-              
           - if user_signed_in?
             %li.dropdown
               = link_to t('.my_account'), '#',
@@ -66,4 +65,3 @@
           - else
             %li= link_to t('.log_in'), new_user_session_path, class: 'log-in-link'
             %li= link_to t('.sign_up'), new_user_registration_path, class: 'sign-up-link'
-              
