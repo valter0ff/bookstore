@@ -21,7 +21,7 @@ class BooksController < ClientController
   private
 
   def set_category
-    @category = @categories.find(params[:category_id])
+    @category = @categories.find_by(id: params[:category_id])
   end
 
   def set_reviews

@@ -88,12 +88,8 @@ RSpec.describe BooksController, type: :controller, bullet: :skip do
 
       before { get :show, params: { id: book_id } }
 
-      it 'redirects to #index action' do
-        expect(response).to redirect_to(action: :index)
-      end
-
-      it 'assigns error message to flash' do
-        expect(flash[:error]).to eq(error_message)
+      it 'redirects to 404 page' do
+        expect(response).to redirect_to('/404')
       end
     end
   end
