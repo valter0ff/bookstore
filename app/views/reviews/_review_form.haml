@@ -1,9 +1,11 @@
 .mb-80
   %h3= t('.write_review')
   = simple_form_for [book, review] do |f|
-    .mb-15.field#star
-      = f.label :rating,  t('.rating'), class: 'control-label input-label in-grey-600'
-      = f.hidden_field :rating, id: :review_star
+    %p.control-label.input-label.in-grey-600=  t('.rating')
+    .mb-15.field.rate
+      = f.input :rating, label: false do
+        = f.collection_radio_buttons :rating, [[5],[4],[3],[2],[1]], :first, :last, include_hidden: false do |b|
+          = b.radio_button + b.label {''}
     .row
       .col-md-8
         .mb-40

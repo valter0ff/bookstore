@@ -1,0 +1,27 @@
+.rate{
+  display: inline-block;
+  border: 0;
+  color: #b0afaf;
+}
+
+.rate input{
+  display: none;
+}
+
+.rate label {
+  float: right;
+ }
+
+.rate span > label > label:before {
+  display: inline-block;
+  font-size: 17px;
+  padding: .3rem .2rem;
+  margin: 0;
+  cursor: pointer;
+  font-family: FontAwesome;
+  content: "\f005 ";
+ }
+
+.rate input:checked ~ label, .rate label > label:hover {
+  color: #c59c71;
+}

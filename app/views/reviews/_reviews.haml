@@ -11,6 +11,8 @@
               .general-message-verified= t('.verified_reviewer')
               .general-message-name= review.author
           .mb-15
-            %span= t('.rating')
-            %div#rateYo
+            - review.rating.times do
+              %i.fa.fa-star.rate-star
+            - review.blank_stars.times do
+              %i.fa.fa-star.rate-empty
           %p= review.body
