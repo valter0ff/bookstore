@@ -1,0 +1,8 @@
+en:
+  reviews:
+    admin:
+      new: New
+      date: Date
+      approve: Approve
+      reject: Reject
+      

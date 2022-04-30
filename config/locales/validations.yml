@@ -8,7 +8,7 @@ en:
           attributes:
             email:
               taken: has already been taken
-              invalid: "format is incorrect. left part can consists of: a-z, A-Z, 0-9, dot or one of !#$%&'*+-/=?^_`{|}~, right part: numeric and alphabetical with dot"
+              invalid: "format is incorrect. Left part can consists of: a-z, A-Z, 0-9, dot or one of !#$%&'*+-/=?^_`{|}~, right part: numeric and alphabetical with dot"
             password:
               invalid: "format is incorrect. Please follow the next rules: use at least 8 characters, 1 upper case letter and at least 1 digit, without spaces inside"
             password_confirmation:
@@ -29,4 +29,10 @@ en:
               invalid: should start with plus and contain only numbers
             country_code:
               invalid: is invalid
+        review:
+          attributes:
+            title:
+              invalid: "Format is incorrect. Can consist of a-z, A-Z, 0-9, or one of !#$%&'*+-/=?^_`{|}~."
+            body:
+              invalid: "Format is incorrect. Can consist of a-z, A-Z, 0-9, or one of !#$%&'*+-/=?^_`{|}~."
 

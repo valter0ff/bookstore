@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'Categories->Edit', type: :feature do
+RSpec.describe 'Categories->Show', type: :feature do
   let(:show_category_page) { Pages::Admin::Categories::Show.new }
   let(:admin) { create(:admin_user) }
   let(:category) { create(:category) }

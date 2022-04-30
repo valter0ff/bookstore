@@ -14,6 +14,7 @@ class UserAccount < ApplicationRecord
 
   has_one :shipping_address, dependent: :destroy
   has_one :billing_address, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   after_create :send_welcome_email
 

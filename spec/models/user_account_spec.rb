@@ -7,9 +7,6 @@ RSpec.describe UserAccount, type: :model do
     let(:errors_path) { %w[activerecord errors models user_account attributes] }
     let(:blank_error) { I18n.t('activerecord.errors.messages.blank') }
 
-    it { is_expected.to validate_presence_of(:password).on(:create) }
-    it { is_expected.to validate_presence_of(:email).on(:create) }
-
     context 'when email' do
       let(:taken_error) { I18n.t('email.taken', scope: errors_path) }
       let(:invalid_error) { I18n.t('email.invalid', scope: errors_path) }
@@ -46,5 +43,6 @@ RSpec.describe UserAccount, type: :model do
   describe 'associatios' do
     it { is_expected.to have_one(:shipping_address).dependent(:destroy) }
     it { is_expected.to have_one(:billing_address).dependent(:destroy) }
+    it { is_expected.to have_many(:reviews).dependent(:destroy) }
   end
 end
