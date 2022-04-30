@@ -1,18 +1,19 @@
-.mb-80
-  %h3.in-gold-500.mb-25 Reviews (3)
-  - reviews.each do |review|
-    .general-message-wrap.divider-lg
-      .clearfix
-        %span.img-circle.logo-size.inlide-block.pull-left.logo-empty F
-        .ml-70
-          %div
-            .general-message-date.hidden-xs= l(review.created_at, format: :long)
-            .max-340
-              .general-message-verified= t('.verified_reviewer')
-              .general-message-name= review.author
-          .mb-15
-            - review.rating.times do
-              %i.fa.fa-star.rate-star
-            - review.blank_stars.times do
-              %i.fa.fa-star.rate-empty
-          %p= review.body
+- if reviews.count > 0
+  .mb-80
+    %h3.in-gold-500.mb-25= "#{t('.reviews')} (#{reviews.count})"
+    - reviews.each do |review|
+      .general-message-wrap.divider-lg
+        .clearfix
+          %span.img-circle.logo-size.inlide-block.pull-left.logo-empty F
+          .ml-70
+            %div
+              .general-message-date.hidden-xs= l(review.created_at, format: :long)
+              .max-340
+                .general-message-verified= t('.verified_reviewer')
+                .general-message-name= review.author
+            .mb-15
+              - review.rating.times do
+                %i.fa.fa-star.rate-star
+              - review.blank_stars.times do
+                %i.fa.fa-star.rate-empty
+            %p= review.body

@@ -3,7 +3,7 @@
 RSpec.describe 'Reviews->Show', type: :feature do
   let(:show_review_page) { Pages::Admin::Reviews::Show.new }
   let(:admin) { create(:admin_user) }
-  let(:review) { create(:review) }
+  let(:review) { create(:review, status: :unprocessed) }
 
   before do
     sign_in(admin)
