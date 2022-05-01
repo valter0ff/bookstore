@@ -15,4 +15,4 @@ en:
       reviews: Reviews
       verified_reviewer: Verified Reviewer
     create:
-      success: Review was successfully created.
+      success: Thanks for Review. It will be published as soon as Admin will approve it.
