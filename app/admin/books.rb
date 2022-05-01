@@ -5,7 +5,7 @@ ActiveAdmin.register Book do
   decorate_with BookDecorator
 
   permit_params :title, :description, :year_publication, :height, :width, :depth, :price, :quantity, :category_id,
-                author_ids: [], material_ids: []
+                pictures_attributes: [:image, :id, :_destroy], author_ids: [], material_ids: []
 
   includes :category, [:authors], [:author_books]
 
@@ -24,6 +24,13 @@ ActiveAdmin.register Book do
     default_main_content do
       row :materials, &:all_materials
       row :authors, &:clickable_authors
+      row :pictures do
+        div style: 'display: flex' do
+          book.pictures.each do |picture|
+            div { image_tag picture.image_url, size: "200x200" }
+          end
+        end
+      end
     end
   end
 
@@ -42,6 +49,13 @@ ActiveAdmin.register Book do
       f.input :depth
       f.input :price
       f.input :quantity
+#       f.input :pictures, as: :file, input_html: { multiple: true }
+    end
+    f.inputs "Pictureees" do
+      f.has_many :pictures, allow_destroy: true do |c|
+        c.input :image, as: :file
+#         c.input :image, value: c.object.cached_image_data, as: :hidden
+      end
     end
     f.actions
   end
