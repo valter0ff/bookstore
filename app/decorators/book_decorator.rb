@@ -41,4 +41,10 @@ class BookDecorator < Draper::Decorator
   def all_materials
     materials.map(&:title)
   end
+
+  def main_image_content
+    return Constants::Book::STUBBED_IMAGE if pictures.blank?
+
+    pictures.first.image_url
+  end
 end

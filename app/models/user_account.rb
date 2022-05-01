@@ -15,8 +15,11 @@ class UserAccount < ApplicationRecord
   has_one :shipping_address, dependent: :destroy
   has_one :billing_address, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_one :picture, as: :imageable, dependent: :destroy
 
   after_create :send_welcome_email
+
+  accepts_nested_attributes_for :picture, allow_destroy: true
 
   def self.new_with_session(params, session)
     super.tap do |user|

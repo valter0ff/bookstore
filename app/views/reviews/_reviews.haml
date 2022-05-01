@@ -4,7 +4,7 @@
     - reviews.each do |review|
       .general-message-wrap.divider-lg
         .clearfix
-          %span.img-circle.logo-size.inlide-block.pull-left.logo-empty F
+          = review.author_image
           .ml-70
             %div
               .general-message-date.hidden-xs= l(review.created_at, format: :long)
