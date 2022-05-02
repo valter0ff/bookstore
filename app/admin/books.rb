@@ -52,7 +52,6 @@ ActiveAdmin.register Book do
     end
     f.inputs I18n.t('books.admin.pictures') do
       f.has_many :pictures, allow_destroy: true do |p|
-#         binding.pry
         p.input :image, as: :file, hint: ((image_tag p.object.image_url, size: '100') if p.object.image)
       end
     end
