@@ -7,11 +7,11 @@ ActiveAdmin.register Book do
   permit_params :title, :description, :year_publication, :height, :width, :depth, :price, :quantity, :category_id,
                 pictures_attributes: [:image, :id, :_destroy], author_ids: [], material_ids: []
 
-  includes :category, [:authors], [:author_books]
+  includes :category, [:authors], [:author_books], [:pictures]
 
   index do
     selectable_column
-    column :image
+    column(:pictures) { |book| book.pictures.map { |pic| image_tag pic.image_url, size: '100' } }
     column :category, sortable: 'categories.title'
     column :title
     column :authors, &:clickable_authors
@@ -27,7 +27,7 @@ ActiveAdmin.register Book do
       row :pictures do
         div style: 'display: flex' do
           book.pictures.each do |picture|
-            div { image_tag picture.image_url, size: "200x200" }
+            div { image_tag picture.image_url, size: '200' }
           end
         end
       end
@@ -49,12 +49,11 @@ ActiveAdmin.register Book do
       f.input :depth
       f.input :price
       f.input :quantity
-#       f.input :pictures, as: :file, input_html: { multiple: true }
     end
-    f.inputs "Pictureees" do
-      f.has_many :pictures, allow_destroy: true do |c|
-        c.input :image, as: :file
-#         c.input :image, value: c.object.cached_image_data, as: :hidden
+    f.inputs I18n.t('books.admin.pictures') do
+      f.has_many :pictures, allow_destroy: true do |p|
+#         binding.pry
+        p.input :image, as: :file, hint: ((image_tag p.object.image_url, size: '100') if p.object.image)
       end
     end
     f.actions
