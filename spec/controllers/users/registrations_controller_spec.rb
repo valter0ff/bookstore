@@ -85,8 +85,8 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       end
 
       context 'with blank new password' do
-        let(:new_password) { '' }
-        let(:error_message) { 'is too short (minimum is 8 characters)' }
+        let(:params) { { current_password: password, password: '', password_confirmation: new_password } }
+        let(:error_message) { I18n.t('activerecord.errors.messages.blank') }
 
         it_behaves_like 'update not successful', :password
       end

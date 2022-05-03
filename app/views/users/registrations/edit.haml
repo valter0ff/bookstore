@@ -13,6 +13,19 @@
             = f.full_error :email, class: 'text-danger'
           .general-text-align
             = f.submit t('.save'), class: 'btn btn-default mb-35 save-btn'
+
+        %p.in-gold-500.font-18.mb-25= t('.avatar')
+        = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), method: :put,
+                    html: { class: 'general-form-md email-form' }) do |f|
+          .form-group.mb-35
+            = f.simple_fields_for (:picture || resource.picture.new) do |p|
+              = p.input :image, as: :file
+              = image_tag resource.picture.image_url, size: '100'
+              = p.input :_destroy, as: :boolean
+            = f.full_error :picture, class: 'text-danger'
+          .general-text-align
+            = f.submit t('.save'), class: 'btn btn-default mb-35 save-btn'
+
       .col-sm-5.col-sm-offset-1
         %p.in-gold-500.font-18.mb-25= t('.password')
         = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), method: :put,

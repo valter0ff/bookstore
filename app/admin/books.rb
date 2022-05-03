@@ -5,7 +5,7 @@ ActiveAdmin.register Book do
   decorate_with BookDecorator
 
   permit_params :title, :description, :year_publication, :height, :width, :depth, :price, :quantity, :category_id,
-                pictures_attributes: [:image, :id, :_destroy], author_ids: [], material_ids: []
+                pictures_attributes: %i[image id _destroy], author_ids: [], material_ids: []
 
   includes :category, [:authors], [:author_books], [:pictures]
 

@@ -3,7 +3,7 @@
 ActiveAdmin.register UserAccount do
   decorate_with UserAccountDecorator
 
-  permit_params :email, :password, :password_confirmation, picture_attributes: [:image, :id, :_destroy]
+  permit_params :email, :password, :password_confirmation, picture_attributes: %i[image id _destroy]
 
   includes :picture, :billing_address, :shipping_address
 
@@ -14,9 +14,7 @@ ActiveAdmin.register UserAccount do
       image_tag user_account.picture.image_url, size: '100' if user_account.picture
     end
     column :email
-    column I18n.t('user_accounts.admin.full_name') do |user_account|
-      user_account.full_name
-    end
+    column I18n.t('user_accounts.admin.full_name'), &:full_name
     column :current_sign_in_at
     column :sign_in_count
     column :created_at
@@ -30,7 +28,9 @@ ActiveAdmin.register UserAccount do
 
   show do
     attributes_table do
-      row(I18n.t('user_accounts.admin.avatar')) { image_tag user_account.picture.image_url, size: "100" }
+      row I18n.t('user_accounts.admin.avatar') do
+        image_tag(user_account.picture.image_url, size: '100') if user_account.picture
+      end
       row :email
       row :remember_created_at
       row :created_at
@@ -66,8 +66,11 @@ ActiveAdmin.register UserAccount do
       f.input :email
       f.input :password, required: f.object.new_record?
       f.input :password_confirmation, required: f.object.new_record?
-      f.inputs I18n.t('users.admin.avatar'), for: [:picture, f.object.picture || Picture.new] do |p|
+      f.inputs I18n.t('user_accounts.admin.avatar'),
+               for: [:picture, f.object.picture || Picture.new],
+               allow_destroy: true do |p|
         p.input :image, as: :file, hint: ((image_tag p.object.image_url, size: '100') if p.object.image)
+        p.input :_destroy, as: :boolean
       end
     end
     f.actions
@@ -75,8 +78,7 @@ ActiveAdmin.register UserAccount do
 
   controller do
     def update_resource(object, attributes)
-      update_method = attributes.first[:password].present? ? :update_attributes : :update_without_password
-      object.send(update_method, *attributes)
+      object.send(:update_without_password, *attributes)
     end
   end
 end
