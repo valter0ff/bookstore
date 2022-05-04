@@ -25,7 +25,7 @@ RSpec.describe 'Books->Index', type: :feature do
     it 'all elements present' do
       expect(books_table).to have_select_column
       expect(books_table).to have_select_all_checkbox
-      expect(books_table).to have_image_column
+      expect(books_table).to have_pictures_column
       expect(books_table).to have_title_column
       expect(books_table).to have_category_column
       expect(books_table).to have_authors_column

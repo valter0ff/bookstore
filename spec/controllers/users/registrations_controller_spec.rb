@@ -51,7 +51,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
   describe 'update password' do
     context 'when password update successfull' do
       let(:redirect_status) { 302 }
-      let(:new_password) { "#{FFaker::Internet.password}aA1" }
+      let(:new_password) { "#{FFaker::Internet.password}bB1" }
       let(:params) { { current_password: password, password: new_password, password_confirmation: new_password } }
 
       it 'updates user password' do

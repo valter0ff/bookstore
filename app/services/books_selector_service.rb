@@ -24,7 +24,7 @@ class BooksSelectorService < ApplicationService
 
   def filter_books
     books = @category.blank? ? Book.all : @category.books
-    @books = books.includes(:authors)
+    @books = books.includes([:authors, :pictures])
   end
 
   def sort_books
