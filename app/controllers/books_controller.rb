@@ -3,7 +3,6 @@
 class BooksController < ClientController
   ITEMS_PER_PAGE = 12
 
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   before_action :set_category, only: :index
 
   def index
@@ -15,6 +14,8 @@ class BooksController < ClientController
   def show
     @book = Book.find(params[:id]).decorate
     gon.book_full_description = @book.description
+    @review = Review.new
+    set_reviews
   end
 
   private
@@ -23,8 +24,11 @@ class BooksController < ClientController
     @category = @categories.find_by(id: params[:category_id])
   end
 
-  def record_not_found
-    flash[:error] = I18n.t('books.errors.record_not_found')
-    redirect_to action: :index
+  def set_reviews
+    @reviews = @book.reviews
+                    .includes(user_account: %i[billing_address shipping_address])
+                    .order(:created_at)
+                    .approved
+                    .decorate
   end
 end

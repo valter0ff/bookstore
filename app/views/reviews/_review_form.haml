@@ -1,0 +1,21 @@
+.mb-80
+  %h3= t('.write_review')
+  = simple_form_for [book, review] do |f|
+    %p.control-label.input-label.in-grey-600=  t('.rating')
+    .mb-15.field.rate
+      = f.input :rating, label: false do
+        = f.collection_radio_buttons :rating, [[5],[4],[3],[2],[1]], :first, :last, include_hidden: false do |b|
+          = b.radio_button + b.label {''}
+    .row
+      .col-md-8
+        .mb-40
+          .form-group
+            = f.label :title, t('.title'), class: 'control-label input-label in-grey-600 review-title-label'
+            = f.input_field :title, id: 'reviewTitle', class: 'form-control', placeholder: t('.title')
+            = f.full_error :title, class: 'text-danger'
+          .form-group
+            = f.label :body, t('.review'), class: 'control-label input-label in-grey-600 review-body-label'
+            = f.input_field :body, id: 'reviewBody', class: 'form-control', placeholder: t('.review')
+            = f.full_error :body, class: 'text-danger'
+          .text-right
+            = f.button :submit, t('.post'), class: 'btn mb-20 submit-btn'

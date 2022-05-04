@@ -5,4 +5,14 @@ en:
       date: Date
       approve: Approve
       reject: Reject
-      
+      book_id: Book ID
+    review_form:
+      title: Title
+      review: Review
+      post: Post
+      rating: Score
+    reviews:
+      reviews: Reviews
+      verified_reviewer: Verified Reviewer
+    create:
+      success: Review was successfully created.

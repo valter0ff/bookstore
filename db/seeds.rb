@@ -2,7 +2,6 @@
 
 ActiveRecord::Base.transaction do
   CATEGORIES = I18n.t('partials.header.categories').values
-  
   materials = FactoryBot.create_list(:material, 4)
   authors = FactoryBot.create_list(:author, 20)
   categories = CATEGORIES.map do |name|

@@ -28,7 +28,7 @@ gem 'ransack', '~> 2.1', '>= 2.1.1'
 gem 'sass-rails', '>= 6'
 gem 'simple_form', '~> 5.1.0'
 gem 'turbolinks', '~> 5'
-gem 'webpacker', '~> 5.0'
+gem 'webpacker', '~> 5.x'
 
 group :development, :test do
   gem 'apparition', '~> 0.6.0'
@@ -57,6 +57,7 @@ group :development do
   gem 'listen', '~> 3.7.1'
   gem 'meta_request', '~>0.7.3'
   gem 'rack-mini-profiler', '~> 2.0'
+  gem 'rails_best_practices', '~> 1.23.1'
   gem 'rails_db', '>= 2.3.1'
   gem 'spring', '~> 4.0.0'
   gem 'table_print', '~>1.5.7'

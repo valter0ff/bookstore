@@ -9,8 +9,13 @@ Rails.application.routes.draw do
              controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
                             registrations: 'users/registrations' }
   root 'home_pages#index'
-  resources :books, only: %i[index show]
+  resources :books, only: %i[index show] do
+    resources :reviews, only: %i[create]
+  end
   scope '/settings' do
     resources :addresses, only: %i[new create update]
+  end
+  %w[404 422 500].each do |code|
+    match "/#{code}", to: 'errors#show', code: code, via: :all
   end
 end
