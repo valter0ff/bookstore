@@ -3,7 +3,7 @@
 class ReviewsController < ClientController
   def create
     @book = Book.find(params[:book_id]).decorate
-    @review = @book.reviews.new(review_params)
+    @review = @book.reviews.build(review_params)
     if @review.save
       redirect_to book_path(@book), notice: I18n.t('reviews.create.success')
     else

@@ -14,11 +14,11 @@ RSpec.describe ReviewsController, type: :controller do
     context 'when review create successfull' do
       let(:redirect_status) { 302 }
       let(:review_params) { attributes_for(:review) }
-      let(:message) { I18n.t('reviews.create.success') }
+      let(:success_message) { I18n.t('reviews.create.success') }
 
       it { is_expected.to respond_with(redirect_status) }
       it { is_expected.to redirect_to(book_path(book)) }
-      it { is_expected.to set_flash[:notice].to(message) }
+      it { is_expected.to set_flash[:notice].to(success_message) }
 
       it 'assigns book and review variables to corresponding objects' do
         expect(assigns(:book)).to eq(book)
