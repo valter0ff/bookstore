@@ -15,19 +15,19 @@ AllCops:
 RSpec/DescribeClass:
   Exclude:
     - 'spec/features/**/*'
-    
+
 RSpec/MessageSpies:
   EnforcedStyle: receive
-    
+
 RSpec/MultipleMemoizedHelpers:
   Max: 10
-  
+
 RSpec/MultipleExpectations:
   Max: 15
-  
+
 RSpec/ExampleLength:
   Max: 15
-  
+
 RSpec/NestedGroups:
   Max: 4
 
@@ -41,12 +41,15 @@ Style/Documentation:
 Rails/FilePath:
   Enabled: false
 
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
 Layout/LineLength:
   Max: 120
   Exclude:
     - 'config/initializers/devise.rb'
     - 'config/initializers/simple_form.rb'
-  
+
 Lint/MissingSuper:
   Enabled: false
 

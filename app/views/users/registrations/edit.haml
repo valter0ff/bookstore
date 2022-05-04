@@ -13,7 +13,6 @@
             = f.full_error :email, class: 'text-danger'
           .general-text-align
             = f.submit t('.save'), class: 'btn btn-default mb-35 save-btn'
-
         %p.in-gold-500.font-18.mb-25= t('.avatar')
         = form_for(resource, as: resource_name, url: registration_path(resource_name), method: :put,
                     html: { class: 'general-form-md pictures-form' }) do |f|
@@ -27,7 +26,6 @@
               = p.label :destroy, class: 'control-label input-label destroy-label'
           .general-text-align
             = f.submit t('.save'), class: 'btn btn-default mb-35 save-btn'
-            =console
       .col-sm-5.col-sm-offset-1
         %p.in-gold-500.font-18.mb-25= t('.password')
         = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), method: :put,

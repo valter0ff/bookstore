@@ -65,7 +65,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     context 'when password update failed' do
       let(:params) { { current_password: password, password: new_password, password_confirmation: new_password } }
       let(:errors_path) { %w[activerecord errors models user_account attributes] }
-      let(:new_password) { FFaker::Lorem.word }
+      let(:new_password) { "#{FFaker::Lorem.word}xxxxxx" }
 
       shared_examples 'update not successful' do |attribute|
         it 'not updates user password' do
