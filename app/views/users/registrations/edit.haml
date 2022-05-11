@@ -20,7 +20,7 @@
             = f.fields_for :picture_attributes do |p|
               .mb-15= p.file_field :image
               - if f.object.picture
-                = image_tag(f.object.picture.image_url, size: '100')
+                = image_tag(f.object.picture.image_url(:medium))
             = f.fields_for :picture do |p|
               = p.check_box :_destroy
               = p.label :destroy, class: 'control-label input-label destroy-label'

@@ -26,8 +26,8 @@ class ReviewDecorator < ApplicationDecorator
   end
 
   def user_avatar
-    return unless user_account.try(:avatar)
+    return unless user_account.try(:picture)
 
-    image_tag(user_account.avatar, class: 'img-circle logo-size inlide-block pull-left')
+    image_tag(user_account.picture.image_url(:small), class: 'img-circle logo-size inlide-block pull-left')
   end
 end

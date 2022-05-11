@@ -11,7 +11,7 @@ ActiveAdmin.register UserAccount do
     selectable_column
     id_column
     column I18n.t('user_accounts.admin.avatar') do |user_account|
-      image_tag user_account.picture.image_url, size: '100' if user_account.picture
+      image_tag user_account.picture.image_url(:small) if user_account.picture
     end
     column :email
     column I18n.t('user_accounts.admin.full_name'), &:full_name
@@ -29,7 +29,7 @@ ActiveAdmin.register UserAccount do
   show do
     attributes_table do
       row I18n.t('user_accounts.admin.avatar') do
-        image_tag(user_account.picture.image_url, size: '100') if user_account.picture
+        image_tag(user_account.picture.image_url(:medium)) if user_account.picture
       end
       row :email
       row :remember_created_at
@@ -69,7 +69,7 @@ ActiveAdmin.register UserAccount do
       f.inputs I18n.t('user_accounts.admin.avatar'),
                for: [:picture, f.object.picture || Picture.new],
                allow_destroy: true do |p|
-        p.input :image, as: :file, hint: ((image_tag p.object.image_url, size: '100') if p.object.image)
+        p.input :image, as: :file, hint: ((image_tag p.object.image_url(:medium)) if p.object.image)
         p.input :_destroy, as: :boolean
       end
     end

@@ -26,7 +26,7 @@ class BooksController < ClientController
 
   def set_reviews
     @reviews = @book.reviews
-                    .includes(user_account: %i[billing_address shipping_address])
+                    .includes(user_account: %i[billing_address shipping_address picture])
                     .order(:created_at)
                     .approved
                     .decorate

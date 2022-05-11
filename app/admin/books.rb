@@ -11,7 +11,7 @@ ActiveAdmin.register Book do
 
   index do
     selectable_column
-    column(:pictures) { |book| book.pictures.map { |pic| image_tag pic.image_url, size: '100' } }
+    column(:pictures) { |book| book.pictures.map { |pic| image_tag pic.image_url(:small) } }
     column :category, sortable: 'categories.title'
     column :title
     column :authors, &:clickable_authors
@@ -27,7 +27,7 @@ ActiveAdmin.register Book do
       row :pictures do
         div style: 'display: flex' do
           book.pictures.each do |picture|
-            div { image_tag picture.image_url, size: '200' }
+            div { image_tag picture.image_url(:medium) }
           end
         end
       end
@@ -52,7 +52,7 @@ ActiveAdmin.register Book do
     end
     f.inputs I18n.t('books.admin.pictures') do
       f.has_many :pictures, allow_destroy: true do |p|
-        p.input :image, as: :file, hint: ((image_tag p.object.image_url, size: '100') if p.object.image)
+        p.input :image, as: :file, hint: ((image_tag p.object.image_url(:medium)) if p.object.image)
       end
     end
     f.actions

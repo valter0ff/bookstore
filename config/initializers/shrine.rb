@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'shrine'
+require 'image_processing/mini_magick'
 
 case Rails.env
 when 'development'
@@ -21,7 +22,7 @@ else
   require 'shrine/storage/s3'
 
   s3_options = {
-    bucket: Rails.application.credentials.bucket[:name],
+    bucket: Rails.application.credentials.aws[:bucket],
     region: Rails.application.credentials.aws[:region],
     access_key_id: Rails.application.credentials.aws[:access_key_id],
     secret_access_key: Rails.application.credentials.aws[:secret_access_key]
@@ -32,9 +33,3 @@ else
     store: Shrine::Storage::S3.new(prefix: 'uploads', **s3_options)
   }
 end
-
-Shrine.plugin :activerecord
-Shrine.plugin :cached_attachment_data # for retaining the cached file across form redisplays
-Shrine.plugin :restore_cached_data # re-extract metadata when attaching a cached file
-Shrine.plugin :validation
-Shrine.plugin :validation_helpers
