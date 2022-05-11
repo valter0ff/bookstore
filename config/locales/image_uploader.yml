@@ -1,0 +1,6 @@
+en:
+  file:
+    wrong_extension: "File have a wrong extension! Allowed only: ${list}"
+    size_exceeded: "Size of file is exceeded. Maximum size id ${size} megabytes"
+    wrong_mime_type: "File have a wrong mimr type! Allowed only: ${list}"
+

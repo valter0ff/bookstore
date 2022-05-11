@@ -7,6 +7,7 @@ ruby File.read(File.expand_path('.ruby-version', __dir__)).strip
 
 gem 'activeadmin', '~> 2.9'
 gem 'activeadmin_addons', '~> 1.9.0'
+gem 'aws-sdk-s3', '~> 1.114.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'country_select', '~> 7.0.0'
 gem 'devise', '~> 4.8.0'
