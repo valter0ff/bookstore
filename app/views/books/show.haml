@@ -6,15 +6,15 @@
     .col-sm-6
       .product-gallery
         .mb-20
-          = image_tag @book.main_image_content, class: 'img-responsive main-image'
+          = image_tag @book.main_image, class: 'img-responsive main-image'
         .images.clearfix
-          - @book.pictures.first(3).each do |picture|
+          - @book.pictures.each do |picture|
             = link_to '#', class: 'img-link preview img-thumbnail' do
               = image_tag picture.image_url
           - if @book.pictures.blank?
-            - 3.times do
+            - Constants::Book::BOOK_IMAGES_PLACEHOLDER.each do |image_url|
               = link_to '#', class: 'img-link preview img-thumbnail' do
-                = image_tag Constants::Book::STUBBED_IMAGE_2
+                = image_tag image_url
     .col-sm-6.book-info
       %h1.mt-res-0.book-title= @book.title
       %p.lead.small.book-authors

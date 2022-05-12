@@ -16,12 +16,12 @@ class ReviewDecorator < ApplicationDecorator
   end
 
   def author_image
-    user_avatar || stubbed_avatar
+    user_avatar || avatar_placeholder
   end
 
   private
 
-  def stubbed_avatar
+  def avatar_placeholder
     content_tag(:p, author[0].capitalize, class: 'img-circle logo-size inlide-block pull-left logo-empty')
   end
 

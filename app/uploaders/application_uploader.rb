@@ -10,4 +10,5 @@ class ApplicationUploader < Shrine
   plugin :pretty_location
   plugin :metadata_attributes
   plugin :determine_mime_type
+  plugin :remove_invalid
 end
