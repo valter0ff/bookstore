@@ -38,6 +38,14 @@ module Pages
           element :confirmation_checkbox, '.form-group.checkbox'
         end
 
+        section :upload_image_form, '.pictures-form' do
+          element :file_upload_input, 'input#user_picture_attributes_image'
+          element :avatar_preview, '.avatar-preview'
+          element :destroy_checkbox, 'input#user_picture_attributes__destroy'
+          elements :error_message, '.error.text-danger'
+          element :submit_btn, 'input.save-btn'
+        end
+
         def fill_and_submit_email_form(email)
           email_form.email_input.set(email)
           email_form.submit_btn.click
@@ -53,6 +61,16 @@ module Pages
         def remove_account
           remove_account_form.confirmation_checkbox.click
           remove_account_form.remove_account_button.click
+        end
+
+        def upload_avatar(file_path)
+          upload_image_form.file_upload_input.attach_file(file_path)
+          upload_image_form.submit_btn.click
+        end
+
+        def delete_avatar
+          upload_image_form.destroy_checkbox.click
+          upload_image_form.submit_btn.click
         end
       end
     end
