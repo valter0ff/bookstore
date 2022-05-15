@@ -12,6 +12,8 @@ RSpec.describe Book do
     it { is_expected.to have_many(:book_materials).dependent(:destroy) }
     it { is_expected.to have_many(:materials).through(:book_materials) }
     it { is_expected.to have_many(:reviews).dependent(:destroy) }
+    it { is_expected.to have_many(:pictures).dependent(:destroy) }
+    it { is_expected.to accept_nested_attributes_for(:pictures).allow_destroy(true) }
   end
 
   describe 'ActiveModel validations' do
