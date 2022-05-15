@@ -124,4 +124,70 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       end
     end
   end
+
+  describe 'update picture' do
+    let(:params) { { picture_attributes: { image: Rack::Test::UploadedFile.new(*file_params) } } }
+    let(:file_params) { ["spec/fixtures/images/#{file_name}", mime_type] }
+
+    context 'when upload image successfull' do
+      let(:file_name) { 'test.jpg' }
+      let(:mime_type) { 'image/jpeg' }
+      let(:redirect_status) { 302 }
+
+      it 'updates user avatar', skip_request: true do
+        expect { make_request }.to change { user.reload.picture.class }.from(NilClass).to(Picture)
+      end
+
+      it 'updates `Picture` model count', skip_request: true do
+        expect { make_request }.to change(Picture, :count).by(1)
+      end
+
+      it 'updates user avatar image file' do
+        expect(user.reload.picture.image.original_filename).to eq(file_name)
+        expect(user.reload.picture.image.mime_type).to eq(mime_type)
+      end
+
+      it { is_expected.to respond_with(redirect_status) }
+      it { is_expected.to set_flash[:notice].to(I18n.t('devise.registrations.updated')) }
+    end
+
+    context 'when upload gif image' do
+      let(:file_name) { 'jim-carrey-head-bob.gif' }
+      let(:mime_type) { 'image/gif' }
+      let(:error_message_ext) do
+        I18n.t('file.wrong_extension',
+               list: Constants::Images::IMAGE_EXTENSIONS.join(', ').upcase)
+      end
+      let(:error_message_mime) do
+        I18n.t('file.wrong_mime_type',
+               list: Constants::Images::IMAGE_MIME_TYPES.join(', ').upcase)
+      end
+
+      it 'not updates `Picture` model count', skip_request: true do
+        expect { make_request }.not_to change(Picture, :count)
+      end
+
+      it 'returns image validation errors' do
+        expect(assigns(:user).errors[:'picture.image'].first).to match(error_message_ext)
+        expect(assigns(:user).errors[:'picture.image'].last).to match(error_message_mime)
+      end
+    end
+
+    context 'when upload to big image' do
+      let(:file_name) { 'tardis-windows-10.jpg' }
+      let(:mime_type) { 'image/jpeg' }
+      let(:error_message_size) do
+        I18n.t('file.size_exceeded',
+               size: ImageUploader::IMAGE_MAX_MB_SIZE)
+      end
+
+      it 'not updates `Picture` model count', skip_request: true do
+        expect { make_request }.not_to change(Picture, :count)
+      end
+
+      it 'returns image validation error' do
+        expect(assigns(:user).errors[:'picture.image'].first).to match(error_message_size)
+      end
+    end
+  end
 end
