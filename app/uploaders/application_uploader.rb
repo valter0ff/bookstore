@@ -3,8 +3,8 @@
 class ApplicationUploader < Shrine
   plugin :derivatives, create_on_promote: true, versions_compatibility: true
   plugin :activerecord
-  plugin :cached_attachment_data # for retaining the cached file across form redisplays
-  plugin :restore_cached_data # re-extract metadata when attaching a cached file
+  plugin :cached_attachment_data
+  plugin :restore_cached_data
   plugin :validation
   plugin :validation_helpers
   plugin :pretty_location
