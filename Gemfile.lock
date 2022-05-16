@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (5.2.0)
+      concurrent-ruby (~> 1.0)
     actioncable (6.1.5.1)
       actionpack (= 6.1.5.1)
       activesupport (= 6.1.5.1)
@@ -83,6 +85,9 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    after_commit_everywhere (1.2.0)
+      activerecord (>= 4.2)
+      activesupport
     apparition (0.6.0)
       capybara (~> 3.13, < 4)
       websocket-driver (>= 0.6.5)
@@ -552,8 +557,10 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  aasm
   activeadmin (~> 2.9)
   activeadmin_addons (~> 1.9.0)
+  after_commit_everywhere (~> 1.0)
   apparition (~> 0.6.0)
   awesome_print (~> 1.9.2)
   aws-sdk-s3 (~> 1.114.0)

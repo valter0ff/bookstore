@@ -5,8 +5,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby File.read(File.expand_path('.ruby-version', __dir__)).strip
 
+gem 'aasm'
 gem 'activeadmin', '~> 2.9'
 gem 'activeadmin_addons', '~> 1.9.0'
+gem 'after_commit_everywhere', '~> 1.0'
 gem 'aws-sdk-s3', '~> 1.114.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'country_select', '~> 7.0.0'
