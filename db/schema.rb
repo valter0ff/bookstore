@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_15_211645) do
+ActiveRecord::Schema.define(version: 2022_05_16_075109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,18 @@ ActiveRecord::Schema.define(version: 2022_05_15_211645) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_account_id", null: false
+    t.bigint "coupon_id", null: false
+    t.datetime "delivered_at", precision: 6
+    t.datetime "in_delivery_at", precision: 6
+    t.integer "step"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["coupon_id"], name: "index_orders_on_coupon_id"
+    t.index ["user_account_id"], name: "index_orders_on_user_account_id"
+  end
+
   create_table "pictures", force: :cascade do |t|
     t.string "imageable_type", null: false
     t.bigint "imageable_id", null: false
@@ -164,6 +176,8 @@ ActiveRecord::Schema.define(version: 2022_05_15_211645) do
   add_foreign_key "book_materials", "books"
   add_foreign_key "book_materials", "materials"
   add_foreign_key "books", "categories"
+  add_foreign_key "orders", "coupons"
+  add_foreign_key "orders", "user_accounts"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "user_accounts"
 end
