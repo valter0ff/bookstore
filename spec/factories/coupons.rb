@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :coupon do
-    code { "MyString" }
-    discount { 1 }
-    status { 1 }
+    code { SecureRandom.uuid }
+    discount { rand(10...20) }
+    status { 0 }
   end
 end

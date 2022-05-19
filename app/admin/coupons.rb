@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Coupon do
-  permit_params :code, :discount, :state
+  permit_params :code, :discount, :status
 
-#   actions :all, except: %i[new create]
-
+  scope :all, default: true
   scope :active
   scope :used
 
@@ -12,12 +11,13 @@ ActiveAdmin.register Coupon do
     selectable_column
     column :code
     column :discount
-    tag_column :state
-    actions
+    tag_column :status
+    actions defaults: true do |coupon|
+      if coupon.active?
+        link_to I18n.t('coupons.admin.deactivate'), deactivate_admin_coupon_path(coupon), method: :put
+      end
+    end
   end
-
-  preserve_default_filters!
-  filter :book_id, label: I18n.t('reviews.admin.book_id')
 
   member_action :deactivate, method: :put do
     resource.used!
@@ -25,15 +25,7 @@ ActiveAdmin.register Coupon do
   end
 
   action_item :deactivate, only: :show do
-    link_to I18n.t('coupons.admin.deactivate'), deactivate_admin_coupon_path(review), method: :put
-  end
-
-  batch_action :destroy, confirm: I18n.t('active_admin.delete_confirmation') do |ids|
-    Coupon.where(id: ids).destroy_all
-    redirect_to admin_coupons_path, notice: I18n.t('active_admin.batch_actions.succesfully_destroyed',
-                                                   count: ids.count,
-                                                   model: resource_class.to_s.downcase,
-                                                   plural_model: resource_class.to_s.pluralize.titleize.downcase)
+    link_to I18n.t('coupons.admin.deactivate'), deactivate_admin_coupon_path(coupon), method: :put
   end
 
   batch_action :deactivate do |ids|
