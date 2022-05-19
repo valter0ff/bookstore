@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   root 'home_pages#index'
   resources :books, only: %i[index show] do
     resources :reviews, only: %i[create]
+    resources :cart_items, only: %i[create]
+  end
+  resources :orders do
+    resources :cart_items, only: %i[:show, :edit, :update, :destroy]
   end
   scope '/settings' do
     resources :addresses, only: %i[new create update]
