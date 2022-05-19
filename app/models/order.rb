@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
+  include AASM
+
   STATES = {
     in_progress: 0,
     in_queue: 1,
@@ -12,16 +14,13 @@ class Order < ApplicationRecord
   belongs_to :user_account, optional: true
   belongs_to :coupon, optional: true
 
-  has_many :order_items
+  has_many :cart_items, dependent: :destroy
 
   enum state: STATES
 
   aasm column: :state, enum: true, timestamps: true do
     state :in_progress, initial: true
-    state :in_queue
-    state :in_delivery
-    state :delivered
-    state :canceled
+    state :in_queue, :in_delivery, :delivered, :canceled
 
     event :get_payed do
       transitions from: :in_progress, to: :in_queue
@@ -32,10 +31,6 @@ class Order < ApplicationRecord
     end
 
     event :complete do
-      after do
-        self.completed_date = Time.now
-      end
-
       transitions from: :in_delivery, to: :delivered, if: :in_delivery?
     end
 

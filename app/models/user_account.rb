@@ -16,6 +16,7 @@ class UserAccount < ApplicationRecord
   has_one :billing_address, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_one :picture, as: :imageable, dependent: :destroy
+  has_many :orders
 
   after_create :send_welcome_email
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_16_075109) do
+ActiveRecord::Schema.define(version: 2022_05_18_171316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,16 @@ ActiveRecord::Schema.define(version: 2022_05_16_075109) do
     t.index ["title"], name: "index_books_on_title"
   end
 
+  create_table "cart_items", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "book_id", null: false
+    t.integer "books_count", default: 1
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_cart_items_on_book_id"
+    t.index ["order_id"], name: "index_cart_items_on_order_id"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
@@ -122,13 +132,14 @@ ActiveRecord::Schema.define(version: 2022_05_16_075109) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.bigint "user_account_id", null: false
-    t.bigint "coupon_id", null: false
+    t.bigint "user_account_id"
+    t.bigint "coupon_id"
     t.datetime "delivered_at", precision: 6
     t.datetime "in_delivery_at", precision: 6
-    t.integer "step"
+    t.integer "state", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "number"
     t.index ["coupon_id"], name: "index_orders_on_coupon_id"
     t.index ["user_account_id"], name: "index_orders_on_user_account_id"
   end
@@ -176,6 +187,8 @@ ActiveRecord::Schema.define(version: 2022_05_16_075109) do
   add_foreign_key "book_materials", "books"
   add_foreign_key "book_materials", "materials"
   add_foreign_key "books", "categories"
+  add_foreign_key "cart_items", "books"
+  add_foreign_key "cart_items", "orders"
   add_foreign_key "orders", "coupons"
   add_foreign_key "orders", "user_accounts"
   add_foreign_key "reviews", "books"

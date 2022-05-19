@@ -2,7 +2,10 @@
 
 class ClientController < ApplicationController
   include Pagy::Backend
+  include CurrentOrder
+
   before_action :set_all_categories
+  before_action :set_order
 
   private
 

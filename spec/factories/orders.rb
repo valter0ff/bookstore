@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :order do
-    user_account { nil }
-    coupon { nil }
-    step { 1 }
+    user_account
+    coupon
+    state { 0 }
   end
 end
