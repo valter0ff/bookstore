@@ -2,7 +2,6 @@
 
 class ClientController < ApplicationController
   include Pagy::Backend
-  include CurrentOrder
 
   before_action :set_all_categories
   before_action :set_order
@@ -11,5 +10,9 @@ class ClientController < ApplicationController
 
   def set_all_categories
     @categories = Category.all
+  end
+
+  def set_order
+    @order = Orders::SetOrderService.call(current_user, session)
   end
 end
