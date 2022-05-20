@@ -6,9 +6,9 @@ class Coupon < ApplicationRecord
   attribute :code, default: -> { SecureRandom.uuid }
   attribute :discount, default: Constants::Checkout::DEFAULT_DISCOUNT
 
-  has_many :orders
+  has_many :orders, dependent: nil
 
   enum status: STATUSES
 
-  validates_uniqueness_of :code
+  validates :code, uniqueness: true
 end

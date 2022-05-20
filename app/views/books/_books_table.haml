@@ -7,7 +7,9 @@
           .general-thumb-link-wrap
             = link_to book, class: 'thumb-hover-link show-link' do
               %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-            = link_to "#", class: 'thumb-hover-link buy-link' do
+            = link_to book_cart_items_path(book_id: book.id, cart_item: { books_count: 1 }),
+                class: 'thumb-hover-link buy-link',
+                method: :post do
               %i.fa.fa-shopping-cart.thumb-icon
     .general-thumb-info
       %p= t('.rating', value: book.average_rating)

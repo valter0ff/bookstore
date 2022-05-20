@@ -2,7 +2,6 @@
 
 module CartItems
   class SetCartItemService < ApplicationService
-
     def initialize(order, book, cart_item_params)
       @order = order
       @book = book
@@ -37,4 +36,3 @@ module CartItems
     end
   end
 end
-

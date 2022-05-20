@@ -2,7 +2,6 @@
 
 module Orders
   class SetOrderService < ApplicationService
-
     def initialize(user, session)
       @current_user = user
       @session = session
@@ -24,9 +23,9 @@ module Orders
       return unless @session[:order_id]
 
       books_hash = Order.where(id: [@order.id, @session[:order_id]])
-                    .joins(:cart_items)
-                    .group(:book_id)
-                    .sum(:books_count)
+                        .joins(:cart_items)
+                        .group(:book_id)
+                        .sum(:books_count)
       books_hash.each do |book_id, books_count|
         @order.cart_items.find_or_create_by(book_id: book_id).update(books_count: books_count)
       end

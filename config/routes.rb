@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :cart_items, only: %i[create]
   end
   resources :orders do
-    resources :cart_items, only: %i[:show, :edit, :update, :destroy]
+    resources :cart_items, only: %i[show edit update destroy]
   end
   scope '/settings' do
     resources :addresses, only: %i[new create update]
