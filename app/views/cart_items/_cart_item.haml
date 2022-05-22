@@ -1,0 +1,27 @@
+%tr{class: "#{dom_id(cart_item)}"}
+  %td
+    .general-img-wrap-table
+      = link_to image_tag(cart_item.book.decorate.cover_image,
+        class: 'cart-img-shadow pull-left',
+        alt: 'design-book'), cart_item.book
+  %td
+    %p.title= link_to cart_item.book.title, cart_item.book
+  %td
+    %span.font-16.in-gold-500= cart_item.book.decorate.price_with_currency
+  %td
+    .input-group
+      = link_to '#', class: 'input-link' do
+        %i.fa.fa-minus.line-height-40
+      %input.form-control.quantity-input{type: "text", value: "#{cart_item.books_count}"}
+      = link_to '#', class: 'input-link' do
+        %i.fa.fa-plus.line-height-40
+  %td
+    %span.font-16.in-gold-500= number_with_currency(cart_item.books_count * cart_item.book.price)
+  %td
+    = link_to cart_item_path(cart_item),
+      method: :delete,
+      class: 'close general-cart-close',
+      'aria-label': 'Close',
+      remote: true,
+      data: { confirm: "Are you sure?" } do
+      %span{'aria-hidden': "true"} &times;

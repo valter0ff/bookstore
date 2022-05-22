@@ -1,0 +1,17 @@
+en:
+  carts:
+    show:
+      cart_title: Cart
+      product: Product
+      price: Price
+      quantity: Quantity
+      subTotal: SubTotal
+      enter_coupon: Enter Your Coupon Code
+      apply_coupon: Apply Coupon
+      order_summary: Order Summary
+      coupon: "Coupon:"
+      no_coupon: ---
+      order_total: "Order Total:"
+      checkout: Checkout
+      coupon_applied: Coupon has been applied
+      coupon_rejected: Coupon is already used or doesn`t exists

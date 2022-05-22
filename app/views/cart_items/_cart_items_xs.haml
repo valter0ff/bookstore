@@ -1,0 +1,36 @@
+- cart_items.each do |cart_item|
+  .general-cart-item.divider-lg-bottom.mb-30{class: "#{dom_id(cart_item)}"}
+    .ddt
+      = link_to cart_item_path(cart_item),
+        method: :delete,
+        class: 'close general-cart-close',
+        'aria-label': 'Close',
+        remote: true,
+        data: { confirm: "Are you sure?" } do
+        %span{'aria-hidden': "true"} &times;
+    .general-img-wrap-table
+      = link_to image_tag(cart_item.book.decorate.cover_image,
+        class: 'cart-img-shadow',
+        alt: 'design-book'), cart_item.book
+    %p.title= link_to cart_item.book.title, cart_item.book
+    %table.table
+      %tr
+        %td
+          %span.in-grey-600= t('.price')
+        %td
+          %span.font-16.in-gold-500= cart_item.book.decorate.price_with_currency
+      %tr
+        %td.vertical-middle
+          %span.in-grey-600= t('.quantity')
+        %td
+          .input-group
+            = link_to '#', class: 'input-link' do
+              %i.fa.fa-minus.line-height-40
+            %input.form-control.quantity-input{type: "text", value: "#{cart_item.books_count}"}
+            = link_to '#', class: 'input-link' do
+              %i.fa.fa-plus.line-height-40
+      %tr
+        %td
+          %span.in-grey-600= t('.subTotal')
+        %td
+          %span.font-16.in-gold-500= number_with_currency(cart_item.books_count * cart_item.book.price)

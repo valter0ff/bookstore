@@ -1,0 +1,51 @@
+%main.container.general-main-wrap
+  %h1.general-title-margin= t('.cart_title')
+  .visible-xs
+    = render 'cart_items/cart_items_xs', cart_items: @cart_items
+  .hidden-xs
+    %table.table.table-hover
+      %tr.no-hover
+        %th.col-pic.pl-0
+          %span.in-grey-600= t('.product')
+        %th.col-title
+        %th.col-price
+          %span.in-grey-600= t('.price')
+        %th.col-quantity
+          %span.in-grey-600= t('.quantity')
+        %th.col-total
+          %span.in-grey-600= t('.subTotal')
+        %th.col-close
+      = render @cart_items
+
+  .general-order-wrap
+    .row
+      .col-sm-4
+        .input-group.general-input-group
+          = simple_form_for(@order, url: cart_path, method: :put) do |f|
+            = f.simple_fields_for :coupon do |c|
+              = c.label :code, t('.enter_coupon'), class: 'input-label'
+              = c.input_field :code, class: 'form-control mb-30', placeholder: @order.coupon.code || t('.enter_coupon')
+            %div
+              = f.submit t('.apply_coupon'), class: 'btn btn-primary mr-5 mb-15'
+      .col-sm-8
+        .res-mr-200.text-center.general-text-right
+          %p.in-gold-500.font-18= t('.order_summary')
+          %table.general-summary-table.general-summary-table-right.general-text-right
+            %tr
+              %td
+                %p.font-16= t('.subTotal')+':'
+              %td
+                %p.font-16 €117.69
+            %tr
+              %td
+                %p.font-16= t('.coupon')
+              %td
+                %p.font-16= number_with_currency(@order.coupon.try(:discount)) || t('.no_coupon')
+            %tr
+              %td
+                %strong.font-18= t('.order_total')
+              %td
+                %strong.font-18 €117.69
+          %button.btn.btn-default.mb-20.visible-xs-inline-block= t('.checkout')
+  %button.btn.btn-default.mb-20.hidden-xs.center-block.show= t('.checkout')
+= javascript_pack_tag 'book_page/quantity_changer'
