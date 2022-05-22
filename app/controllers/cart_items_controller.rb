@@ -6,10 +6,16 @@ class CartItemsController < ClientController
 
   def create
     if @cart_item.save
-      redirect_to book_path(@book), notice: I18n.t('orders.book_added')
+      redirect_to request.referrer, notice: I18n.t('orders.book_added')
     else
-      redirect_to book_path(@book), alert: @cart_item.errors.full_messages.first
+      redirect_to request.referrer, alert: @cart_item.errors.full_messages.first
     end
+  end
+
+  def destroy
+    @item = CartItem.find(params[:id])
+    @item.destroy
+    respond_to :js
   end
 
   private

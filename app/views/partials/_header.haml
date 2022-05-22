@@ -7,10 +7,10 @@
         %span.icon-bar
         %span.icon-bar
       %a.navbar-brand= t('.site_title')
-      %a.shop-link.pull-right.visible-xs{href: "#"}
+      = link_to cart_path, class: 'shop-link pull-right visible-xs' do
         %span.shop-icon
           %span.shop-quantity= @order.cart_items.sum(&:books_count)
-    %a.shop-link.pull-right.hidden-xs{href: "#"}
+    = link_to cart_path, class: 'shop-link pull-right hidden-xs' do
       %span.shop-icon
         %span.shop-quantity= @order.cart_items.sum(&:books_count)
     #navbar.navbar-collapse.collapse.pl-30{'aria-expanded': "false"}

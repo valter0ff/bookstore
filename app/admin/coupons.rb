@@ -9,6 +9,7 @@ ActiveAdmin.register Coupon do
 
   index do
     selectable_column
+    column :id
     column :code
     column :discount
     tag_column :status
