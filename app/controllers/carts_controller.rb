@@ -4,7 +4,7 @@ class CartsController < ClientController
   before_action :find_coupon, only: :update
 
   def show
-    @cart_items = @order.cart_items.includes(book: :pictures)
+    @cart_items = @order.cart_items.includes(book: :pictures).decorate
   end
 
   def update
