@@ -33,19 +33,20 @@
           %table.general-summary-table.general-summary-table-right.general-text-right
             %tr
               %td
-                %p.font-16= t('.subTotal')+':'
+                %p.font-16= t('.sub_total')+':'
               %td
-                %p.font-16 €117.69
+                %p.font-16.order_subtotal= number_with_currency(@order.decorate.subtotal_price)
             %tr
               %td
                 %p.font-16= t('.coupon')
               %td
-                %p.font-16= number_with_currency(@order.coupon.try(:discount)) || t('.no_coupon')
+                %p.font-16.discount= number_with_currency(@order.decorate.discount) || t('.no_coupon')
             %tr
               %td
                 %strong.font-18= t('.order_total')
               %td
-                %strong.font-18 €117.69
+                %strong.font-18.order_total= number_with_currency(@order.decorate.total_price)
           %button.btn.btn-default.mb-20.visible-xs-inline-block= t('.checkout')
   %button.btn.btn-default.mb-20.hidden-xs.center-block.show= t('.checkout')
 = javascript_pack_tag 'book_page/quantity_changer'
+= javascript_pack_tag 'cart/order_summary'

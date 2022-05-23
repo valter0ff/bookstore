@@ -3,6 +3,6 @@
 module Constants
   module Shared
     CURRENCY = '€'
-    CURRENCY_FORMAT = '%u %n'
+    CURRENCY_FORMAT = '%u%n'
   end
 end

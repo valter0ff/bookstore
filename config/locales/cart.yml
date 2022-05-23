@@ -5,7 +5,7 @@ en:
       product: Product
       price: Price
       quantity: Quantity
-      subTotal: SubTotal
+      sub_total: SubTotal
       enter_coupon: Enter Your Coupon Code
       apply_coupon: Apply Coupon
       order_summary: Order Summary
