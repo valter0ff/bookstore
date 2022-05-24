@@ -1,0 +1,6 @@
+let cart_item_block = $('.<%=dom_id(@cart_item)%>');
+cart_item_block.find('input.quantity-input').val('<%=@cart_item.books_count%>');
+cart_item_block.find('.subtotal').text('<%=@cart_item.subtotal_price%>');
+$('.shop-quantity').each(function(){
+  $(this).text('<%=@order.cart_items.sum(&:books_count)%>');
+});
