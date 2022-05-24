@@ -24,7 +24,7 @@
           = simple_form_for(@order, url: cart_path, method: :put) do |f|
             = f.simple_fields_for :coupon do |c|
               = c.label :code, t('.enter_coupon'), class: 'input-label'
-              = c.input_field :code, class: 'form-control mb-30', placeholder: @order.coupon.code || t('.enter_coupon')
+              = c.input_field :code, class: 'form-control mb-30', placeholder: @order.coupon.try(:code) || t('.enter_coupon')
             %div
               = f.submit t('.apply_coupon'), class: 'btn btn-primary mr-5 mb-15'
       .col-sm-8
@@ -35,18 +35,17 @@
               %td
                 %p.font-16= t('.sub_total')+':'
               %td
-                %p.font-16.order_subtotal= number_with_currency(@order.subtotal_price)
+                %p.font-16.order_subtotal= @order.subtotal_price
             %tr
               %td
                 %p.font-16= t('.coupon')
               %td
-                %p.font-16.discount= number_with_currency(@order.discount) || t('.no_coupon')
+                %p.font-16.discount= @order.discount || t('.no_coupon')
             %tr
               %td
                 %strong.font-18= t('.order_total')
               %td
-                %strong.font-18.order_total= number_with_currency(@order.total_price)
+                %strong.font-18.order_total= @order.total_price
           %button.btn.btn-default.mb-20.visible-xs-inline-block= t('.checkout')
   %button.btn.btn-default.mb-20.hidden-xs.center-block.show= t('.checkout')
-= javascript_pack_tag 'book_page/quantity_changer'
 = javascript_pack_tag 'cart/order_summary'

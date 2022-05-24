@@ -22,7 +22,7 @@
       .row
         .col-xs-12.col-md-4
           %p.h1.price.in-gold-500.mt-10= @book.price_with_currency
-        = simple_form_for [@book, @cart_item || CartItem.new] do |f|
+        = simple_form_for [@book, CartItem.new] do |f|
           .col-xs-5.col-md-3
             .input-group.general-position
               = link_to '#', class: 'input-link' do

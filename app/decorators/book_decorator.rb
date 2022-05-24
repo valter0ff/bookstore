@@ -4,6 +4,10 @@ class BookDecorator < ApplicationDecorator
   delegate_all
   decorates_association :authors
 
+  def price_with_currency
+    super(price)
+  end
+
   def average_rating
     reviews.average(:rating)
   end

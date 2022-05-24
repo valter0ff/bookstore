@@ -18,4 +18,10 @@ $(document).ready(function(){
   $('.close.general-cart-close').on('ajax:success',function(){
     calculateOrderSummary();
   });
+  $('.fa-plus').on('ajax:success',function(){
+    calculateOrderSummary();
+  });
+    $('.fa-minus').on('ajax:success',function(){
+    calculateOrderSummary();
+  });
 });

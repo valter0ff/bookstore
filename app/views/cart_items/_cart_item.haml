@@ -9,14 +9,24 @@
   %td
     %span.font-16.in-gold-500= cart_item.book.price_with_currency
   %td
-    .input-group
-      = link_to '#', class: 'input-link' do
+    .input-group.show
+      = link_to book_cart_items_path(book_id: cart_item.book.id, cart_item: { books_count: -1 }),
+          class: 'input-link',
+          remote: true,
+          method: :post do
         %i.fa.fa-minus.line-height-40
-      %input.form-control.quantity-input{type: "text", value: "#{cart_item.books_count}"}
-      = link_to '#', class: 'input-link' do
+      = simple_form_for cart_item do |f|
+        = f.input_field :books_count, as: :string,
+          class: 'form-control quantity-input',
+          value: cart_item.books_count,
+          onchange: 'this.form.submit()'
+      = link_to cart_item_path(cart_item, cart_item: { books_count: 1 }),
+          class: 'input-link',
+          remote: true,
+          method: :put do
         %i.fa.fa-plus.line-height-40
   %td
-    %span.font-16.in-gold-500.subtotal= number_with_currency(cart_item.subtotal_price)
+    %span.font-16.in-gold-500.subtotal= cart_item.subtotal_price
   %td
     = link_to cart_item_path(cart_item),
       method: :delete,
