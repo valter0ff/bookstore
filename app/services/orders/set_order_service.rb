@@ -18,7 +18,7 @@ module Orders
     attr_reader :current_user, :session, :session_order, :order
 
     def set_order_for_user
-      @order = current_user.orders.find_by(state: :in_progress)
+      @order = current_user.current_order
       order.present? ? update_order_from_session : build_order
     end
 
@@ -31,9 +31,9 @@ module Orders
 
     def sum_by_book_hash
       Order.where(id: [order.id, session_order.id])
-                        .joins(:cart_items)
-                        .group(:book_id)
-                        .sum(:books_count)
+           .joins(:cart_items)
+           .group(:book_id)
+           .sum(:books_count)
     end
 
     def update_cart_item(book_id, books_count)

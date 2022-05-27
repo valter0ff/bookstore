@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'carts/index'
-  get 'orders/index'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users,
@@ -16,7 +14,11 @@ Rails.application.routes.draw do
     resources :cart_items, only: %i[create]
   end
   resource :cart
-  resources :cart_items, only: %i[show edit update destroy]
+  resources :cart_items, only: %i[show edit update destroy] do
+    member do
+      put :increment_book, :decrement_book
+    end
+  end
   scope '/settings' do
     resources :addresses, only: %i[new create update]
   end

@@ -5,6 +5,7 @@ class ClientController < ApplicationController
 
   before_action :set_all_categories
   before_action :set_order
+  before_action :set_total_books_count
 
   private
 
@@ -14,5 +15,9 @@ class ClientController < ApplicationController
 
   def set_order
     @order = Orders::SetOrderService.call(current_user, session)
+  end
+
+  def set_total_books_count
+    @total_books_count = @order.cart_items.sum(&:books_count)
   end
 end

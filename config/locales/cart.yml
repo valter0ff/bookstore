@@ -9,9 +9,8 @@ en:
       enter_coupon: Enter Your Coupon Code
       apply_coupon: Apply Coupon
       order_summary: Order Summary
-      coupon: "Coupon:"
-      no_coupon: ---
-      order_total: "Order Total:"
+      coupon: 'Coupon:'
+      order_total: 'Order Total:'
       checkout: Checkout
       coupon_applied: Coupon has been applied
       coupon_rejected: Coupon is already used or doesn`t exists
