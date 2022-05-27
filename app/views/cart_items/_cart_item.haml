@@ -10,17 +10,19 @@
     %span.font-16.in-gold-500= cart_item.book.price_with_currency
   %td
     .input-group.show
-      = link_to book_cart_items_path(book_id: cart_item.book.id, cart_item: { books_count: -1 }),
+      = link_to decrement_book_cart_item_path(cart_item),
           class: 'input-link',
           remote: true,
-          method: :post do
+          method: :put do
         %i.fa.fa-minus.line-height-40
-      = simple_form_for cart_item do |f|
+      = simple_form_for cart_item, remote: true, method: :put do |f|
         = f.input_field :books_count, as: :string,
           class: 'form-control quantity-input',
           value: cart_item.books_count,
-          onchange: 'this.form.submit()'
-      = link_to cart_item_path(cart_item, cart_item: { books_count: 1 }),
+          remote: true,
+          format: :js,
+          onchange: 'submit.rails'
+      = link_to increment_book_cart_item_path(cart_item),
           class: 'input-link',
           remote: true,
           method: :put do

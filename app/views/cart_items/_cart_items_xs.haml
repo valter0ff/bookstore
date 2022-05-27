@@ -23,14 +23,26 @@
         %td.vertical-middle
           %span.in-grey-600= t('.quantity')
         %td
-          .input-group
-            = link_to '#', class: 'input-link' do
+          .input-group.show
+            = link_to decrement_book_cart_item_path(cart_item),
+                class: 'input-link',
+                remote: true,
+                method: :put do
               %i.fa.fa-minus.line-height-40
-            %input.form-control.quantity-input{type: "text", value: "#{cart_item.books_count}"}
-            = link_to '#', class: 'input-link' do
+            = simple_form_for cart_item, remote: true, method: :put do |f|
+              = f.input_field :books_count, as: :string,
+                class: 'form-control quantity-input',
+                value: cart_item.books_count,
+                remote: true,
+                format: :js,
+                onchange: 'submit.rails'
+            = link_to increment_book_cart_item_path(cart_item),
+                class: 'input-link',
+                remote: true,
+                method: :put do
               %i.fa.fa-plus.line-height-40
       %tr
         %td
           %span.in-grey-600= t('.subTotal')
         %td
-          %span.font-16.in-gold-500= cart_item.subtotal_price
+          %span.font-16.in-gold-500.subtotal= cart_item.subtotal_price

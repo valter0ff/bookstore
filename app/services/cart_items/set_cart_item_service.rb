@@ -8,8 +8,8 @@ module CartItems
     end
 
     def call
-      find_cart_item
-      set_cart_item
+      set_cart_item_by_id
+      set_cart_item_by_book_id
       cart_item
     end
 
@@ -17,16 +17,14 @@ module CartItems
 
     attr_reader :cart_item, :params, :order
 
-    def find_cart_item
-      @cart_item = order.cart_items.find_by(book_id: params[:book_id]) || CartItem.find_by(id: params[:id])
+    def set_cart_item_by_id
+      @cart_item = order.cart_items.find_by(id: params[:id])
     end
 
-    def set_cart_item
-      create_cart_item unless cart_item.present?
-    end
+    def set_cart_item_by_book_id
+      return if cart_item.present?
 
-    def create_cart_item
-      @cart_item = order.cart_items.build(book_id: params[:book_id])
+      @cart_item = order.cart_items.find_or_initialize_by(book_id: params[:book_id])
     end
   end
 end
