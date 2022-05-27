@@ -21,7 +21,7 @@
     .row
       .col-sm-4
         .input-group.general-input-group
-          = simple_form_for(@order, url: cart_path, method: :put) do |f|
+          = simple_form_for(@order, url: cart_path, method: :put, class: 'coupon_form') do |f|
             = f.simple_fields_for :coupon do |c|
               = c.label :code, t('.enter_coupon'), class: 'input-label'
               = c.input_field :code, class: 'form-control mb-30', placeholder: @order.coupon.try(:code) || t('.enter_coupon')
@@ -40,7 +40,7 @@
               %td
                 %p.font-16= t('.coupon')
               %td
-                %p.font-16.discount= @order.discount || t('.no_coupon')
+                %p.font-16.discount= @order.discount
             %tr
               %td
                 %strong.font-18= t('.order_total')

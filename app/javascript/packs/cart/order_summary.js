@@ -1,27 +1,23 @@
 function calculateOrderSummary() {
-  let currency = $('.order_subtotal:visible').text().match(/\D/)[0];
-  let discount = parseFloat($('.discount:visible').text().match(/[\d\.]+/g));
-  let order_subtotal = 0;
+  let currency, discount, order_subtotal, item_subtotal, order_total;
+  currency = $('.order_subtotal:visible').text().match(/\D/)[0];
+  discount = parseFloat($('.discount:visible').text().match(/[\d\.]+/g));
+  order_subtotal = 0;
 
   $('.subtotal:visible').each(function(){
-    let item_subtotal = parseFloat($(this).text().match(/[\d\.]+/g));
+    item_subtotal = parseFloat($(this).text().match(/[\d\.]+/g));
     order_subtotal += item_subtotal;
   });
 
-  let order_total = order_subtotal - discount;
+  order_total = (order_subtotal <= discount) ? 0 : (order_subtotal - discount);
 
   $('.order_subtotal:visible').text(currency + order_subtotal.toFixed(2));
   $('.order_total:visible').text(currency + order_total.toFixed(2));
 };
 
 $(document).ready(function(){
+  window.calculateOrderSummary = calculateOrderSummary;
   $('.close.general-cart-close').on('ajax:success',function(){
-    calculateOrderSummary();
-  });
-  $('.fa-plus').on('ajax:success',function(){
-    calculateOrderSummary();
-  });
-    $('.fa-minus').on('ajax:success',function(){
     calculateOrderSummary();
   });
 });
