@@ -2,26 +2,14 @@
 
 RSpec.describe CartItemsController, type: :controller do
   let(:book) { create(:book) }
-  let(:old_books_count) { rand(1..10) }
-  let(:new_books_count) { rand(1..10) }
-  let(:cart_item) { create(:cart_item, book: book, books_count: old_books_count) }
+  let(:new_books_count) { rand(11..20) }
+  let(:cart_item) { create(:cart_item, book: book) }
   let(:order) { create(:order, cart_items: [cart_item]) }
   let(:params) { { book_id: book.id, cart_item: { books_count: new_books_count } } }
-  let(:updated_cart_item) { CartItem.find_by(id: cart_item.id) }
 
   before do |example|
     request.session[:order_id] = order.id
     make_request unless example.metadata[:skip_request]
-  end
-
-  shared_examples 'not success response' do
-    it 'doesn`t change cart item books count' do
-      expect(updated_cart_item.books_count).not_to eq(new_books_count)
-    end
-
-    it 'assigns flash alert with corresponding error' do
-      expect(flash[:alert]).to match(error_message)
-    end
   end
 
   shared_examples 'not update cart item' do
@@ -29,21 +17,39 @@ RSpec.describe CartItemsController, type: :controller do
       let(:new_books_count) { '' }
       let(:error_message) { I18n.t('activerecord.errors.messages.blank') }
 
-      it_behaves_like 'not success response'
+      it 'doesn`t change cart item books count', skip_request: true do
+        expect { make_request }.not_to change { cart_item.reload.books_count }
+      end
+
+      it 'assigns flash alert with corresponding error' do
+        expect(flash[:alert]).to match(error_message)
+      end
     end
 
     context 'when books count is not a number' do
       let(:new_books_count) { FFaker::Lorem.word }
       let(:error_message) { I18n.t('errors.messages.not_a_number') }
 
-      it_behaves_like 'not success response'
+      it 'doesn`t change cart item books count', skip_request: true do
+        expect { make_request }.not_to change { cart_item.reload.books_count }
+      end
+
+      it 'assigns flash alert with corresponding error' do
+        expect(flash[:alert]).to match(error_message)
+      end
     end
 
     context 'when books count less then zero' do
       let(:new_books_count) { rand(-10..-1) }
       let(:error_message) { I18n.t('errors.messages.greater_than', count: 0) }
 
-      it_behaves_like 'not success response'
+      it 'doesn`t change cart item books count', skip_request: true do
+        expect { make_request }.not_to change { cart_item.reload.books_count }
+      end
+
+      it 'assigns flash alert with corresponding error' do
+        expect(flash[:alert]).to match(error_message)
+      end
     end
   end
 
@@ -52,18 +58,12 @@ RSpec.describe CartItemsController, type: :controller do
     let(:success_message) { I18n.t('orders.book_added') }
     let(:redirect_status) { 302 }
 
-    context 'when order doesn`t have cart item with specified book' do
+    context 'when create new cart item in order' do
       let(:order) { create(:order) }
 
-      it 'creates new cart item with specified book' do
+      it 'assignss cart item with correct book and attributes' do
         expect(assigns(:cart_item).book_id).to eq(book.id)
-      end
-
-      it 'creates new cart item with specified books count' do
         expect(assigns(:cart_item).books_count).to eq(new_books_count)
-      end
-
-      it 'creates new cart item assigned to current order' do
         expect(assigns(:cart_item).order_id).to eq(order.id)
       end
 
@@ -75,10 +75,9 @@ RSpec.describe CartItemsController, type: :controller do
       it { is_expected.to set_flash[:notice].to(success_message) }
     end
 
-    context 'when order have cart item with specified book' do
-      it 'updates order cart item with books count from params' do
-        expect(updated_cart_item.books_count).to eq(new_books_count)
-        expect(updated_cart_item.books_count).not_to eq(old_books_count)
+    context 'when card item with specified book_id exists in order' do
+      it 'updates order cart item with books count from params', skip_request: true do
+        expect { make_request }.to change { cart_item.reload.books_count }
       end
 
       it 'assigns current cart item to order`s cart item' do
@@ -105,7 +104,7 @@ RSpec.describe CartItemsController, type: :controller do
 
     context 'when cart item update successful' do
       it 'updates order cart item with books count from params' do
-        expect(updated_cart_item.books_count).to eq(new_books_count)
+        expect(cart_item.reload.books_count).to eq(new_books_count)
       end
 
       it 'assigns flash notice with success message' do
@@ -122,8 +121,8 @@ RSpec.describe CartItemsController, type: :controller do
     let(:make_request) { put :increment_book, params: params }
     let(:params) { { id: cart_item.id } }
 
-    it 'increments cart item books count by 1' do
-      expect(updated_cart_item.books_count).to eq(old_books_count + 1)
+    it 'increments cart item books count by 1', skip_request: true do
+      expect { make_request }.to change { cart_item.reload.books_count }.by(1)
     end
   end
 
@@ -131,18 +130,18 @@ RSpec.describe CartItemsController, type: :controller do
     let(:make_request) { put :decrement_book, params: params }
     let(:params) { { id: cart_item.id } }
 
-    context 'when old books count larger than 1' do
+    context 'when old books count larger than 1', skip_request: true do
       it 'reduces cart item books count by 1' do
-        expect(updated_cart_item.books_count).to eq(old_books_count - 1)
+        expect { make_request }.to change { cart_item.reload.books_count }.by(-1)
       end
     end
 
     context 'when old books count equals 1' do
-      let(:old_books_count) { 1 }
+      let(:cart_item) { create(:cart_item, book: book, books_count: 1) }
       let(:error_message) { I18n.t('errors.messages.greater_than', count: 0) }
 
-      it 'doesn`t reduce books count' do
-        expect(updated_cart_item.books_count).to eq(old_books_count)
+      it 'doesn`t reduce books count', skip_request: true do
+        expect { make_request }.not_to change { cart_item.reload.books_count }
       end
 
       it 'assigns flash alert with corresponding error' do

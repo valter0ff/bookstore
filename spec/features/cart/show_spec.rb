@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'Cart' do
+RSpec.describe 'Cart->Show', type: :feature do
   let(:cart_page) { Pages::Cart::Show.new }
   let(:cart_item) { create(:cart_item, books_count: books_count) }
   let(:books_count) { rand(1..10) }
@@ -75,19 +75,20 @@ RSpec.describe 'Cart' do
 
     shared_examples 'success request', js: true do
       let(:notice_message) { I18n.t('orders.order_updated') }
+      let(:order_summary) { cart_page.order_summary }
+      let(:order) { cart_item.order.decorate }
 
       it 'updates quantity input value' do
         expect(cart_item_block.quantity_input.value.to_i).to eq(new_books_count)
       end
 
       it 'updates cart item subtotal price' do
-        sleep 1
-        expect(cart_item_block.subtotal_price.text).to eq(cart_item.reload.decorate.subtotal_price)
+        expect(cart_item_block.subtotal_price.reload.text).not_to eq(cart_item.decorate.subtotal_price)
       end
 
       it 'updates order subtotal and order total prices' do
-        expect(cart_page.order_summary.order_subtotal.text).to eq(cart_item.order.reload.decorate.subtotal_price)
-        expect(cart_page.order_summary.order_total.text).to eq(cart_item.order.reload.decorate.total_price)
+        expect(order_summary.order_subtotal.reload.text).to eq(order.subtotal_price)
+        expect(order_summary.order_total.reload.text).to eq(order.total_price)
       end
 
       it 'set notice message to flash' do
@@ -206,20 +207,17 @@ RSpec.describe 'Cart' do
 
   describe 'apply coupon' do
     let(:coupon_form) { cart_page.coupon_form }
-    let(:order) { cart_item.order }
+    let(:order) { cart_item.order.reload.decorate }
     let(:coupon) { create(:coupon) }
+    let(:order_summary) { cart_page.order_summary }
 
     before do
       coupon_form.apply_coupon(coupon.code)
     end
 
-    it 'assigns coupon to current order' do
-      expect(order.reload.coupon).to eq(coupon)
-    end
-
     it 'updates order summary information' do
-      expect(cart_page.order_summary.discount.text).to eq(order.reload.decorate.discount)
-      expect(cart_page.order_summary.order_total.text).to eq(order.reload.decorate.total_price)
+      expect(order_summary.discount.text).to eq(order.discount)
+      expect(order_summary.order_total.text).to eq(order.total_price)
     end
   end
 end
