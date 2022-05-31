@@ -4,6 +4,8 @@ class BooksController < ClientController
   ITEMS_PER_PAGE = 12
 
   before_action :set_category, only: :index
+  before_action :set_book, only: :show
+  before_action :set_cart_item, only: :show
 
   def index
     @books = BooksSelectorService.call(@category, params[:sorted_by]).decorate
@@ -12,7 +14,6 @@ class BooksController < ClientController
   end
 
   def show
-    @book = Book.find(params[:id]).decorate
     gon.book_full_description = @book.description
     @review = Review.new
     set_reviews
@@ -22,6 +23,14 @@ class BooksController < ClientController
 
   def set_category
     @category = @categories.find_by(id: params[:category_id])
+  end
+
+  def set_cart_item
+    @cart_item = @order.cart_items.find_by(book_id: @book.id)
+  end
+
+  def set_book
+    @book = Book.find(params[:id]).decorate
   end
 
   def set_reviews
