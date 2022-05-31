@@ -4,10 +4,9 @@
       = link_to cart_item_path(cart_item),
         method: :delete,
         class: 'close general-cart-close',
-        'aria-label': 'Close',
         remote: true,
-        data: { confirm: "Are you sure?" } do
-        %span{'aria-hidden': "true"} &times;
+        data: { confirm: t('carts.show.confirm') } do
+        %span{'aria-hidden': 'true'} &times;
     .general-img-wrap-table
       = link_to image_tag(cart_item.book.cover_image,
         class: 'cart-img-shadow',
@@ -16,12 +15,12 @@
     %table.table
       %tr
         %td
-          %span.in-grey-600= t('.price')
+          %span.in-grey-600= t('carts.show.price')
         %td
           %span.font-16.in-gold-500= cart_item.book.price_with_currency
       %tr
         %td.vertical-middle
-          %span.in-grey-600= t('.quantity')
+          %span.in-grey-600= t('carts.show.quantity')
         %td
           .input-group.show
             = link_to decrement_book_cart_item_path(cart_item),
@@ -43,6 +42,6 @@
               %i.fa.fa-plus.line-height-40
       %tr
         %td
-          %span.in-grey-600= t('.subTotal')
+          %span.in-grey-600= t('carts.show.subtotal')
         %td
           %span.font-16.in-gold-500.subtotal= cart_item.subtotal_price

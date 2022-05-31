@@ -2,7 +2,7 @@
 
 class CartItemsController < ClientController
   before_action :set_cart_item
-  before_action :assign_books_quantity, only: %i[create update]
+  before_action :replace_books_quantity, only: %i[create update]
 
   def create
     if @cart_item.save
@@ -13,17 +13,17 @@ class CartItemsController < ClientController
   end
 
   def update
-    make_response
+    return_updating_response
   end
 
   def increment_book
-    @cart_item.books_count += 1
-    make_response
+    @cart_item.increment(:books_count)
+    return_updating_response
   end
 
   def decrement_book
-    @cart_item.books_count -= 1
-    make_response
+    @cart_item.decrement(:books_count)
+    return_updating_response
   end
 
   def destroy
@@ -37,11 +37,15 @@ class CartItemsController < ClientController
     @cart_item = CartItems::SetCartItemService.call(@order, params).decorate
   end
 
-  def assign_books_quantity
-    @cart_item = CartItems::BooksCountService.call(@cart_item, params)
+  def replace_books_quantity
+    @cart_item.books_count = cart_item_params[:books_count]
   end
 
-  def make_response
+  def cart_item_params
+    params.require(:cart_item).permit(:books_count)
+  end
+
+  def return_updating_response
     if @cart_item.save
       flash.now[:notice] = I18n.t('orders.order_updated')
     else

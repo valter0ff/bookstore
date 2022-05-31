@@ -8,8 +8,7 @@ module CartItems
     end
 
     def call
-      set_cart_item_by_id
-      set_cart_item_by_book_id
+      set_cart_item_by_id || set_cart_item_by_book_id
       cart_item
     end
 
@@ -22,8 +21,6 @@ module CartItems
     end
 
     def set_cart_item_by_book_id
-      return if cart_item.present?
-
       @cart_item = order.cart_items.find_or_initialize_by(book_id: params[:book_id])
     end
   end

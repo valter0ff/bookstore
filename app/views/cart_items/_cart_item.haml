@@ -7,11 +7,11 @@
   %td
     %p.title= link_to cart_item.book.title, cart_item.book
   %td
-    %span.font-16.in-gold-500= cart_item.book.price_with_currency
+    %span.font-16.in-gold-500.price= cart_item.book.price_with_currency
   %td
     .input-group.show
       = link_to decrement_book_cart_item_path(cart_item),
-          class: 'input-link',
+          class: 'input-link decrement-book',
           remote: true,
           method: :put do
         %i.fa.fa-minus.line-height-40
@@ -23,7 +23,7 @@
           format: :js,
           onchange: 'submit.rails'
       = link_to increment_book_cart_item_path(cart_item),
-          class: 'input-link',
+          class: 'input-link increment-book',
           remote: true,
           method: :put do
         %i.fa.fa-plus.line-height-40
@@ -33,7 +33,6 @@
     = link_to cart_item_path(cart_item),
       method: :delete,
       class: 'close general-cart-close',
-      'aria-label': 'Close',
       remote: true,
-      data: { confirm: "Are you sure?" } do
-      %span{'aria-hidden': "true"} &times;
+      data: { confirm: t('carts.show.confirm') } do
+      %span{'aria-hidden': 'true'} &times;
