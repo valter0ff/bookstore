@@ -27,11 +27,15 @@
             .input-group.general-position
               = link_to '#', class: 'input-link' do
                 %i.fa.fa-minus.line-height-40
-              = f.input_field :books_count, as: :string,  class: 'form-control quantity-input', value: 1
+              = f.input_field :books_count, as: :string,
+                class: 'form-control quantity-input',
+                value: @cart_item.try(:books_count) || 1
               = link_to '#', class: 'input-link' do
                 %i.fa.fa-plus.line-height-40
           .col-xs-7.col-md-5
             = f.button :submit, t('.add_to_cart'), class: 'btn btn-default pull-right general-position cart-btn'
+        - if @cart_item.present?
+          %p.text-right= t('.already_in_cart', books_count: @cart_item.books_count)
       .general-info-wrap.divider-lg
         %p= t('.descriprion')
         %p.lead.small.line-height-2.text-justify.description= @book.truncated_description
@@ -53,3 +57,4 @@
 = javascript_pack_tag 'book_page/read_more'
 = javascript_pack_tag 'book_page/quantity_changer'
 = javascript_pack_tag 'book_page/image_replacer'
+= console

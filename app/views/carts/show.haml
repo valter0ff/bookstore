@@ -1,51 +1,53 @@
 %main.container.general-main-wrap
   %h1.general-title-margin= t('.cart_title')
-  .visible-xs
+  .visible-xs.cart-items-table
     = render 'cart_items/cart_items_xs', cart_items: @cart_items
-  .hidden-xs
+  .hidden-xs.cart-items-table
     %table.table.table-hover
       %tr.no-hover
         %th.col-pic.pl-0
-          %span.in-grey-600= t('.product')
+          %span.in-grey-600.product= t('.product')
         %th.col-title
         %th.col-price
-          %span.in-grey-600= t('.price')
+          %span.in-grey-600.price= t('.price')
         %th.col-quantity
-          %span.in-grey-600= t('.quantity')
+          %span.in-grey-600.quantity= t('.quantity')
         %th.col-total
-          %span.in-grey-600= t('.subTotal')
+          %span.in-grey-600.sub-total= t('.subtotal')
         %th.col-close
       = render @cart_items
 
   .general-order-wrap
     .row
       .col-sm-4
-        .input-group.general-input-group
-          = simple_form_for(@order, url: cart_path, method: :put, class: 'coupon_form') do |f|
+        .input-group.general-input-group.coupon-form
+          = simple_form_for(@order, url: cart_path, method: :put) do |f|
             = f.simple_fields_for :coupon do |c|
-              = c.label :code, t('.enter_coupon'), class: 'input-label'
-              = c.input_field :code, class: 'form-control mb-30', placeholder: @order.coupon.try(:code) || t('.enter_coupon')
+              = c.label :code, t('.enter_coupon'), class: 'input-label code-label'
+              = c.input_field :code,
+                class: 'form-control mb-30 code-field',
+                placeholder: @order.coupon.try(:code) || t('.enter_coupon')
             %div
-              = f.submit t('.apply_coupon'), class: 'btn btn-primary mr-5 mb-15'
+              = f.submit t('.apply_coupon'), class: 'btn btn-primary mr-5 mb-15 submit-coupon'
       .col-sm-8
-        .res-mr-200.text-center.general-text-right
-          %p.in-gold-500.font-18= t('.order_summary')
+        .res-mr-200.text-center.general-text-right.order-summary
+          %p.in-gold-500.font-18.order-summary-title= t('.order_summary')
           %table.general-summary-table.general-summary-table-right.general-text-right
             %tr
               %td
-                %p.font-16= t('.sub_total')+':'
+                %p.font-16.order-subtotal-title= t('.subtotal')+':'
               %td
-                %p.font-16.order_subtotal= @order.subtotal_price
+                %p.font-16.order-subtotal= @order.subtotal_price
             %tr
               %td
-                %p.font-16= t('.coupon')
+                %p.font-16.coupon-title= t('.coupon')
               %td
                 %p.font-16.discount= @order.discount
             %tr
               %td
-                %strong.font-18= t('.order_total')
+                %strong.font-18.order-total-title= t('.order_total')
               %td
-                %strong.font-18.order_total= @order.total_price
-          %button.btn.btn-default.mb-20.visible-xs-inline-block= t('.checkout')
-  %button.btn.btn-default.mb-20.hidden-xs.center-block.show= t('.checkout')
+                %strong.font-18.order-total= @order.total_price
+          %button.btn.btn-default.mb-20.visible-xs-inline-block.checkout= t('.checkout')
+  %button.btn.btn-default.mb-20.hidden-xs.center-block.show.checkout= t('.checkout')
 = javascript_pack_tag 'cart/order_summary'

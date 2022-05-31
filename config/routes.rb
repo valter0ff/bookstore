@@ -15,9 +15,8 @@ Rails.application.routes.draw do
   end
   resource :cart
   resources :cart_items, only: %i[show edit update destroy] do
-    member do
-      put :increment_book, :decrement_book
-    end
+    put :increment_book, on: :member
+    put :decrement_book, on: :member
   end
   scope '/settings' do
     resources :addresses, only: %i[new create update]

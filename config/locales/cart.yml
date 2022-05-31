@@ -5,7 +5,7 @@ en:
       product: Product
       price: Price
       quantity: Quantity
-      sub_total: SubTotal
+      subtotal: SubTotal
       enter_coupon: Enter Your Coupon Code
       apply_coupon: Apply Coupon
       order_summary: Order Summary
@@ -14,3 +14,4 @@ en:
       checkout: Checkout
       coupon_applied: Coupon has been applied
       coupon_rejected: Coupon is already used or doesn`t exists
+      confirm: Are you sure?
