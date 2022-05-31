@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     put :increment_book, on: :member
     put :decrement_book, on: :member
   end
+  resources :orders do
+    put :apply_coupon, on: :member
+  end
   scope '/settings' do
     resources :addresses, only: %i[new create update]
   end

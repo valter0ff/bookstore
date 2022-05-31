@@ -12,6 +12,4 @@ en:
       coupon: 'Coupon:'
       order_total: 'Order Total:'
       checkout: Checkout
-      coupon_applied: Coupon has been applied
-      coupon_rejected: Coupon is already used or doesn`t exists
       confirm: Are you sure?

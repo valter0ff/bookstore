@@ -21,7 +21,7 @@
     .row
       .col-sm-4
         .input-group.general-input-group.coupon-form
-          = simple_form_for(@order, url: cart_path, method: :put) do |f|
+          = simple_form_for(@order, url: apply_coupon_order_path(@order), method: :put) do |f|
             = f.simple_fields_for :coupon do |c|
               = c.label :code, t('.enter_coupon'), class: 'input-label code-label'
               = c.input_field :code,
