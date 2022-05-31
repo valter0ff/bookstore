@@ -73,6 +73,7 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'capybara-screenshot', '~> 1.0.26'
   gem 'cuprite', '~> 0.13'
+  gem 'rack_session_access', '~> 0.2.0'
   gem 'rails-controller-testing', '~> 1.0.5'
   gem 'rspec_junit_formatter', '~> 0.5.1'
   gem 'selenium-webdriver', '~> 4.1.0'

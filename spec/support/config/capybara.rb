@@ -11,7 +11,7 @@ require 'site_prism/all_there'
 
 # Capybara.current_driver = :selenium_chrome
 Capybara.asset_host = 'http://localhost:3000'
-# Capybara.javascript_driver = :chrome_headless
+# Capybara.javascript_driver = :selenium_chrome
 Capybara.javascript_driver = :cuprite
 # Capybara.javascript_driver = :apparition
 

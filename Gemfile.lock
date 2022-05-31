@@ -355,6 +355,9 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    rack_session_access (0.2.0)
+      builder (>= 2.0.0)
+      rack (>= 1.0.0)
     rails (6.1.5.1)
       actioncable (= 6.1.5.1)
       actionmailbox (= 6.1.5.1)
@@ -600,6 +603,7 @@ DEPENDENCIES
   pry-rails (~> 0.3.9)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
+  rack_session_access (~> 0.2.0)
   rails (~> 6.1.4, >= 6.1.4.6)
   rails-controller-testing (~> 1.0.5)
   rails_best_practices (~> 1.23.1)
