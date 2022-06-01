@@ -71,25 +71,9 @@ RSpec.describe 'Cart->Show', type: :feature do
 
   describe 'success on update books count' do
     let(:cart_item_block) { cart_page.cart_items_table.cart_item.first }
-    let(:updated_cart_item) { CartItem.find_by(id: cart_item.id) }
 
     shared_examples 'success request', js: true do
       let(:notice_message) { I18n.t('orders.order_updated') }
-      let(:order_summary) { cart_page.order_summary }
-      let(:order) { cart_item.order.reload.decorate }
-
-      it 'updates quantity input value' do
-        expect(cart_item_block.quantity_input.value.to_i).to eq(new_books_count)
-      end
-
-      it 'updates cart item subtotal price' do
-        expect(cart_item_block.subtotal_price.text).not_to eq(cart_item.decorate.subtotal_price)
-      end
-
-      it 'updates order subtotal and order total prices' do
-        expect(order_summary.order_subtotal.reload.text).to eq(order.subtotal_price)
-        expect(order_summary.order_total.reload.text).to eq(order.total_price)
-      end
 
       it 'set notice message to flash' do
         expect(cart_page).to have_flash_notice
@@ -128,17 +112,8 @@ RSpec.describe 'Cart->Show', type: :feature do
 
   describe 'not success on update books count' do
     let(:cart_item_block) { cart_page.cart_items_table.cart_item.first }
-    let(:updated_cart_item) { CartItem.find_by(id: cart_item.id) }
 
     shared_examples 'failed request', js: true do
-      it 'doesn`t change books quantity input value' do
-        expect(cart_item_block.quantity_input.reload.value.to_i).to eq(cart_item.reload.books_count)
-      end
-
-      it 'doesn`t change cart item books count' do
-        expect(updated_cart_item.books_count).to eq(cart_item.books_count)
-      end
-
       it 'set error message to flash' do
         expect(cart_page).to have_flash_alert
         expect(cart_page.flash_alert.text).to match(error_message)
