@@ -9,12 +9,13 @@ RSpec.describe Users::RegistrationsController, type: :controller do
   before do |example|
     request.env['devise.mapping'] = Devise.mappings[:user]
     sign_in(user_account)
-    get :edit
     make_request unless example.metadata[:skip_request]
   end
 
   context 'with success response', skip_request: true do
     let(:success_status) { 200 }
+
+    before { get :edit }
 
     it { is_expected.to respond_with(success_status) }
     it { is_expected.to render_template(:edit) }
@@ -130,9 +131,10 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     let(:file_params) { ["spec/fixtures/images/#{file_name}", mime_type] }
 
     context 'when upload image successfull' do
-      let(:file_name) { 'test.jpg' }
+      let(:file_name) { 'valid_image.jpg' }
       let(:mime_type) { 'image/jpeg' }
       let(:redirect_status) { 302 }
+      let(:user_picture) { user.reload.picture.image }
 
       it 'updates user avatar', skip_request: true do
         expect { make_request }.to change { user.reload.picture.class }.from(NilClass).to(Picture)
@@ -143,16 +145,17 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       end
 
       it 'updates user avatar image file' do
-        expect(user.reload.picture.image.original_filename).to eq(file_name)
-        expect(user.reload.picture.image.mime_type).to eq(mime_type)
+        expect(user_picture.original_filename).to eq(file_name)
+        expect(user_picture.mime_type).to eq(mime_type)
       end
 
+      it { is_expected.to redirect_to(edit_user_registration_path) }
       it { is_expected.to respond_with(redirect_status) }
       it { is_expected.to set_flash[:notice].to(I18n.t('devise.registrations.updated')) }
     end
 
     context 'when upload gif image' do
-      let(:file_name) { 'jim-carrey-head-bob.gif' }
+      let(:file_name) { 'invalid-format-image.gif' }
       let(:mime_type) { 'image/gif' }
       let(:error_message_ext) do
         I18n.t('file.wrong_extension',
@@ -163,7 +166,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
                list: Constants::Images::IMAGE_MIME_TYPES.join(', ').upcase)
       end
 
-      it 'not updates `Picture` model count', skip_request: true do
+      it 'does not create new picture', skip_request: true do
         expect { make_request }.not_to change(Picture, :count)
       end
 
@@ -173,15 +176,15 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       end
     end
 
-    context 'when upload to big image' do
-      let(:file_name) { 'tardis-windows-10.jpg' }
+    context 'when upload too big image' do
+      let(:file_name) { 'too_big_image.jpg' }
       let(:mime_type) { 'image/jpeg' }
       let(:error_message_size) do
         I18n.t('file.size_exceeded',
                size: ImageUploader::IMAGE_MAX_MB_SIZE)
       end
 
-      it 'not updates `Picture` model count', skip_request: true do
+      it 'does not create new picture', skip_request: true do
         expect { make_request }.not_to change(Picture, :count)
       end
 
