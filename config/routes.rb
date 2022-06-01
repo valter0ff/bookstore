@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :reviews, only: %i[create]
     resources :cart_items, only: %i[create]
   end
-  resource :cart
+  resource :cart, only: :show
   resources :cart_items, only: %i[show edit update destroy] do
     put :increment_book, on: :member
     put :decrement_book, on: :member

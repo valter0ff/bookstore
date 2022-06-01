@@ -5,12 +5,12 @@ RSpec.describe OrdersController, type: :controller do
 
   before do
     request.session[:order_id] = order.id
-    make_request
+    apply_coupon_on_order
   end
 
   describe '#apply_coupon' do
+    let(:apply_coupon_on_order) { put :apply_coupon, params: params }
     let(:redirect_status) { 302 }
-    let(:make_request) { put :apply_coupon, params: params }
     let(:params) { { id: order.id, order: { coupon: { code: code } } } }
 
     context 'when coupon code exists' do

@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe CartItems::SetCartItemService do
-  let(:current_cart_item) { described_class.call(order, params) }
+  subject(:assigned_cart_item) { described_class.call(order, params) }
+
   let(:order) { create(:order, cart_items: [cart_item]) }
   let(:cart_item) { create(:cart_item) }
 
@@ -10,7 +11,7 @@ RSpec.describe CartItems::SetCartItemService do
       let(:params) { { id: cart_item.id } }
 
       it 'assigns founded object to current cart item' do
-        expect(current_cart_item).to eq(cart_item)
+        expect(assigned_cart_item).to eq(cart_item)
       end
     end
 
@@ -18,8 +19,8 @@ RSpec.describe CartItems::SetCartItemService do
       let(:params) { { id: nil } }
 
       it 'builds new cart item' do
-        expect(current_cart_item).not_to eq(cart_item)
-        expect(current_cart_item).to be_a_new(CartItem)
+        expect(assigned_cart_item).not_to eq(cart_item)
+        expect(assigned_cart_item).to be_a_new(CartItem)
       end
     end
   end
@@ -29,7 +30,7 @@ RSpec.describe CartItems::SetCartItemService do
       let(:params) { { book_id: cart_item.book_id } }
 
       it 'assigns founded object to current cart item' do
-        expect(current_cart_item).to eq(cart_item)
+        expect(assigned_cart_item).to eq(cart_item)
       end
     end
 
@@ -38,9 +39,9 @@ RSpec.describe CartItems::SetCartItemService do
       let(:book) { create(:book) }
 
       it 'builds cart item with specified book id' do
-        expect(current_cart_item).to be_a_new(CartItem)
-        expect(current_cart_item.book_id).to eq(book.id)
-        expect(current_cart_item.order_id).to eq(order.id)
+        expect(assigned_cart_item).to be_a_new(CartItem)
+        expect(assigned_cart_item.book_id).to eq(book.id)
+        expect(assigned_cart_item.order_id).to eq(order.id)
       end
     end
 
@@ -48,8 +49,8 @@ RSpec.describe CartItems::SetCartItemService do
       let(:params) { { id: nil } }
 
       it 'builds cart item with order_id of current order' do
-        expect(current_cart_item).to be_a_new(CartItem)
-        expect(current_cart_item.order_id).to eq(order.id)
+        expect(assigned_cart_item).to be_a_new(CartItem)
+        expect(assigned_cart_item.order_id).to eq(order.id)
       end
     end
   end

@@ -5,7 +5,7 @@ RSpec.describe Orders::SetOrderService do
   let(:current_order) { order_service_instance.instance_variable_get(:@order) }
   let(:current_session) { order_service_instance.instance_variable_get(:@session) }
 
-  before { order_service_instance.call }
+  before { |example| order_service_instance.call unless example.metadata[:skip_before] }
 
   RSpec.shared_context 'with session order' do
     let(:first_cart_item) { create(:cart_item) }
@@ -55,6 +55,11 @@ RSpec.describe Orders::SetOrderService do
         it 'assigns user_order to current_order' do
           expect(current_order).to eq(user_order)
         end
+
+        it 'not changes user order', skip_before: true do
+          expect { order_service_instance.call }.not_to change { user_order.reload.cart_items.count }
+          expect { order_service_instance.call }.not_to change { second_cart_item.reload.books_count }
+        end
       end
     end
 
@@ -75,6 +80,10 @@ RSpec.describe Orders::SetOrderService do
         it 'build new Order instance and assigns it to user' do
           expect(current_order.user_account_id).to eq(user.id)
           expect(current_order).to be_a(Order)
+        end
+
+        it 'creates new Order in database', skip_before: true do
+          expect { order_service_instance.call }.to change(Order, :count).by(1)
         end
 
         it 'deletes order_id from session' do
@@ -100,6 +109,10 @@ RSpec.describe Orders::SetOrderService do
 
       it 'creates new Order and assigns it to current order' do
         expect(current_order).to be_a(Order)
+      end
+
+      it 'creates new Order in database', skip_before: true do
+        expect { order_service_instance.call }.to change(Order, :count).by(1)
       end
 
       it 'assignns current order id to session' do
