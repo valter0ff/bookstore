@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :picture do
     imageable { nil }
 
-    image { Rack::Test::UploadedFile.new('spec/fixtures/images/test.jpg', 'image/jpeg') }
+    image { Rack::Test::UploadedFile.new('spec/fixtures/images/valid_image.jpg', 'image/jpeg') }
   end
 end

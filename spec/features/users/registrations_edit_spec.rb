@@ -120,7 +120,7 @@ RSpec.describe 'Users::Registrations', type: :feature do
     end
 
     context 'when password update failed' do
-      let(:new_password) { FFaker::Lorem.word * rand(5..7) }
+      let(:new_password) { "#{FFaker::Lorem.word}xxxxxx" }
       let(:error_message) { I18n.t('password.invalid', scope: errors_path) }
 
       it 'does not updates user password' do
@@ -161,7 +161,7 @@ RSpec.describe 'Users::Registrations', type: :feature do
     before { page.upload_avatar(file_path) }
 
     context 'when file upload successfull' do
-      let(:file_name) { 'test.jpg' }
+      let(:file_name) { 'valid_image.jpg' }
 
       it 'updates user avatar, shows preview and destroy checkbox' do
         expect(upload_image_form).to have_avatar_preview
@@ -176,7 +176,7 @@ RSpec.describe 'Users::Registrations', type: :feature do
     end
 
     context 'when upload image with wrong format' do
-      let(:file_name) { 'jim-carrey-head-bob.gif' }
+      let(:file_name) { 'invalid-format-image.gif' }
       let(:error_wrong_extension) do
         I18n.t('file.wrong_extension',
                list: Constants::Images::IMAGE_EXTENSIONS.join(', ').upcase)
@@ -197,7 +197,7 @@ RSpec.describe 'Users::Registrations', type: :feature do
     end
 
     context 'when upload to big image' do
-      let(:file_name) { 'tardis-windows-10.jpg' }
+      let(:file_name) { 'too_big_image.jpg' }
       let(:error_big_size) do
         I18n.t('file.size_exceeded',
                size: ImageUploader::IMAGE_MAX_MB_SIZE)
@@ -213,7 +213,7 @@ RSpec.describe 'Users::Registrations', type: :feature do
     end
 
     context 'when delete avatar' do
-      let(:file_name) { 'test.jpg' }
+      let(:file_name) { 'valid_image.jpg' }
 
       it 'deletes user avatar' do
         expect(user.reload.picture.class).to be(Picture)

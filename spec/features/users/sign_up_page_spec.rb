@@ -4,7 +4,7 @@ RSpec.describe 'UserAccounts', type: :feature do
   describe 'registrations#new' do
     let(:sign_up_page) { Pages::Devise::Registrations::New.new }
     let!(:email) { FFaker::Internet.email }
-    let!(:password) { FFaker::Internet.password + rand(2).to_s }
+    let!(:password) { "#{FFaker::Internet.password}aA1" }
     let(:errors_path) { %w[activerecord errors models user_account attributes] }
 
     before { sign_up_page.load }
