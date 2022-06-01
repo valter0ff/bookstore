@@ -150,7 +150,6 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       end
 
       it { is_expected.to redirect_to(edit_user_registration_path) }
-      it { is_expected.to respond_with(redirect_status) }
       it { is_expected.to set_flash[:notice].to(I18n.t('devise.registrations.updated')) }
     end
 

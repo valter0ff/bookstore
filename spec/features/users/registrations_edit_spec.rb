@@ -128,7 +128,7 @@ RSpec.describe 'Users::Registrations', type: :feature do
       end
 
       it 'does not changes old user password' do
-        expect(user.reload).to be_valid_password(password)
+        expect(user.reload.encrypted_password_changed?).to be_falsey
       end
 
       it 'shows error message' do
