@@ -42,6 +42,8 @@ RSpec.describe Orders::SetOrderService do
         let(:second_cart_item) { create(:cart_item, book_id: first_cart_item.book_id) }
         let!(:books_count_sum) { first_cart_item.books_count + second_cart_item.books_count }
 
+        include_context 'with session order'
+
         it 'summarizes books_count in cart items' do
           expect(second_cart_item.reload.books_count).to eq(books_count_sum)
         end

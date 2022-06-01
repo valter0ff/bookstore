@@ -3,7 +3,7 @@
 RSpec.describe CartItemsController, type: :controller do
   let(:book) { create(:book) }
   let(:new_books_count) { rand(11..20) }
-  let(:cart_item) { create(:cart_item, book: book) }
+  let(:cart_item) { create(:cart_item, book: book, books_count: rand(2..10)) }
   let(:order) { create(:order, cart_items: [cart_item]) }
   let(:params) { { book_id: book.id, cart_item: { books_count: new_books_count } } }
 

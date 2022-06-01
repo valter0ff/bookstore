@@ -76,14 +76,14 @@ RSpec.describe 'Cart->Show', type: :feature do
     shared_examples 'success request', js: true do
       let(:notice_message) { I18n.t('orders.order_updated') }
       let(:order_summary) { cart_page.order_summary }
-      let(:order) { cart_item.order.decorate }
+      let(:order) { cart_item.order.reload.decorate }
 
       it 'updates quantity input value' do
         expect(cart_item_block.quantity_input.value.to_i).to eq(new_books_count)
       end
 
       it 'updates cart item subtotal price' do
-        expect(cart_item_block.subtotal_price.reload.text).not_to eq(cart_item.decorate.subtotal_price)
+        expect(cart_item_block.subtotal_price.text).not_to eq(cart_item.decorate.subtotal_price)
       end
 
       it 'updates order subtotal and order total prices' do
@@ -132,8 +132,7 @@ RSpec.describe 'Cart->Show', type: :feature do
 
     shared_examples 'failed request', js: true do
       it 'doesn`t change books quantity input value' do
-        sleep 1
-        expect(cart_item_block.quantity_input.value.to_i).to eq(cart_item.reload.books_count)
+        expect(cart_item_block.quantity_input.reload.value.to_i).to eq(cart_item.reload.books_count)
       end
 
       it 'doesn`t change cart item books count' do
