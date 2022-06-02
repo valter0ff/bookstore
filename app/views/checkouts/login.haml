@@ -20,4 +20,21 @@
                             class: 'form-control', placeholder: t('.password')
             = link_to t('.forgot_password'), new_user_password_path, class: 'help-block in-gold-500 forgot-password'
         = f.submit t('.log_in_with_password'), class: 'btn btn-default mb-20 submit-btn'
+    .col-md-5.col-md-offset-1.mb-60
+      .text-center
+        %h3.general-subtitle= t('.new_customer')
+        = link_to user_facebook_omniauth_authorize_path, class: 'general-login-icon facebook-login-btn', method: :post do
+          %i.fa.fa-facebook-official
+        %p.general-login-text= t('.or')
+      .mb-40
+        %p.mb-5= t('.quick_register')
+        %p.general-info-text.font-12.mb-20= t('.password_later')
+        = simple_form_for(resource, as: resource_name, url: fast_sign_up_path(resource_name),
+          html: { class: 'general-form' }) do |f|
+          .form-group.mb-30
+            = f.label :email, t('.enter_email'), class: 'control-label input-label email-label'
+            = f.input_field :email, autofocus: true, id: 'email', class: 'form-control',
+                    autocomplete: 'email', placeholder: t('.enter_email')
+            = f.full_error :email, class: 'text-danger'
+          = f.submit t('.continue_to_checkout'), class: 'btn btn-default mb-20 submit-btn'
 

@@ -4,6 +4,18 @@ module Users
   class RegistrationsController < Devise::RegistrationsController
     before_action :configure_account_update_params, only: :update
 
+    def fast_sign_up
+      self.resource = build_resource(email: params[resource_name][:email], password: generate_password)
+      if resource.save
+        set_flash_message! :notice, :signed_up
+        resource.send_reset_password_instructions
+        sign_in(resource_name, resource)
+        redirect_to after_sign_in_path_for(resource)
+      else
+          render 'checkouts/login'
+      end
+    end
+
     protected
 
     def update_resource(resource, params)
@@ -21,6 +33,10 @@ module Users
 
     def configure_account_update_params
       devise_parameter_sanitizer.permit(:account_update, keys: [picture_attributes: %i[id image _destroy]])
+    end
+
+    def generate_password
+      Devise.friendly_token.first(8)+rand(10).to_s
     end
   end
 end

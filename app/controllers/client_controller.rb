@@ -31,7 +31,7 @@ class ClientController < ApplicationController
     request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
   end
 
-  def after_sign_in_path_for(_resource)
-    stored_location_for(_resource) || super
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || super
   end
 end
