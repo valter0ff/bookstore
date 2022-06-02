@@ -8,7 +8,6 @@ class ClientController < ApplicationController
   before_action :set_total_books_count
   before_action :store_user_location!, if: :storable_location?
 
-
   private
 
   def set_all_categories

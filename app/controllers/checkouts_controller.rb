@@ -7,8 +7,7 @@ class CheckoutsController < ClientController
     redirect_to checkout_address_path if user_signed_in?
   end
 
-  def address
-  end
+  def address; end
 
   private
 
