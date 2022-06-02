@@ -48,6 +48,9 @@
                 %strong.font-18.order-total-title= t('.order_total')
               %td
                 %strong.font-18.order-total= @order.total_price
-          %button.btn.btn-default.mb-20.visible-xs-inline-block.checkout= t('.checkout')
-  %button.btn.btn-default.mb-20.hidden-xs.center-block.show.checkout= t('.checkout')
+          = link_to t('.checkout'), user_signed_in? ? checkout_address_path : checkout_login_path,
+                              class: 'btn btn-default visible-xs-inline-block checkout'
+  .text-center
+    = link_to t('.checkout'), user_signed_in? ? checkout_address_path : checkout_login_path,
+                              class: 'btn btn-default hidden-xs checkout'
 = javascript_pack_tag 'cart/order_summary'
