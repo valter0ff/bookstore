@@ -2,3 +2,10 @@ en:
   coupons:
     admin:
       deactivate: Deactivate
+  checkouts:
+    login:
+      returning_customer: Returning Customer
+      log_in_with_password: Log In with Password
+      enter_email: Enter Email
+      password: Password
+      forgot_password: Forgot password?

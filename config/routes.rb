@@ -21,7 +21,11 @@ Rails.application.routes.draw do
   resources :orders do
     put :apply_coupon, on: :member
   end
-  scope '/settings' do
+  scope 'checkout' do
+    get 'login', to: 'checkouts#login', as: :checkout_login
+    get 'address', to: 'checkouts#address', as: :checkout_address
+  end
+  scope 'settings' do
     resources :addresses, only: %i[new create update]
   end
   %w[404 422 500].each do |code|
