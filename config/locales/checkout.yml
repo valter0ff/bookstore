@@ -13,3 +13,23 @@ en:
       quick_register: Quick Register
       password_later: You’ll be able to create password later
       continue_to_checkout: Continue to Checkout
+    checkout_progress:
+      general_title: Checkout
+      address: Address
+      delivery: Delivery
+      payment: Payment
+      confirm: Confirm
+      complete: Complete
+      step_one: 1
+      step_two: 2
+      step_three: 3
+      step_four: 4
+      step_five: 5
+    order_summary_table:
+      subtotal: 'SubTotal:'
+      coupon: 'Coupon:'
+      order_total: 'Order Total:'
+    address:
+      fields_required: all fields are required
+      item_total: 'Item Total:'
+      save_and_continue: Save and Continue

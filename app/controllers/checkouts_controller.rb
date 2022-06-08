@@ -14,7 +14,20 @@ class CheckoutsController < Devise::SessionsController
     end
   end
 
-  def address; end
+  def address
+#     @order = @order.decorate
+  end
+
+  def save_adresses
+    if current_user.update(user_addresses_params)
+      redirect_to checkout_delivery_path
+    else
+      render :address
+    end
+  end
+
+  def delivery
+  end
 
   private
 
@@ -32,5 +45,15 @@ class CheckoutsController < Devise::SessionsController
 
   def after_sign_in_path_for(_resource)
     checkout_address_path
+  def decorate_order
+#     @order.cart_items.reload.includes(:book)
+    @order = @order.decorate
+  end
+
+  def user_addresses_params
+    params.require(:user_account)
+          .permit(:use_billing_address,
+                  billing_address_attributes: %i[first_name last_name address city zip country_code phone],
+                  shipping_address_attributes: %i[first_name last_name address city zip country_code phone])
   end
 end
