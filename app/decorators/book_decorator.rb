@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
-class BookDecorator < Draper::Decorator
-  include Draper::LazyHelpers
-
+class BookDecorator < ApplicationDecorator
   delegate_all
   decorates_association :authors
 
-  def average_rating
-    reviews.average(:rating)
+  def price_with_currency
+    super(price)
   end
 
-  def price_with_currency
-    number_to_currency(price, unit: Constants::Book::CURRENCY, format: Constants::Book::CURRENCY_FORMAT)
+  def average_rating
+    reviews.average(:rating)
   end
 
   def all_authors

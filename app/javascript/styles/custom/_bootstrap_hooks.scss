@@ -51,8 +51,8 @@
   background-image: none;
   border: 1px solid transparent;
   white-space: nowrap;
-  padding: 8px 12px;
-  font-size: 14px;
+  padding: 8px 32px;
+  white-space: unset;
   line-height: 1.5;
   border-radius: 0;
   -webkit-user-select: none;
@@ -61,10 +61,49 @@
   user-select: none;
 }
 
+.btn {
+  max-width: 100%;
+  font-size: 12px;
+  padding-left: 32px;
+  padding-right: 32px;
+  white-space: unset;
+}
+
 .btn-default {
   color: white;
   background-color: #1e1e1c;
   border-color: transparent;
+}
+
+.btn-primary {
+  color: white;
+  background-color: #c59c71;
+  border-color: transparent;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+  color: white;
+  background-color: #b6834d;
+  border-color: transparent;
+}
+
+.btn-primary:hover {
+  color: white;
+  background-color: #b6834d;
+  border-color: transparent;
+}
+
+.btn-primary:active, .btn-primary.active,
+.open > .btn-primary.dropdown-toggle {
+  color: white;
+  background-color: #b6834d;
+  border-color: transparent;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+  text-decoration: none;
+  color: white;
+  background-color: #c59c71;
 }
 
 .jumbotron p {

@@ -70,7 +70,7 @@ $grid-float-breakpoint-max: ($grid-float-breakpoint - 1) !default;
 //== Typography
 
 $font-family-sans-serif: 'Open Sans', sans-serif !default;
-
+$font-family:             'Open Sans', sans-serif;
 $font-size-base:          14px !default;
 $font-size-large:         ceil(($font-size-base * 1.1)) !default; // ~16px
 $font-size-small:         ceil(($font-size-base * 0.85)) !default; // ~12px

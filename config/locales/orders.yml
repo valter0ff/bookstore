@@ -1,0 +1,7 @@
+en:
+  orders:
+    book_added: Book(s) added to cart
+    order_updated: Order updated
+    book_quantity_error: Quantity value must be a digit more then zero
+    coupon_applied: Coupon has been applied
+    coupon_rejected: Coupon is already used or doesn`t exists

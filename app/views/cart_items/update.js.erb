@@ -1,0 +1,7 @@
+$('.container.alert').remove();
+$('.<%= dom_id(@cart_item) %>').after("<%= j render 'partials/flash_messages' %>");
+$('.<%= dom_id(@cart_item) %>').find('input.quantity-input').val('<%= @cart_item.books_count %>');
+$('.<%= dom_id(@cart_item) %>').find('.subtotal').text('<%= @cart_item.subtotal_price %>');
+$('.shop-quantity').text('<%= @order.cart_items.sum(&:books_count) %>');
+
+calculateOrderSummary();

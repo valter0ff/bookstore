@@ -28,6 +28,7 @@ en:
       materials: Materials
       write_review: Write a Review
       score: Score
+      already_in_cart: "%{books_count} book(s) already in cart"
     admin:
       category_prompt: Please select a category
       short_description: Short description

@@ -6,7 +6,7 @@ describe BookDecorator do
   let(:reviews) { create_list(:review, 5) }
   let(:book) { create(:book, reviews: reviews) }
   let(:expected_rating) { (book.reviews.sum(&:rating) / book.reviews.count.to_f).to_s }
-  let(:expected_price) { "€ #{format('%.2f', book.price)}" }
+  let(:expected_price) { "€#{format('%.2f', book.price)}" }
 
   it 'returns average rating of reviews' do
     expect(decorated_book.average_rating.to_s).to eq(expected_rating)

@@ -5,8 +5,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby File.read(File.expand_path('.ruby-version', __dir__)).strip
 
+gem 'aasm', '~> 5.2.0'
 gem 'activeadmin', '~> 2.9'
 gem 'activeadmin_addons', '~> 1.9.0'
+gem 'after_commit_everywhere', '~> 1.0'
 gem 'aws-sdk-s3', '~> 1.114.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'country_select', '~> 7.0.0'
@@ -71,6 +73,7 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'capybara-screenshot', '~> 1.0.26'
   gem 'cuprite', '~> 0.13'
+  gem 'rack_session_access', '~> 0.2.0'
   gem 'rails-controller-testing', '~> 1.0.5'
   gem 'rspec_junit_formatter', '~> 0.5.1'
   gem 'selenium-webdriver', '~> 4.1.0'

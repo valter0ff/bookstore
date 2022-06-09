@@ -16,6 +16,8 @@ class UserAccount < ApplicationRecord
   has_one :billing_address, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_one :picture, as: :imageable, dependent: :destroy
+  has_many :orders, dependent: :nullify
+  has_one :current_order, -> { in_progress }, class_name: 'Order', inverse_of: :user_account, dependent: :nullify
 
   after_create :send_welcome_email
 

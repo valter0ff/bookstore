@@ -31,4 +31,5 @@ $approved-color: #08A510;
   &.pending { background: $pending-color; }
   &.rejected { background: $rejected-color; }
   &.approved { background: $approved-color; }
+  &.active { background: $approved-color; }
 }

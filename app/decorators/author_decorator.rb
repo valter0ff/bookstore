@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AuthorDecorator < Draper::Decorator
+class AuthorDecorator < ApplicationDecorator
   delegate_all
 
   def full_name

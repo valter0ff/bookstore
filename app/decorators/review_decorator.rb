@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ReviewDecorator < ApplicationDecorator
-  include Draper::LazyHelpers
-
   delegate_all
 
   decorates_association :user_account

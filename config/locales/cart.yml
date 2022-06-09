@@ -1,0 +1,15 @@
+en:
+  carts:
+    show:
+      cart_title: Cart
+      product: Product
+      price: Price
+      quantity: Quantity
+      subtotal: SubTotal
+      enter_coupon: Enter Your Coupon Code
+      apply_coupon: Apply Coupon
+      order_summary: Order Summary
+      coupon: 'Coupon:'
+      order_total: 'Order Total:'
+      checkout: Checkout
+      confirm: Are you sure?

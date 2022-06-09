@@ -1,0 +1,4 @@
+$('.<%=dom_id(@cart_item)%>').remove();
+$('.shop-quantity').each(function(){
+  $(this).text('<%=@order.cart_items.sum(&:books_count)%>');
+});
