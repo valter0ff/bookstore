@@ -9,12 +9,13 @@ RSpec.describe Users::RegistrationsController, type: :controller do
   before do |example|
     request.env['devise.mapping'] = Devise.mappings[:user]
     sign_in(user_account)
-    get :edit
     make_request unless example.metadata[:skip_request]
   end
 
   context 'with success response', skip_request: true do
     let(:success_status) { 200 }
+
+    before { get :edit }
 
     it { is_expected.to respond_with(success_status) }
     it { is_expected.to render_template(:edit) }
@@ -51,7 +52,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
   describe 'update password' do
     context 'when password update successfull' do
       let(:redirect_status) { 302 }
-      let(:new_password) { "#{FFaker::Internet.password}aA1" }
+      let(:new_password) { "#{FFaker::Internet.password}bB1" }
       let(:params) { { current_password: password, password: new_password, password_confirmation: new_password } }
 
       it 'updates user password' do
@@ -65,7 +66,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     context 'when password update failed' do
       let(:params) { { current_password: password, password: new_password, password_confirmation: new_password } }
       let(:errors_path) { %w[activerecord errors models user_account attributes] }
-      let(:new_password) { FFaker::Lorem.word }
+      let(:new_password) { "#{FFaker::Lorem.word}xxxxxx" }
 
       shared_examples 'update not successful' do |attribute|
         it 'not updates user password' do
@@ -85,8 +86,8 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       end
 
       context 'with blank new password' do
-        let(:new_password) { '' }
-        let(:error_message) { 'is too short (minimum is 8 characters)' }
+        let(:params) { { current_password: password, password: '', password_confirmation: new_password } }
+        let(:error_message) { I18n.t('activerecord.errors.messages.blank') }
 
         it_behaves_like 'update not successful', :password
       end
@@ -121,6 +122,73 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       it 'sets flash message' do
         delete :destroy
         expect(controller).to set_flash[:notice].to(I18n.t('devise.registrations.destroyed'))
+      end
+    end
+  end
+
+  describe 'update picture' do
+    let(:params) { { picture_attributes: { image: Rack::Test::UploadedFile.new(*file_params) } } }
+    let(:file_params) { ["spec/fixtures/images/#{file_name}", mime_type] }
+
+    context 'when upload image successfull' do
+      let(:file_name) { 'valid_image.jpg' }
+      let(:mime_type) { 'image/jpeg' }
+      let(:redirect_status) { 302 }
+      let(:user_picture) { user.reload.picture.image }
+
+      it 'updates user avatar', skip_request: true do
+        expect { make_request }.to change { user.reload.picture.class }.from(NilClass).to(Picture)
+      end
+
+      it 'updates `Picture` model count', skip_request: true do
+        expect { make_request }.to change(Picture, :count).by(1)
+      end
+
+      it 'updates user avatar image file' do
+        expect(user_picture.original_filename).to eq(file_name)
+        expect(user_picture.mime_type).to eq(mime_type)
+      end
+
+      it { is_expected.to redirect_to(edit_user_registration_path) }
+      it { is_expected.to set_flash[:notice].to(I18n.t('devise.registrations.updated')) }
+    end
+
+    context 'when upload gif image' do
+      let(:file_name) { 'invalid-format-image.gif' }
+      let(:mime_type) { 'image/gif' }
+      let(:error_message_ext) do
+        I18n.t('file.wrong_extension',
+               list: Constants::Images::IMAGE_EXTENSIONS.join(', ').upcase)
+      end
+      let(:error_message_mime) do
+        I18n.t('file.wrong_mime_type',
+               list: Constants::Images::IMAGE_MIME_TYPES.join(', ').upcase)
+      end
+
+      it 'does not create new picture', skip_request: true do
+        expect { make_request }.not_to change(Picture, :count)
+      end
+
+      it 'returns image validation errors' do
+        expect(assigns(:user).errors[:'picture.image'].first).to match(error_message_ext)
+        expect(assigns(:user).errors[:'picture.image'].last).to match(error_message_mime)
+      end
+    end
+
+    context 'when upload too big image' do
+      let(:file_name) { 'too_big_image.jpg' }
+      let(:mime_type) { 'image/jpeg' }
+      let(:error_message_size) do
+        I18n.t('file.size_exceeded',
+               size: ImageUploader::IMAGE_MAX_MB_SIZE)
+      end
+
+      it 'does not create new picture', skip_request: true do
+        expect { make_request }.not_to change(Picture, :count)
+      end
+
+      it 'returns image validation error' do
+        expect(assigns(:user).errors[:'picture.image'].first).to match(error_message_size)
       end
     end
   end

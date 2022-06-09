@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ReviewDecorator < ApplicationDecorator
+  include Draper::LazyHelpers
+
   delegate_all
 
   decorates_association :user_account
@@ -11,5 +13,21 @@ class ReviewDecorator < ApplicationDecorator
 
   def blank_stars
     Constants::Review::RATING_STARS_COUNT - rating
+  end
+
+  def author_image
+    user_avatar || avatar_placeholder
+  end
+
+  private
+
+  def avatar_placeholder
+    content_tag(:p, author[0].capitalize, class: 'img-circle logo-size inlide-block pull-left logo-empty')
+  end
+
+  def user_avatar
+    return unless user_account.try(:picture)
+
+    image_tag(user_account.picture.image_url(:small), class: 'img-circle logo-size inlide-block pull-left')
   end
 end

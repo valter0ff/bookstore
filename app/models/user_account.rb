@@ -10,13 +10,16 @@ class UserAccount < ApplicationRecord
   validates :password, length: { minimum: Constants::UserAccount::PASSWORD_MIN_SIZE,
                                  maximum: Constants::UserAccount::PASSWORD_MAX_SIZE },
                        format: { with: Constants::UserAccount::PASSWORD_REGEXP },
-                       unless: :email_updated?
+                       if: :encrypted_password_changed?
 
   has_one :shipping_address, dependent: :destroy
   has_one :billing_address, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_one :picture, as: :imageable, dependent: :destroy
 
   after_create :send_welcome_email
+
+  accepts_nested_attributes_for :picture, allow_destroy: true
 
   def self.new_with_session(params, session)
     super.tap do |user|
@@ -33,10 +36,6 @@ class UserAccount < ApplicationRecord
   end
 
   private
-
-  def email_updated?
-    email_changed? && persisted?
-  end
 
   def send_welcome_email
     UserMailer.welcome_message(self).deliver_now

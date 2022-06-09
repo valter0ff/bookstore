@@ -6,15 +6,15 @@
     .col-sm-6
       .product-gallery
         .mb-20
-          = image_tag 'https://www.bramstein.com/static/smashing-book-5-photo-stack.9d5d114e3e.jpg',
-          class: 'img-responsive main-image'
+          = image_tag @book.main_image, class: 'img-responsive main-image'
         .images.clearfix
-          = link_to '#', class: 'img-link preview' do
-            = image_tag 'https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4a58b431-0903-4c14-8b38-9905fa42a305/smashing-book-5-hardcover-750-opt.jpg'
-          = link_to '#', class: 'img-link preview' do
-            = image_tag 'https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4a58b431-0903-4c14-8b38-9905fa42a305/smashing-book-5-hardcover-750-opt.jpg'
-          = link_to '#', class: 'img-link preview' do
-            = image_tag 'https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4a58b431-0903-4c14-8b38-9905fa42a305/smashing-book-5-hardcover-750-opt.jpg'
+          - @book.pictures.each do |picture|
+            = link_to '#', class: 'img-link preview img-thumbnail' do
+              = image_tag picture.image_url
+          - if @book.pictures.blank?
+            - Constants::Book::BOOK_IMAGES_PLACEHOLDER.each do |image_url|
+              = link_to '#', class: 'img-link preview img-thumbnail' do
+                = image_tag image_url
     .col-sm-6.book-info
       %h1.mt-res-0.book-title= @book.title
       %p.lead.small.book-authors
@@ -51,3 +51,4 @@
   = render 'reviews/reviews', reviews: @reviews
 = javascript_pack_tag 'book_page/read_more'
 = javascript_pack_tag 'book_page/quantity_changer'
+= javascript_pack_tag 'book_page/image_replacer'

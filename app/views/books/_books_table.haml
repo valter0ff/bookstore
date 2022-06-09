@@ -2,9 +2,7 @@
   .col-xs-6.col-sm-3.book_card
     .general-thumb-wrap
       .thumbnail.general-thumbnail
-        = image_tag "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg",
-          class: 'img-shadow general-thumbnail-img',
-          alt: 'design-book'
+        = image_tag book.cover_image, class: 'img-shadow general-thumbnail-img', alt: 'design-book'
         .thumb-hover
           .general-thumb-link-wrap
             = link_to book, class: 'thumb-hover-link show-link' do

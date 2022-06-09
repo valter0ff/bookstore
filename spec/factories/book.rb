@@ -23,5 +23,9 @@ FactoryBot.define do
         book.reload
       end
     end
+
+    trait :with_picture do
+      pictures { [(association :picture, imageable: instance)] }
+    end
   end
 end

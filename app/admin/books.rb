@@ -5,13 +5,13 @@ ActiveAdmin.register Book do
   decorate_with BookDecorator
 
   permit_params :title, :description, :year_publication, :height, :width, :depth, :price, :quantity, :category_id,
-                author_ids: [], material_ids: []
+                pictures_attributes: %i[image id _destroy], author_ids: [], material_ids: []
 
-  includes :category, [:authors], [:author_books]
+  includes :category, [:authors], [:author_books], [:pictures]
 
   index do
     selectable_column
-    column :image
+    column(:pictures) { |book| book.pictures.map { |pic| image_tag pic.image_url(:small) } }
     column :category, sortable: 'categories.title'
     column :title
     column :authors, &:clickable_authors
@@ -24,6 +24,13 @@ ActiveAdmin.register Book do
     default_main_content do
       row :materials, &:all_materials
       row :authors, &:clickable_authors
+      row :pictures do
+        div style: 'display: flex' do
+          book.pictures.each do |picture|
+            div { image_tag picture.image_url(:medium) }
+          end
+        end
+      end
     end
   end
 
@@ -42,6 +49,11 @@ ActiveAdmin.register Book do
       f.input :depth
       f.input :price
       f.input :quantity
+    end
+    f.inputs I18n.t('books.admin.pictures') do
+      f.has_many :pictures, allow_destroy: true do |p|
+        p.input :image, as: :file, hint: ((image_tag p.object.image_url(:medium)) if p.object.image)
+      end
     end
     f.actions
   end

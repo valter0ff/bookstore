@@ -1,0 +1,5 @@
+en:
+  user_accounts:
+    admin:
+      avatar: Avatar
+      full_name: Full name
