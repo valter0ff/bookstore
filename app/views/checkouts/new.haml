@@ -1,0 +1,39 @@
+%main.container
+  .row
+    .col-md-5.mb-40
+      .text-center
+        %h3.general-subtitle.login-title= t('.returning_customer')
+        = link_to user_facebook_omniauth_authorize_path, class: 'general-login-icon facebook-login-btn', method: :post do
+          %i.fa.fa-facebook-official
+        %p.general-login-text= t('.or')
+      = simple_form_for(resource, as: resource_name, url: checkout_login_path,
+                    html: { class: 'general-form login-form' }) do |f|
+        .mb-40
+          %p.mb-15.login-subtitle= t('.log_in_with_password')
+          .form-group.mb-30
+            = f.label :email, t('.enter_email'), class: 'control-label input-label email-label'
+            = f.input_field :email, autofocus: true, autocomplete: 'email', id: 'email',
+                            class: 'form-control', placeholder: t('.enter_email')
+          .form-group.mb-30
+            = f.label :password, t('.password'), class: 'control-label input-label password-label'
+            = f.input_field :password, autocomplete: 'current-password', id: 'password',
+                            class: 'form-control', placeholder: t('.password')
+            = link_to t('.forgot_password'), new_user_password_path, class: 'help-block in-gold-500 forgot-password'
+        = f.submit t('.log_in_with_password'), class: 'btn btn-default mb-20 submit-btn'
+    .col-md-5.col-md-offset-1.mb-60
+      .text-center
+        %h3.general-subtitle.fast-sign-up-title= t('.new_customer')
+        = link_to user_facebook_omniauth_authorize_path, class: 'general-login-icon facebook-login-btn', method: :post do
+          %i.fa.fa-facebook-official
+        %p.general-login-text= t('.or')
+      .mb-40
+        = simple_form_for(@user, url: checkout_sign_up_path,
+          html: { class: 'general-form fast-sign-up-form' }) do |f|
+          %p.mb-5.fast-sign-up-subtitle= t('.quick_register')
+          %p.general-info-text.font-12.mb-20= t('.password_later')
+          .form-group.mb-30
+            = f.label :email, t('.enter_email'), class: 'control-label input-label email-label'
+            = f.input_field :email, autofocus: true, id: 'fast-email', class: 'form-control',
+                    autocomplete: 'email', placeholder: t('.enter_email')
+            = f.full_error :email, class: 'text-danger'
+          = f.submit t('.continue_to_checkout'), class: 'btn btn-default mb-20 submit-btn'
