@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_scope :user do
-    post 'fast_sign_up', to: 'users/registrations#fast_sign_up'
+    get 'checkout/login', to: 'checkouts#new'
+    post 'checkout/login', to: 'checkouts#create'
+    post 'checkout/sign_up', to: 'checkouts#fast_sign_up'
+    get 'checkout/address', to: 'checkouts#address'
   end
   devise_for :users,
              class_name: 'UserAccount',
@@ -23,10 +26,6 @@ Rails.application.routes.draw do
   end
   resources :orders do
     put :apply_coupon, on: :member
-  end
-  scope 'checkout' do
-    get 'login', to: 'checkouts#login', as: :checkout_login
-    get 'address', to: 'checkouts#address', as: :checkout_address
   end
   scope 'settings' do
     resources :addresses, only: %i[new create update]

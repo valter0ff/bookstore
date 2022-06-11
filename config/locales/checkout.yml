@@ -3,7 +3,7 @@ en:
     admin:
       deactivate: Deactivate
   checkouts:
-    login:
+    new:
       returning_customer: Returning Customer
       log_in_with_password: Log In with Password
       enter_email: Enter Email

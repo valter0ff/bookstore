@@ -8,8 +8,8 @@ RSpec.describe 'Checkouts->Login', type: :feature do
   describe 'loading page elements' do
     context 'when main page' do
       it 'all elements present' do
-        expect(checkout_login_page).to have_login_title(text: I18n.t('checkouts.login.returning_customer'))
-        expect(checkout_login_page).to have_fast_sign_up_title(text: I18n.t('checkouts.login.new_customer'))
+        expect(checkout_login_page).to have_login_title(text: I18n.t('checkouts.new.returning_customer'))
+        expect(checkout_login_page).to have_fast_sign_up_title(text: I18n.t('checkouts.new.new_customer'))
         expect(checkout_login_page).to have_facebook_login_button
       end
     end
@@ -18,14 +18,14 @@ RSpec.describe 'Checkouts->Login', type: :feature do
       let(:login_form) { checkout_login_page.login_form }
 
       it 'all elements present' do
-        expect(login_form).to have_login_subtitle(text: I18n.t('checkouts.login.log_in_with_password'))
-        expect(login_form).to have_email_label(text: I18n.t('checkouts.login.enter_email'))
+        expect(login_form).to have_login_subtitle(text: I18n.t('checkouts.new.log_in_with_password'))
+        expect(login_form).to have_email_label(text: I18n.t('checkouts.new.enter_email'))
         expect(login_form).to have_email_input
-        expect(login_form).to have_password_label(text: I18n.t('checkouts.login.password'))
+        expect(login_form).to have_password_label(text: I18n.t('checkouts.new.password'))
         expect(login_form).to have_password_input
-        expect(login_form).to have_forgot_password_link(text: I18n.t('checkouts.login.forgot_password'))
+        expect(login_form).to have_forgot_password_link(text: I18n.t('checkouts.new.forgot_password'))
         expect(login_form).to have_submit_button
-        expect(login_form.submit_button.value).to eq(I18n.t('checkouts.login.log_in_with_password'))
+        expect(login_form.submit_button.value).to eq(I18n.t('checkouts.new.log_in_with_password'))
       end
     end
 
@@ -33,12 +33,12 @@ RSpec.describe 'Checkouts->Login', type: :feature do
       let(:fast_sign_up_form) { checkout_login_page.fast_sign_up_form }
 
       it 'all elements present' do
-        expect(fast_sign_up_form).to have_fast_sign_up_subtitle(text: I18n.t('checkouts.login.quick_register'))
-        expect(fast_sign_up_form).to have_info_text(text: I18n.t('checkouts.login.password_later'))
-        expect(fast_sign_up_form).to have_email_label(text: I18n.t('checkouts.login.enter_email'))
+        expect(fast_sign_up_form).to have_fast_sign_up_subtitle(text: I18n.t('checkouts.new.quick_register'))
+        expect(fast_sign_up_form).to have_info_text(text: I18n.t('checkouts.new.password_later'))
+        expect(fast_sign_up_form).to have_email_label(text: I18n.t('checkouts.new.enter_email'))
         expect(fast_sign_up_form).to have_email_input
         expect(fast_sign_up_form).to have_submit_button
-        expect(fast_sign_up_form.submit_button.value).to eq(I18n.t('checkouts.login.continue_to_checkout'))
+        expect(fast_sign_up_form.submit_button.value).to eq(I18n.t('checkouts.new.continue_to_checkout'))
       end
     end
   end
@@ -73,8 +73,8 @@ RSpec.describe 'Checkouts->Login', type: :feature do
 
         before { login_form.sign_in_user(user.email, random_password) }
 
-        it 'redirects to users login page' do
-          expect(checkout_login_page).to have_current_path(new_user_session_path)
+        it 'redirects back to checkout login page' do
+          expect(checkout_login_page).to have_current_path(checkout_login_path)
         end
 
         it 'shows apropriate flash message' do
