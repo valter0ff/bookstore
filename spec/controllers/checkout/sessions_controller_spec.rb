@@ -28,6 +28,36 @@ RSpec.describe Checkout::SessionsController, type: :controller do
     end
   end
 
+  describe '#create' do
+    before { post :create, params: { user: { email: email, password: password } } }
+
+    context 'with correct credentials' do
+      let!(:user) { create(:user_account) }
+      let(:email) { user.email }
+      let(:password) { user.password }
+      let(:notice_message) { I18n.t('devise.sessions.signed_in') }
+
+      it 'sings in user' do
+        expect(controller.current_user).to eq(user)
+      end
+
+      it { is_expected.to redirect_to(new_checkout_address_path) }
+      it { is_expected.to set_flash[:notice].to(notice_message) }
+    end
+
+    context 'with wrong credentials' do
+      let(:email) { FFaker::Internet.email }
+      let(:password) { FFaker::Internet.password }
+      let(:error_message) { I18n.t('devise.failure.invalid', authentication_keys: 'Email') }
+
+      it { is_expected.to render_template(:new) }
+
+      it 'assigns flash alert with corresponding error' do
+        expect(flash[:alert]).to match(error_message)
+      end
+    end
+  end
+
   describe '#sign_up' do
     let(:make_request) { post :sign_up, params: { user_account: { email: email } } }
     let(:errors_path) { %w[activerecord errors models user_account attributes] }
