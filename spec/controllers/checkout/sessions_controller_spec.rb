@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe CheckoutsController, type: :controller do
+RSpec.describe Checkout::SessionsController, type: :controller do
   let(:success_status) { 200 }
 
   before { request.env['devise.mapping'] = Devise.mappings[:user] }
@@ -24,32 +24,12 @@ RSpec.describe CheckoutsController, type: :controller do
         get :new
       end
 
-      it { is_expected.to redirect_to(checkout_address_path) }
+      it { is_expected.to redirect_to(new_checkout_address_path) }
     end
   end
 
-  describe '#address' do
-    context 'when user is not logged in' do
-      before { get :address }
-
-      it { is_expected.to redirect_to(checkout_login_path) }
-    end
-
-    context 'when user is logged in' do
-      let(:user) { create(:user_account) }
-
-      before do
-        sign_in(user)
-        get :address
-      end
-
-      it { is_expected.to respond_with(success_status) }
-      it { is_expected.to render_template(:address) }
-    end
-  end
-
-  describe '#fast_sign_up' do
-    let(:make_request) { post :fast_sign_up, params: { user_account: { email: email } } }
+  describe '#sign_up' do
+    let(:make_request) { post :sign_up, params: { user_account: { email: email } } }
     let(:errors_path) { %w[activerecord errors models user_account attributes] }
 
     before do |example|
@@ -65,7 +45,7 @@ RSpec.describe CheckoutsController, type: :controller do
         expect { make_request }.to change(UserAccount, :count).by(1)
       end
 
-      it { is_expected.to redirect_to(checkout_address_path) }
+      it { is_expected.to redirect_to(new_checkout_address_path) }
       it { is_expected.to set_flash[:notice].to(notice_message) }
 
       it 'creates user account with provided email' do

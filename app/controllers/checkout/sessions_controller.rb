@@ -7,7 +7,7 @@ module Checkout
       if @user.save
         @user.send_reset_password_instructions
         sign_in(@user)
-        redirect_to checkout_address_path, notice: I18n.t('devise.registrations.account_created')
+        redirect_to new_checkout_address_path, notice: I18n.t('devise.registrations.account_created')
       else
         render :new
       end

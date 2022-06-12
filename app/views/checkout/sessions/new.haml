@@ -22,18 +22,18 @@
         = f.submit t('.log_in_with_password'), class: 'btn btn-default mb-20 submit-btn'
     .col-md-5.col-md-offset-1.mb-60
       .text-center
-        %h3.general-subtitle.fast-sign-up-title= t('.new_customer')
+        %h3.general-subtitle.sign-up-title= t('.new_customer')
         = link_to user_facebook_omniauth_authorize_path, class: 'general-login-icon facebook-login-btn', method: :post do
           %i.fa.fa-facebook-official
         %p.general-login-text= t('.or')
       .mb-40
         = simple_form_for(@user, url: sign_up_checkout_session_path,
-          html: { class: 'general-form fast-sign-up-form' }) do |f|
-          %p.mb-5.fast-sign-up-subtitle= t('.quick_register')
+          html: { class: 'general-form sign-up-form' }) do |f|
+          %p.mb-5.sign-up-subtitle= t('.quick_register')
           %p.general-info-text.font-12.mb-20= t('.password_later')
           .form-group.mb-30
             = f.label :email, t('.enter_email'), class: 'control-label input-label email-label'
-            = f.input_field :email, autofocus: true, id: 'fast-email', class: 'form-control',
+            = f.input_field :email, autofocus: true, id: 'sign-up-email', class: 'form-control',
                     autocomplete: 'email', placeholder: t('.enter_email')
             = f.full_error :email, class: 'text-danger'
           = f.submit t('.continue_to_checkout'), class: 'btn btn-default mb-20 submit-btn'

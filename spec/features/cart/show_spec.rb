@@ -59,11 +59,11 @@ RSpec.describe 'Cart->Show', type: :feature do
 
       it 'all elements present' do
         expect(order_summary).to have_order_summary_title(text: I18n.t('carts.show.order_summary'))
-        expect(order_summary).to have_order_subtotal_title(text: I18n.t('carts.show.subtotal'))
+        expect(order_summary).to have_order_subtotal_title(text: I18n.t('checkout.order_summary_table.subtotal'))
         expect(order_summary).to have_order_subtotal
-        expect(order_summary).to have_coupon_title(text: I18n.t('carts.show.coupon'))
+        expect(order_summary).to have_coupon_title(text: I18n.t('checkout.order_summary_table.coupon'))
         expect(order_summary).to have_discount
-        expect(order_summary).to have_order_total_title(text: I18n.t('carts.show.order_total'))
+        expect(order_summary).to have_order_total_title(text: I18n.t('checkout.order_summary_table.order_total'))
         expect(order_summary).to have_order_total
       end
     end
