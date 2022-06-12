@@ -6,7 +6,7 @@
         = link_to user_facebook_omniauth_authorize_path, class: 'general-login-icon facebook-login-btn', method: :post do
           %i.fa.fa-facebook-official
         %p.general-login-text= t('.or')
-      = simple_form_for(resource, as: resource_name, url: checkout_login_path,
+      = simple_form_for(resource, as: resource_name, url: checkout_session_path,
                     html: { class: 'general-form login-form' }) do |f|
         .mb-40
           %p.mb-15.login-subtitle= t('.log_in_with_password')
@@ -27,7 +27,7 @@
           %i.fa.fa-facebook-official
         %p.general-login-text= t('.or')
       .mb-40
-        = simple_form_for(@user, url: checkout_sign_up_path,
+        = simple_form_for(@user, url: sign_up_checkout_session_path,
           html: { class: 'general-form fast-sign-up-form' }) do |f|
           %p.mb-5.fast-sign-up-subtitle= t('.quick_register')
           %p.general-info-text.font-12.mb-20= t('.password_later')

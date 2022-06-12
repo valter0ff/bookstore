@@ -2,7 +2,6 @@
   = f.label :first_name, t('addresses.address_form.first_name'), class: 'control-label input-label first-name-label'
   = f.input_field :first_name, id: 'firstName', class: 'form-control', placeholder: t('addresses.address_form.first_name')
   = f.full_error :first_name, class: 'text-danger'
-  %span.help-block= t('addresses.address_form.first_name_help')
 .form-group
   = f.label :last_name, t('addresses.address_form.last_name'), class: 'control-label input-label last-name-label'
   = f.input_field :last_name, id: 'lastName', class: 'form-control', placeholder: t('addresses.address_form.last_name')

@@ -3,11 +3,20 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  devise_scope :user do
-    get 'checkout/login', to: 'checkouts#new'
-    post 'checkout/login', to: 'checkouts#create'
-    post 'checkout/sign_up', to: 'checkouts#fast_sign_up'
-    get 'checkout/address', to: 'checkouts#address'
+  namespace :checkout do
+    devise_scope :user do
+#       get 'checkout/login', to: 'checkouts#new'
+#       post 'checkout/login', to: 'checkouts#create'
+#       post 'checkout/sign_up', to: 'checkouts#fast_sign_up'
+#       get 'checkout/address', to: 'checkouts#address'
+      resource :session, only: %i[new create] do
+        post 'sign_up'
+      end
+    end
+    resource :address, only: %i[new create]
+    resource :delivery, only: %i[new create]
+    resource :payment, only: %i[new create]
+    resource :confirm, only: %i[new create]
   end
   devise_for :users,
              class_name: 'UserAccount',
@@ -28,10 +37,10 @@ Rails.application.routes.draw do
     put :apply_coupon, on: :member
   end
   scope 'checkout' do
-    get 'login', to: 'checkouts#login', as: :checkout_login
-    get 'address', to: 'checkouts#address', as: :checkout_address
-    patch 'save_adresses', to: 'checkouts#save_adresses', as: :checkout_save_adresses
-    get 'delivery', to: 'checkouts#delivery', as: :checkout_delivery
+#     get 'login', to: 'checkouts#login', as: :checkout_login
+#     get 'address', to: 'checkouts#address', as: :checkout_address
+#     patch 'save_adresses', to: 'checkouts#save_adresses', as: :checkout_save_adresses
+#     get 'delivery', to: 'checkouts#delivery', as: :checkout_delivery
   end
   scope 'settings' do
     resources :addresses, only: %i[new create update]
