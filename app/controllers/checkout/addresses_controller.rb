@@ -6,7 +6,7 @@ module Checkout
 
     def create
       if current_user.update(filtered_params)
-        redirect_to new_checkout_delivery_path
+        redirect_to new_checkout_delivery_path, notice: I18n.t('checkout.addresses.new.addresses_saved')
       else
         render :new
       end
@@ -22,7 +22,7 @@ module Checkout
     end
 
     def filtered_params
-      return addresses_params if addresses_params[:use_billing_address] == 'false'
+      return addresses_params unless addresses_params[:use_billing_address] == 'true'
 
       addresses_params.except(:shipping_address_attributes)
     end
