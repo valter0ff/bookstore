@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Pages
-  module Checkout
+  module Sections
     class CheckoutProgressBar < SitePrism::Section
       element :step_number_one, 'span.step-one'
       element :step_number_two, 'span.step-two'

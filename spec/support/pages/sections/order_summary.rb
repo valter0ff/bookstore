@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Pages
-  module Checkout
+  module Sections
     class OrderSummary < SitePrism::Section
       element :order_summary_title, '.order-summary-title'
       element :order_subtotal_title, '.order-subtotal-title'
