@@ -4,7 +4,7 @@ class CheckoutsController < Devise::SessionsController
   before_action :authenticate_on_checkout, except: %i[new create fast_sign_up]
 
   def fast_sign_up
-    @user = UserAccount.new(email: params[:user_account][:email], password: generate_password)
+    @user = UserAccount.new(email: permitted_params[:email], password: generate_password)
     if @user.save
       @user.send_reset_password_instructions
       sign_in(@user)
@@ -17,6 +17,10 @@ class CheckoutsController < Devise::SessionsController
   def address; end
 
   private
+
+  def permitted_params
+    params.require(:user_account).permit(:email)
+  end
 
   def authenticate_on_checkout
     redirect_to checkout_login_path unless user_signed_in?
