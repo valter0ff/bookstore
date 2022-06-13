@@ -16,7 +16,6 @@ RSpec.shared_examples 'form have all elements' do
     expect(form).to have_country_input
     expect(form).to have_phone_label
     expect(form).to have_phone_input
-    expect(form).to have_submit_button
   end
 end
 

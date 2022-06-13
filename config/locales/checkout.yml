@@ -3,8 +3,9 @@ en:
     admin:
       deactivate: Deactivate
   checkout:
+    shared:
+      general_title: Checkout
     checkout_progress:
-        general_title: Checkout
         address: Address
         delivery: Delivery
         payment: Payment
