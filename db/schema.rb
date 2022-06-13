@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_06_194709) do
+ActiveRecord::Schema.define(version: 2022_06_13_232134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,7 +140,9 @@ ActiveRecord::Schema.define(version: 2022_06_06_194709) do
     t.string "number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "shipping_method_id"
     t.index ["coupon_id"], name: "index_orders_on_coupon_id"
+    t.index ["shipping_method_id"], name: "index_orders_on_shipping_method_id"
     t.index ["user_account_id"], name: "index_orders_on_user_account_id"
   end
 
@@ -167,6 +169,14 @@ ActiveRecord::Schema.define(version: 2022_06_06_194709) do
     t.index ["user_account_id"], name: "index_reviews_on_user_account_id"
   end
 
+  create_table "shipping_methods", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "days", default: 0
+    t.float "price", default: 0.0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "user_accounts", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -191,6 +201,7 @@ ActiveRecord::Schema.define(version: 2022_06_06_194709) do
   add_foreign_key "cart_items", "books"
   add_foreign_key "cart_items", "orders"
   add_foreign_key "orders", "coupons"
+  add_foreign_key "orders", "shipping_methods"
   add_foreign_key "orders", "user_accounts"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "user_accounts"

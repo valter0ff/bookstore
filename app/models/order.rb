@@ -13,6 +13,7 @@ class Order < ApplicationRecord
 
   belongs_to :user_account, optional: true
   belongs_to :coupon, optional: true
+  belongs_to :shipping_method, optional: true
 
   has_many :cart_items, dependent: :destroy
 
