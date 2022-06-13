@@ -3,6 +3,12 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  devise_scope :user do
+    get 'checkout/login', to: 'checkouts#new'
+    post 'checkout/login', to: 'checkouts#create'
+    post 'checkout/sign_up', to: 'checkouts#fast_sign_up'
+    get 'checkout/address', to: 'checkouts#address'
+  end
   devise_for :users,
              class_name: 'UserAccount',
              path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'signup' },
@@ -21,7 +27,7 @@ Rails.application.routes.draw do
   resources :orders do
     put :apply_coupon, on: :member
   end
-  scope '/settings' do
+  scope 'settings' do
     resources :addresses, only: %i[new create update]
   end
   %w[404 422 500].each do |code|
