@@ -41,36 +41,19 @@ RSpec.describe Checkout::AddressesController, type: :controller do
       let(:shipping_attrs) { attributes_for(:shipping_address) }
       let(:notice_message) { I18n.t('checkout.addresses.new.addresses_saved') }
 
-      shared_examples 'success billing address update' do
-        it 'all fields match' do
-          expect(user.billing_address.first_name).to eq(billing_attrs[:first_name])
-          expect(user.billing_address.last_name).to eq(billing_attrs[:last_name])
-          expect(user.billing_address.city).to eq(billing_attrs[:city])
-          expect(user.billing_address.address).to eq(billing_attrs[:address])
-          expect(user.billing_address.zip).to eq(billing_attrs[:zip])
-          expect(user.billing_address.phone).to eq(billing_attrs[:phone])
-          expect(user.billing_address.country_code).to eq(billing_attrs[:country_code])
-        end
-      end
-
-      shared_examples 'success shipping address update' do
-        it 'all fields match' do
-          expect(user.shipping_address.first_name).to eq(shipping_attrs[:first_name])
-          expect(user.shipping_address.last_name).to eq(shipping_attrs[:last_name])
-          expect(user.shipping_address.city).to eq(shipping_attrs[:city])
-          expect(user.shipping_address.address).to eq(shipping_attrs[:address])
-          expect(user.shipping_address.phone).to eq(shipping_attrs[:phone])
-          expect(user.shipping_address.zip).to eq(shipping_attrs[:zip])
-          expect(user.shipping_address.country_code).to eq(shipping_attrs[:country_code])
-        end
-      end
-
       context 'when user doesn`t have addresses yet' do
         it { is_expected.to redirect_to(new_checkout_delivery_path) }
         it { is_expected.to set_flash[:notice].to(notice_message) }
 
-        it_behaves_like 'success billing address update'
-        it_behaves_like 'success shipping address update'
+        it_behaves_like 'address update success' do
+          let(:address) { user.billing_address }
+          let(:request_params) { billing_attrs }
+        end
+
+        it_behaves_like 'address update success' do
+          let(:address) { user.shipping_address }
+          let(:request_params) { shipping_attrs }
+        end
 
         it 'creates both new addresses', skip_request: true do
           expect { make_request }.to change(Address, :count).by(2)
@@ -83,8 +66,15 @@ RSpec.describe Checkout::AddressesController, type: :controller do
           create(:shipping_address, user_account: user)
         end
 
-        it_behaves_like 'success billing address update'
-        it_behaves_like 'success shipping address update'
+        it_behaves_like 'address update success' do
+          let(:address) { user.billing_address }
+          let(:request_params) { billing_attrs }
+        end
+
+        it_behaves_like 'address update success' do
+          let(:address) { user.shipping_address }
+          let(:request_params) { shipping_attrs }
+        end
 
         it 'doesn`t create new addresses in database', skip_request: true do
           expect { make_request }.not_to change(Address, :count)
@@ -98,7 +88,10 @@ RSpec.describe Checkout::AddressesController, type: :controller do
                             use_billing_address: true } }
         end
 
-        it_behaves_like 'success billing address update'
+        it_behaves_like 'address update success' do
+          let(:address) { user.billing_address }
+          let(:request_params) { billing_attrs }
+        end
 
         it 'doesn`t update shipping address' do
           expect(user.reload.shipping_address).to be_nil

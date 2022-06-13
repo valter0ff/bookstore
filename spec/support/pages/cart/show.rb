@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../checkout/order_summary'
-
 module Pages
   module Cart
     class Show < SitePrism::Page
@@ -43,7 +41,7 @@ module Pages
         end
       end
 
-      section :order_summary, Pages::Checkout::OrderSummary, '.order-summary'
+      section :order_summary, Pages::Sections::OrderSummary, '.order-summary'
     end
   end
 end
