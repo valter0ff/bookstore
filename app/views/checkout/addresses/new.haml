@@ -2,7 +2,7 @@
   %h1.general-title-margin= t('checkout.shared.general_title')
   = render 'checkout/checkout_progress', step: :address
   %form.res-mb-100
-  = simple_form_for current_user, url: checkout_address_path, method: :post do |sf|
+  = simple_form_for current_user, url: checkout_address_path do |sf|
     .hidden-xs.hidden-sm
       .row
         .col-md-5

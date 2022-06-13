@@ -4,8 +4,8 @@ module Checkout
   class AddressesController < BaseCheckoutController
     def new; end
 
-    def create
-      if current_user.update(filtered_params)
+    def update
+      if current_user.update(permitted_params)
         redirect_to new_checkout_delivery_path, notice: I18n.t('checkout.addresses.new.addresses_saved')
       else
         render :new
@@ -21,7 +21,7 @@ module Checkout
                     shipping_address_attributes: %i[first_name last_name address city zip country_code phone])
     end
 
-    def filtered_params
+    def permitted_params
       return addresses_params unless addresses_params[:use_billing_address] == 'true'
 
       addresses_params.except(:shipping_address_attributes)

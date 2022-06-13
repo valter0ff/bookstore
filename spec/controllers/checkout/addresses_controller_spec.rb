@@ -23,9 +23,9 @@ RSpec.describe Checkout::AddressesController, type: :controller do
     end
   end
 
-  describe '#create' do
+  describe '#update' do
     let(:user) { create(:user_account) }
-    let(:make_request) { post :create, params: params }
+    let(:make_request) { post :update, params: params }
     let(:params) do
       { user_account: { billing_address_attributes: billing_attrs,
                         shipping_address_attributes: shipping_attrs } }
@@ -46,12 +46,12 @@ RSpec.describe Checkout::AddressesController, type: :controller do
         it { is_expected.to set_flash[:notice].to(notice_message) }
 
         it_behaves_like 'address update success' do
-          let(:address) { user.billing_address }
+          let(:address) { user.reload.billing_address }
           let(:request_params) { billing_attrs }
         end
 
         it_behaves_like 'address update success' do
-          let(:address) { user.shipping_address }
+          let(:address) { user.reload.shipping_address }
           let(:request_params) { shipping_attrs }
         end
 
@@ -67,12 +67,12 @@ RSpec.describe Checkout::AddressesController, type: :controller do
         end
 
         it_behaves_like 'address update success' do
-          let(:address) { user.billing_address }
+          let(:address) { user.reload.billing_address }
           let(:request_params) { billing_attrs }
         end
 
         it_behaves_like 'address update success' do
-          let(:address) { user.shipping_address }
+          let(:address) { user.reload.shipping_address }
           let(:request_params) { shipping_attrs }
         end
 
@@ -89,7 +89,7 @@ RSpec.describe Checkout::AddressesController, type: :controller do
         end
 
         it_behaves_like 'address update success' do
-          let(:address) { user.billing_address }
+          let(:address) { user.reload.billing_address }
           let(:request_params) { billing_attrs }
         end
 

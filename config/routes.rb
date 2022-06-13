@@ -9,7 +9,7 @@ Rails.application.routes.draw do
         post 'sign_up'
       end
     end
-    resource :address, only: %i[new create]
+    resource :address, only: %i[new update]
     resource :delivery, only: %i[new create]
     resource :payment, only: %i[new create]
     resource :confirm, only: %i[new create]
