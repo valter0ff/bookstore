@@ -34,6 +34,7 @@ en:
     addresses:
       new:
         fields_required: all fields are required
+        use_billing_address: Use billing address
         item_total: 'Item Total:'
         save_and_continue: Save and Continue
         addresses_saved: Addresses information saved
