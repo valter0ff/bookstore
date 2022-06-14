@@ -171,7 +171,7 @@ ActiveRecord::Schema.define(version: 2022_06_13_232134) do
 
   create_table "shipping_methods", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "days", default: 0
+    t.string "days"
     t.float "price", default: 0.0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
