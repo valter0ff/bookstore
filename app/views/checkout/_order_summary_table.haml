@@ -3,6 +3,12 @@
     %p.font-16.order-subtotal-title= t('.subtotal')
   %td
     %p.font-16.order-subtotal= order.subtotal_price
+- if shipping_amount
+  %tr
+    %td
+      %p.font-16.coupon-title= t('.shipping')
+    %td
+      %p.font-16.shipping= order.shipping_amount
 %tr
   %td
     %p.font-16.coupon-title= t('.coupon')
@@ -12,4 +18,4 @@
   %td
     %strong.font-18.order-total-title= t('.order_total')
   %td
-    %strong.font-18.order-total= order.total_price
+    %strong.font-18.order-total= shipping_amount ? order.total_with_shipping : order.total_price
