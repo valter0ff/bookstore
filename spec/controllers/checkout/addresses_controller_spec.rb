@@ -31,10 +31,7 @@ RSpec.describe Checkout::AddressesController, type: :controller do
                         shipping_address_attributes: shipping_attrs } }
     end
 
-    before do |example|
-      sign_in(user)
-      make_request unless example.metadata[:skip_request]
-    end
+    before { sign_in(user) }
 
     context 'when request successful' do
       let(:billing_attrs) { attributes_for(:billing_address) }
@@ -42,6 +39,8 @@ RSpec.describe Checkout::AddressesController, type: :controller do
       let(:notice_message) { I18n.t('checkout.addresses.new.addresses_saved') }
 
       context 'when user doesn`t have addresses yet' do
+        before { |example| make_request unless example.metadata[:skip_request] }
+
         it { is_expected.to redirect_to(new_checkout_delivery_path) }
         it { is_expected.to set_flash[:notice].to(notice_message) }
 
@@ -61,9 +60,10 @@ RSpec.describe Checkout::AddressesController, type: :controller do
       end
 
       context 'when user already have addresses' do
-        before do
+        before do |example|
           create(:billing_address, user_account: user)
           create(:shipping_address, user_account: user)
+          make_request unless example.metadata[:skip_request]
         end
 
         it_behaves_like 'address update success' do
@@ -88,6 +88,8 @@ RSpec.describe Checkout::AddressesController, type: :controller do
                             use_billing_address: true } }
         end
 
+        before { make_request }
+
         it_behaves_like 'address update success' do
           let(:address) { user.reload.billing_address }
           let(:request_params) { billing_attrs }
@@ -105,6 +107,8 @@ RSpec.describe Checkout::AddressesController, type: :controller do
       let(:errors_path) { %w[activerecord errors models address attributes] }
       let(:format_error_message) { I18n.t('city.invalid', scope: errors_path) }
       let(:blank_error_message) { I18n.t('activerecord.errors.messages.blank') }
+
+      before { |example| make_request unless example.metadata[:skip_request] }
 
       it { is_expected.to render_template(:new) }
 
