@@ -80,5 +80,15 @@ RSpec.describe 'Checkout::Deliveries->New', type: :feature do
         expect(deliveries_new_page).to have_flash_notice(text: notice_message)
       end
     end
+
+    context 'when failed' do
+      let(:error_message) { I18n.t('checkout.deliveries.new.choose_method') }
+
+      before { deliveries_new_page.submit_button.click }
+
+      it 'shows error flash message' do
+        expect(deliveries_new_page).to have_flash_alert(text: error_message)
+      end
+    end
   end
 end

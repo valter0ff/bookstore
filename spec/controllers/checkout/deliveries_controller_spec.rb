@@ -41,10 +41,10 @@ RSpec.describe Checkout::DeliveriesController, type: :controller do
     context 'when order update success' do
       let(:shipping_method) { create(:shipping_method) }
       let(:params) { { order: { shipping_method_id: shipping_method.id } } }
-      let(:notice_message) { I18n.t('checkout.deliveries.new.shipping_method_saved') }
+      let(:success_message) { I18n.t('checkout.deliveries.new.shipping_method_saved') }
 
       it { is_expected.to redirect_to(new_checkout_payment_path) }
-      it { is_expected.to set_flash[:notice].to(notice_message) }
+      it { is_expected.to set_flash[:notice].to(success_message) }
 
       it 'updates shipping_method for order of current user' do
         expect(order.shipping_method).to eq(shipping_method)
@@ -52,15 +52,15 @@ RSpec.describe Checkout::DeliveriesController, type: :controller do
     end
 
     context 'when order update not success' do
-      let(:alert_message) { I18n.t('checkout.deliveries.new.choose_method') }
+      let(:error_message) { I18n.t('checkout.deliveries.new.choose_method') }
 
       context 'with not choosen shipping method' do
         let(:params) { { order: { shipping_method_id: '' } } }
 
         it { is_expected.to render_template(:new) }
 
-        it 'sets flash now alert' do
-          expect(flash[:alert]).to eq(alert_message)
+        it 'sets flash now error' do
+          expect(flash[:alert]).to eq(error_message)
         end
       end
 
@@ -69,8 +69,8 @@ RSpec.describe Checkout::DeliveriesController, type: :controller do
 
         it { is_expected.to render_template(:new) }
 
-        it 'sets flash now alert' do
-          expect(flash[:alert]).to eq(alert_message)
+        it 'sets flash now error' do
+          expect(flash[:alert]).to eq(error_message)
         end
       end
     end
