@@ -2,7 +2,7 @@
 
 module Pages
   module Helpers
-    module AddressFormFieldsFiller
+    module AddressFormFieldsFillable
       def fill_form_fields(form, params)
         form.first_name_input.set(params[:first_name])
         form.last_name_input.set(params[:last_name])

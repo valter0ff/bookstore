@@ -4,7 +4,7 @@ module Pages
   module Checkout
     module Addresses
       class New < SitePrism::Page
-        include Pages::Helpers::AddressFormFieldsFiller
+        include Pages::Helpers::AddressFormFieldsFillable
 
         set_url '/checkout/address/new'
 

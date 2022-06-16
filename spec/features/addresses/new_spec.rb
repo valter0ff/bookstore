@@ -44,7 +44,7 @@ RSpec.describe 'Addresses' do
         form.submit_button.click
       end
 
-      it_behaves_like 'address update success' do
+      it_behaves_like 'a successfull address change' do
         let(:request_params) { params }
       end
     end
@@ -59,7 +59,7 @@ RSpec.describe 'Addresses' do
         form.submit_button.click
       end
 
-      it_behaves_like 'address update success' do
+      it_behaves_like 'a successfull address change' do
         let(:request_params) { params }
       end
     end

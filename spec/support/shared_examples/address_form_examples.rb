@@ -19,7 +19,7 @@ RSpec.shared_examples 'form have all elements' do
   end
 end
 
-RSpec.shared_examples 'address update success' do
+RSpec.shared_examples 'a successfull address change' do
   it 'user`s address fields match params fields' do
     expect(address.first_name).to eq(request_params[:first_name])
     expect(address.last_name).to eq(request_params[:last_name])

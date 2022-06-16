@@ -25,7 +25,7 @@ RSpec.describe Checkout::AddressesController, type: :controller do
 
   describe '#update' do
     let(:user) { create(:user_account) }
-    let(:make_request) { post :update, params: params }
+    let(:make_request) { put :update, params: params }
     let(:params) do
       { user_account: { billing_address_attributes: billing_attrs,
                         shipping_address_attributes: shipping_attrs } }
@@ -36,26 +36,30 @@ RSpec.describe Checkout::AddressesController, type: :controller do
     context 'when request successful' do
       let(:billing_attrs) { attributes_for(:billing_address) }
       let(:shipping_attrs) { attributes_for(:shipping_address) }
-      let(:notice_message) { I18n.t('checkout.addresses.new.addresses_saved') }
+      let(:success_message) { I18n.t('checkout.addresses.new.addresses_saved') }
 
       context 'when user doesn`t have addresses yet' do
         before { |example| make_request unless example.metadata[:skip_request] }
 
         it { is_expected.to redirect_to(new_checkout_delivery_path) }
-        it { is_expected.to set_flash[:notice].to(notice_message) }
+        it { is_expected.to set_flash[:notice].to(success_message) }
 
-        it_behaves_like 'address update success' do
+        it_behaves_like 'a successfull address change' do
           let(:address) { user.reload.billing_address }
           let(:request_params) { billing_attrs }
         end
 
-        it_behaves_like 'address update success' do
+        it_behaves_like 'a successfull address change' do
           let(:address) { user.reload.shipping_address }
           let(:request_params) { shipping_attrs }
         end
 
-        it 'creates both new addresses', skip_request: true do
-          expect { make_request }.to change(Address, :count).by(2)
+        it 'creates new billing addresses', skip_request: true do
+          expect { make_request }.to change(BillingAddress, :count).from(0).to(1)
+        end
+
+        it 'creates new shipping addresses', skip_request: true do
+          expect { make_request }.to change(ShippingAddress, :count).from(0).to(1)
         end
       end
 
@@ -66,12 +70,12 @@ RSpec.describe Checkout::AddressesController, type: :controller do
           make_request unless example.metadata[:skip_request]
         end
 
-        it_behaves_like 'address update success' do
+        it_behaves_like 'a successfull address change' do
           let(:address) { user.reload.billing_address }
           let(:request_params) { billing_attrs }
         end
 
-        it_behaves_like 'address update success' do
+        it_behaves_like 'a successfull address change' do
           let(:address) { user.reload.shipping_address }
           let(:request_params) { shipping_attrs }
         end
@@ -90,7 +94,7 @@ RSpec.describe Checkout::AddressesController, type: :controller do
 
         before { make_request }
 
-        it_behaves_like 'address update success' do
+        it_behaves_like 'a successfull address change' do
           let(:address) { user.reload.billing_address }
           let(:request_params) { billing_attrs }
         end

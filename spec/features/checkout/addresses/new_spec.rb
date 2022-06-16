@@ -52,7 +52,7 @@ RSpec.describe 'Checkout::Addresses->New', type: :feature do
   describe 'submitting form' do
     let(:billing_form) { addresses_new_page.billing_form }
     let(:shipping_form) { addresses_new_page.shipping_form }
-    let(:notice_message) { I18n.t('checkout.addresses.new.addresses_saved') }
+    let(:success_message) { I18n.t('checkout.addresses.new.addresses_saved') }
 
     shared_examples 'success request' do
       it 'redirects to checkout delivery page' do
@@ -60,7 +60,7 @@ RSpec.describe 'Checkout::Addresses->New', type: :feature do
       end
 
       it 'shows success flash message' do
-        expect(addresses_new_page).to have_flash_notice(text: notice_message)
+        expect(addresses_new_page).to have_flash_notice(text: success_message)
       end
     end
 
@@ -75,12 +75,12 @@ RSpec.describe 'Checkout::Addresses->New', type: :feature do
         let(:billing_attrs) { attributes_for(:billing_address) }
         let(:shipping_attrs) { attributes_for(:shipping_address) }
 
-        it_behaves_like 'address update success' do
+        it_behaves_like 'a successfull address change' do
           let(:address) { user.reload.billing_address }
           let(:request_params) { billing_attrs }
         end
 
-        it_behaves_like 'address update success' do
+        it_behaves_like 'a successfull address change' do
           let(:address) { user.reload.shipping_address }
           let(:request_params) { shipping_attrs }
         end
@@ -111,7 +111,7 @@ RSpec.describe 'Checkout::Addresses->New', type: :feature do
         addresses_new_page.submit_button.click
       end
 
-      it_behaves_like 'address update success' do
+      it_behaves_like 'a successfull address change' do
         let(:address) { user.reload.billing_address }
         let(:request_params) { billing_attrs }
       end

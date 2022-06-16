@@ -3,7 +3,7 @@
 module Pages
   module Addresses
     class New < SitePrism::Page
-      include Pages::Helpers::AddressFormFieldsFiller
+      include Pages::Helpers::AddressFormFieldsFillable
 
       set_url '/settings/addresses/new'
 
