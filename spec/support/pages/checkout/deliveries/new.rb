@@ -25,7 +25,7 @@ module Pages
             element :shipping_name, '.shipping-name'
             element :shipping_time, '.shipping-time'
             element :shipping_price, '.shipping-price'
-            element :radio_button, '.radio'
+            element :radio_button, '.radio-label'
           end
         end
       end

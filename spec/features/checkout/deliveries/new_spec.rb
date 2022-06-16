@@ -59,4 +59,26 @@ RSpec.describe 'Checkout::Deliveries->New', type: :feature do
       end
     end
   end
+
+  describe 'submitting form' do
+    let(:shipping_form) { deliveries_new_page.shipping_methods_form }
+    let(:shipping_method_block) { shipping_form.shipping_method_info.first }
+
+    context 'when success' do
+      let(:notice_message) { I18n.t('checkout.deliveries.new.shipping_method_saved') }
+
+      before do
+        shipping_form.shipping_method_info.first.radio_button.click
+        deliveries_new_page.submit_button.click
+      end
+
+      it 'redirects to checkout delivery page' do
+        expect(deliveries_new_page).to have_current_path(new_checkout_payment_path)
+      end
+
+      it 'shows success flash message' do
+        expect(deliveries_new_page).to have_flash_notice(text: notice_message)
+      end
+    end
+  end
 end
