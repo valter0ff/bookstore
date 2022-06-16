@@ -17,7 +17,7 @@ class OrderDecorator < ApplicationDecorator
   end
 
   def shipping_amount
-    price_with_currency(shipping_method.price || 0)
+    price_with_currency(shipping_method_price)
   end
 
   def total_with_shipping
@@ -41,9 +41,13 @@ class OrderDecorator < ApplicationDecorator
   end
 
   def total_with_shipping_value
-    total = subtotal_value + shipping_method.price
+    total = subtotal_value + shipping_method_price
     return 0 if total <= discount_value.to_i
 
     total - discount_value.to_i
+  end
+
+  def shipping_method_price
+    shipping_method.try(:price) || 0
   end
 end

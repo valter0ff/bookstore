@@ -10,6 +10,8 @@ module Pages
       element :discount, '.discount'
       element :order_total_title, '.order-total-title'
       element :order_total, '.order-total'
+      element :shipping_title, '.shipping-title'
+      element :shipping_amount, '.shipping-amount'
     end
   end
 end

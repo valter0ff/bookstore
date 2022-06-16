@@ -2,58 +2,59 @@
   %h1.general-title-margin= t('checkout.shared.general_title')
   = render 'checkout/checkout_progress', step: :delivery
   %h3.general-subtitle= t('.shipping_method')
-  = simple_form_for @order, url: checkout_delivery_path do |f|
-    .visible-xs
-      - @shipping_methods.each do |shipping_method|
-        .general-cart-item.divider-lg-bottom
-          %table.table
+  .shipping-methods-form
+    = simple_form_for @order, url: checkout_delivery_path do |f|
+      .visible-xs
+        - @shipping_methods.each do |shipping_method|
+          .general-cart-item.divider-lg-bottom
+            %table.table.shipping-method-info
+              %tr
+                %td.col-half
+                  %span.in-grey-600.shipping-name-label= t('.method')
+                %td.col-half
+                  .form-group.radio.mt-0.mb-0
+                    %label.radio-label
+                      = f.radio_button :shipping_method_id, shipping_method.id, {class: 'radio-input', hidden: 'true'}
+                      %span.radio-icon
+                      %span.radio-text.shipping-name= shipping_method.name
+              %tr
+                %td
+                  %span.in-grey-600.shipping-time-label= t('.days')
+                %td
+                  %span.font-16.fw-300.shipping-time= shipping_method.days
+              %tr
+                %td
+                  %span.in-grey-600.shipping-price-label= t('.price')
+                %td
+                  %span.font-16.in-gold-500.shipping-price= shipping_method.price_with_currency
+      .hidden-xs.mb-res-50
+        %table.table.table-hover
+          %thead
             %tr
-              %td.col-half
-                %span.in-grey-600= t('.method')
-              %td.col-half
-                .form-group.radio.mt-0.mb-0
-                  %label.radio-label
-                    = f.radio_button :shipping_method_id, shipping_method.id, {class: 'radio-input', hidden: 'true'}
-                    %span.radio-icon
-                    %span.radio-text.shipping-name= shipping_method.name
-            %tr
-              %td
-                %span.in-grey-600= t('.days')
-              %td
-                %span.font-16.fw-300.days= shipping_method.days
-            %tr
-              %td
-                %span.in-grey-600= t('.price')
-              %td
-                %span.font-16.in-gold-500.price= shipping_method.price_with_currency
-    .hidden-xs.mb-res-50
-      %table.table.table-hover
-        %thead
-          %tr
-            %th.col-method
-              %span.in-grey-600.ml-40= t('.method')
-            %th
-              %span.in-grey-600= t('.days')
-            %th
-              %span.in-grey-600= t('.price')
-        %tbody
-          - @shipping_methods.each do |shipping_method|
-            %tr
-              %td
-                .form-group.radio.mt-0.mb-0
-                  %label.radio-label
-                    = f.radio_button :shipping_method_id, shipping_method.id, { class: 'radio-input', hidden: 'true' }
-                    %span.radio-icon
-                    %span.radio-text.shipping-name= shipping_method.name
-              %td
-                %span.days= shipping_method.days
-              %td
-                %span.font-16.in-gold-500.price= shipping_method.price_with_currency
-    .general-text-align
-      %p.in-gold-500.font-18= t('carts.show.order_summary')
-      %table.general-summary-table
-        = render 'checkout/order_summary_table', order: @order, shipping_amount: true
-    = f.radio_button :shipping_method_id, '', { class: 'radio-input', hidden: 'true' }
-    .text-center
-      = f.submit t('checkout.shared.save_and_continue'), class: 'btn mb-20 submit-btn'
+              %th.col-method
+                %span.in-grey-600.ml-40.shipping-name-label= t('.method')
+              %th
+                %span.in-grey-600.shipping-time-label= t('.days')
+              %th
+                %span.in-grey-600.shipping-price-label= t('.price')
+          %tbody
+            - @shipping_methods.each do |shipping_method|
+              %tr.shipping-method-info
+                %td
+                  .form-group.radio.mt-0.mb-0
+                    %label.radio-label
+                      = f.radio_button :shipping_method_id, shipping_method.id, { class: 'radio-input', hidden: 'true' }
+                      %span.radio-icon
+                      %span.radio-text.shipping-name= shipping_method.name
+                %td
+                  %span.shipping-time= shipping_method.days
+                %td
+                  %span.font-16.in-gold-500.shipping-price= shipping_method.price_with_currency
+      .general-text-align
+        %p.in-gold-500.font-18.order-summary-title= t('carts.show.order_summary')
+        %table.general-summary-table
+          = render 'checkout/order_summary_table', order: @order, shipping_amount: true
+      = f.radio_button :shipping_method_id, '', { class: 'radio-input', hidden: 'true' }
+      .text-center
+        = f.submit t('checkout.shared.save_and_continue'), class: 'btn mb-20 submit-btn'
 = javascript_pack_tag 'checkout/checkout_order_summary'
