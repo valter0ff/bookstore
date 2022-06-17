@@ -8,6 +8,7 @@ RSpec.describe Order do
     it { is_expected.to belong_to(:shipping_method).optional }
     it { is_expected.to belong_to(:user_account).optional }
     it { is_expected.to have_many(:cart_items).dependent(:destroy) }
+    it { is_expected.to accept_nested_attributes_for(:credit_card).allow_destroy(true).update_only(true) }
   end
 
   describe 'database columns exists' do
