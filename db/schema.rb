@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_13_232134) do
+ActiveRecord::Schema.define(version: 2022_06_17_092454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,17 @@ ActiveRecord::Schema.define(version: 2022_06_13_232134) do
     t.index ["code"], name: "index_coupons_on_code", unique: true
   end
 
+  create_table "credit_cards", force: :cascade do |t|
+    t.bigint "number", null: false
+    t.string "holder_name", null: false
+    t.string "expiry_date", null: false
+    t.integer "cvv_code", null: false
+    t.bigint "order_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_credit_cards_on_order_id"
+  end
+
   create_table "materials", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
@@ -200,6 +211,7 @@ ActiveRecord::Schema.define(version: 2022_06_13_232134) do
   add_foreign_key "books", "categories"
   add_foreign_key "cart_items", "books"
   add_foreign_key "cart_items", "orders"
+  add_foreign_key "credit_cards", "orders"
   add_foreign_key "orders", "coupons"
   add_foreign_key "orders", "shipping_methods"
   add_foreign_key "orders", "user_accounts"
