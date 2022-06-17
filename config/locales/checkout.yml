@@ -42,3 +42,11 @@ en:
         price: Price
         shipping_method_saved: Shipping method saved
         choose_method: Please choose a shipping method
+    payments:
+      new:
+        credit_card: Credit Card
+        card_number: Card Number
+        name_on_card: Name on Card
+        expiry_date: MM / YY
+        cvv_code: CVV
+        credit_card_saved: Credit card information saved

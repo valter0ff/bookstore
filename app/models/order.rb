@@ -16,6 +16,9 @@ class Order < ApplicationRecord
   belongs_to :shipping_method, optional: true
 
   has_many :cart_items, dependent: :destroy
+  has_one :credit_card, dependent: :destroy
+
+  accepts_nested_attributes_for :credit_card, allow_destroy: true, update_only: true
 
   enum state: STATES
 
