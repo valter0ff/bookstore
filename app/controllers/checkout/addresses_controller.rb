@@ -2,13 +2,13 @@
 
 module Checkout
   class AddressesController < BaseCheckoutController
-    def new; end
+    def edit; end
 
     def update
       if current_user.update(permitted_params)
-        redirect_to new_checkout_delivery_path, notice: I18n.t('checkout.addresses.new.addresses_saved')
+        redirect_to edit_checkout_delivery_path, notice: I18n.t('checkout.addresses.edit.addresses_saved')
       else
-        render :new
+        render :edit
       end
     end
 

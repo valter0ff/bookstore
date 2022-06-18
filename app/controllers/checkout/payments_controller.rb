@@ -2,13 +2,13 @@
 
 module Checkout
   class PaymentsController < BaseCheckoutController
-    def new; end
+    def edit; end
 
     def update
       if @order.update(permitted_params)
-        redirect_to new_checkout_confirm_path, notice: I18n.t('checkout.payments.new.credit_card_saved')
+        redirect_to new_checkout_confirm_path, notice: I18n.t('checkout.payments.edit.credit_card_saved')
       else
-        render :new
+        render :edit
       end
     end
 

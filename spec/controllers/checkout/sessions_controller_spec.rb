@@ -24,7 +24,7 @@ RSpec.describe Checkout::SessionsController, type: :controller do
         get :new
       end
 
-      it { is_expected.to redirect_to(new_checkout_address_path) }
+      it { is_expected.to redirect_to(edit_checkout_address_path) }
     end
   end
 
@@ -41,7 +41,7 @@ RSpec.describe Checkout::SessionsController, type: :controller do
         expect(controller.current_user).to eq(user)
       end
 
-      it { is_expected.to redirect_to(new_checkout_address_path) }
+      it { is_expected.to redirect_to(edit_checkout_address_path) }
       it { is_expected.to set_flash[:notice].to(notice_message) }
     end
 
@@ -75,7 +75,7 @@ RSpec.describe Checkout::SessionsController, type: :controller do
         expect { make_request }.to change(UserAccount, :count).by(1)
       end
 
-      it { is_expected.to redirect_to(new_checkout_address_path) }
+      it { is_expected.to redirect_to(edit_checkout_address_path) }
       it { is_expected.to set_flash[:notice].to(notice_message) }
 
       it 'creates user account with provided email' do

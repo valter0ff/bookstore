@@ -3,10 +3,10 @@
 module Pages
   module Checkout
     module Addresses
-      class New < SitePrism::Page
+      class Edit < SitePrism::Page
         include Pages::Helpers::AddressFormFieldsFillable
 
-        set_url '/checkout/address/new'
+        set_url '/checkout/address/edit'
 
         element :flash_notice, '#flash_notice'
         element :page_title, '.general-title-margin'

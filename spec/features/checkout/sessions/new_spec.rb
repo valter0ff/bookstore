@@ -46,7 +46,7 @@ RSpec.describe 'Checkout::Sessions->New', type: :feature do
   describe 'submitting forms' do
     shared_examples 'success request' do
       it 'redirects to checkout address page' do
-        expect(sessions_new_page).to have_current_path(new_checkout_address_path)
+        expect(sessions_new_page).to have_current_path(edit_checkout_address_path)
       end
 
       it 'shows success flash message' do

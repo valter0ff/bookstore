@@ -34,9 +34,9 @@
           %p.in-gold-500.font-18.order-summary-title= t('.order_summary')
           %table.general-summary-table.general-summary-table-right.general-text-right
             = render 'checkout/order_summary_table', order: @order, shipping_amount: false
-          = link_to t('.checkout'), user_signed_in? ? new_checkout_address_path : new_checkout_session_path,
+          = link_to t('.checkout'), user_signed_in? ? edit_checkout_address_path : new_checkout_session_path,
                               class: 'btn btn-default visible-xs-inline-block checkout'
   .text-center
-    = link_to t('.checkout'), user_signed_in? ? new_checkout_address_path : new_checkout_session_path,
+    = link_to t('.checkout'), user_signed_in? ? edit_checkout_address_path : new_checkout_session_path,
                               class: 'btn btn-default hidden-xs checkout'
 = javascript_pack_tag 'cart/order_summary'
