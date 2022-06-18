@@ -19,6 +19,7 @@ ActiveAdmin.register Order do
     column :number
     column :user_account_id
     column :coupon_id
+    column :shipping_method_id
     column :cart_items do |order|
       order.cart_items.map(&:book_id_with_count)
     end

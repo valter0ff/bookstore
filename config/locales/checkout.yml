@@ -5,6 +5,7 @@ en:
   checkout:
     shared:
       general_title: Checkout
+      save_and_continue: Save and Continue
     checkout_progress:
         address: Address
         delivery: Delivery
@@ -13,6 +14,7 @@ en:
         complete: Complete
     order_summary_table:
       subtotal: 'SubTotal:'
+      shipping: 'Shipping:'
       coupon: 'Coupon:'
       order_total: 'Order Total:'
     sessions:
@@ -31,5 +33,12 @@ en:
         fields_required: all fields are required
         use_billing_address: Use billing address
         item_total: 'Item Total:'
-        save_and_continue: Save and Continue
         addresses_saved: Addresses information saved
+    deliveries:
+      new:
+        shipping_method: Shipping method
+        method: Method
+        days: Days
+        price: Price
+        shipping_method_saved: Shipping method saved
+        choose_method: Please choose a shipping method

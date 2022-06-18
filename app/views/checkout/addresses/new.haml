@@ -37,8 +37,8 @@
     .general-text-align.mb-60
       %p.in-gold-500.font-18.order-summary-title= t('carts.show.order_summary')
       %table.general-summary-table
-        = render 'checkout/order_summary_table', order: @order
+        = render 'checkout/order_summary_table', order: @order, shipping_amount: false
       .text-center
-        = sf.submit t('.save_and_continue'), class: 'btn mb-20 submit-btn'
+        = sf.submit t('checkout.shared.save_and_continue'), class: 'btn mb-20 submit-btn'
 = javascript_pack_tag 'addresses/country_code_picker'
 = javascript_pack_tag 'checkout/use_billing_address'

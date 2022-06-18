@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       end
     end
     resource :address, only: %i[new update]
-    resource :delivery, only: %i[new create]
+    resource :delivery, only: %i[new update]
     resource :payment, only: %i[new create]
     resource :confirm, only: %i[new create]
   end
