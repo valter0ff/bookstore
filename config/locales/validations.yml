@@ -39,5 +39,5 @@ en:
         credit_card:
           attributes:
             number:
-              invalid: Please enter a valid credit card number
+              invalid: format is incorrect. Please enter a valid credit card number
 
