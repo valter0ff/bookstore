@@ -126,7 +126,7 @@ ActiveRecord::Schema.define(version: 2022_06_17_092454) do
   end
 
   create_table "credit_cards", force: :cascade do |t|
-    t.bigint "number", null: false
+    t.string "number", null: false
     t.string "holder_name", null: false
     t.string "expiry_date", null: false
     t.integer "cvv_code", null: false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :credit_card do
     number { FFaker::Bank.card_number.delete(' ') }
