@@ -65,7 +65,7 @@ RSpec.describe 'Checkout::Deliveries->Edit', type: :feature do
     let(:shipping_method_block) { shipping_form.shipping_method_info.first }
 
     context 'when success' do
-      let(:success_message) { I18n.t('checkout.deliveries.new.shipping_method_saved') }
+      let(:success_message) { I18n.t('checkout.deliveries.edit.shipping_method_saved') }
 
       before do
         shipping_form.shipping_method_info.first.radio_button.click
@@ -77,7 +77,7 @@ RSpec.describe 'Checkout::Deliveries->Edit', type: :feature do
       end
 
       it 'shows success flash message' do
-        expect(deliveries_edit_page).to have_flash_notice(text: notice_message)
+        expect(deliveries_edit_page).to have_flash_notice(text: success_message)
       end
     end
 

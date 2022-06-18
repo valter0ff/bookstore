@@ -27,7 +27,7 @@ RSpec.describe Checkout::DeliveriesController, type: :controller do
 
   describe '#update' do
     let(:user) { create(:user_account) }
-    let(:make_request) { post :update, params: params }
+    let(:make_request) { put :update, params: params }
     let(:order) { controller.current_user.reload_current_order }
 
     before do

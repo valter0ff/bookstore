@@ -10,7 +10,7 @@ RSpec.shared_examples 'a success render current page' do
   let(:success_status) { 200 }
   let(:user) { create(:user_account) }
 
-      before do
+  before do
     sign_in(user)
     get :edit
   end

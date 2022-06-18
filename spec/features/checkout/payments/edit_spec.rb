@@ -39,13 +39,59 @@ RSpec.describe 'Checkout::Payments->Edit', type: :feature do
       it 'all elements present' do
         expect(credit_card_form).to have_card_number_label(text: I18n.t('checkout.payments.edit.card_number'))
         expect(credit_card_form).to have_card_number_input
-        expect(credit_card_form).to have_holdre_name_label(text: I18n.t('checkout.payments.edit.name_on_card'))
-        expect(credit_card_form).to have_holdre_name_input
+        expect(credit_card_form).to have_holder_name_label(text: I18n.t('checkout.payments.edit.name_on_card'))
+        expect(credit_card_form).to have_holder_name_input
         expect(credit_card_form).to have_expiry_date_label(text: I18n.t('checkout.payments.edit.expiry_date'))
         expect(credit_card_form).to have_expiry_date_input
         expect(credit_card_form).to have_cvv_code_label(text: I18n.t('checkout.payments.edit.cvv_code'))
         expect(credit_card_form).to have_cvv_code_input
         expect(credit_card_form).to have_submit_button
+      end
+    end
+  end
+
+  describe 'submitting form' do
+    let(:credit_card_form) { payments_edit_page.credit_card_form }
+
+    before { credit_card_form.fill_and_submit(params) }
+
+    context 'with all fields correct data' do
+      let(:success_message) { I18n.t('checkout.payments.edit.credit_card_saved') }
+      let(:params) { attributes_for(:credit_card) }
+      let(:card) { user.reload.current_order.credit_card }
+
+      it 'updates order`s credit card infortmation' do
+        expect(card.number).to eq(params[:number])
+        expect(card.holder_name).to eq(params[:holder_name])
+        expect(card.expiry_date).to eq(params[:expiry_date])
+        expect(card.cvv_code).to eq(params[:cvv_code])
+      end
+
+      it 'redirects to checkout confirm page' do
+        expect(payments_edit_page).to have_current_path(new_checkout_confirm_path)
+      end
+
+      it 'shows success flash message' do
+        expect(payments_edit_page).to have_flash_notice(text: success_message)
+      end
+    end
+
+    context 'with all fields incorrect data' do
+      let(:params) do
+        { number: FFaker::Lorem.word,
+          holder_name: FFaker::Internet.email,
+          expiry_date: '',
+          cvv_code: '' }
+      end
+      let(:errors_path) { %w[activerecord errors models credit_card attributes] }
+      let(:format_error_message) { I18n.t('number.invalid', scope: errors_path) }
+      let(:invalid_error_message) { I18n.t('errors.messages.invalid') }
+      let(:blank_error_message) { I18n.t('activerecord.errors.messages.blank') }
+
+      it 'shows errors messages in form' do
+        expect(credit_card_form).to have_error_message(text: format_error_message)
+        expect(credit_card_form).to have_error_message(text: invalid_error_message)
+        expect(credit_card_form).to have_error_message(text: blank_error_message)
       end
     end
   end
