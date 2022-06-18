@@ -22,6 +22,8 @@ class UserAccount < ApplicationRecord
   after_create :send_welcome_email
 
   accepts_nested_attributes_for :picture, allow_destroy: true
+  accepts_nested_attributes_for :billing_address, update_only: true
+  accepts_nested_attributes_for :shipping_address, update_only: true
 
   def self.new_with_session(params, session)
     super.tap do |user|

@@ -39,6 +39,7 @@ RSpec.describe AddressesController, type: :controller do
 
     context 'when address created' do
       let(:address_params) { attributes_for(:billing_address, user_account_id: user.id) }
+      let(:address_type) { address_params[:type] }
 
       it { is_expected.to respond_with(redirect_status) }
       it { is_expected.to redirect_to(action: :new) }
@@ -47,6 +48,10 @@ RSpec.describe AddressesController, type: :controller do
       it 'assigns address variable to user`s corresponding address' do
         user.reload
         expect(assigns(:address)).to eq(user.billing_address)
+      end
+
+      it 'creates an address of apropriate type' do
+        expect(user.billing_address.type).to eq(address_type)
       end
 
       it 'creates new address', skip_request: true do

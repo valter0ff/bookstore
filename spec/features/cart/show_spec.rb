@@ -57,15 +57,11 @@ RSpec.describe 'Cart->Show', type: :feature do
     context 'when order summary block' do
       let(:order_summary) { cart_page.order_summary }
 
-      it 'all elements present' do
+      it 'order summary title present' do
         expect(order_summary).to have_order_summary_title(text: I18n.t('carts.show.order_summary'))
-        expect(order_summary).to have_order_subtotal_title(text: I18n.t('carts.show.subtotal'))
-        expect(order_summary).to have_order_subtotal
-        expect(order_summary).to have_coupon_title(text: I18n.t('carts.show.coupon'))
-        expect(order_summary).to have_discount
-        expect(order_summary).to have_order_total_title(text: I18n.t('carts.show.order_total'))
-        expect(order_summary).to have_order_total
       end
+
+      it_behaves_like 'order summary block have all elements'
     end
   end
 

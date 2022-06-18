@@ -39,7 +39,14 @@ RSpec.describe 'Addresses' do
       let(:address) { user.reload.billing_address }
       let(:form) { page.billing_form }
 
-      it_behaves_like 'submitted form with success result'
+      before do
+        page.fill_form_fields(form, params)
+        form.submit_button.click
+      end
+
+      it_behaves_like 'a successfull address change' do
+        let(:request_params) { params }
+      end
     end
 
     context 'when submit shipping form with valid data' do
@@ -47,7 +54,14 @@ RSpec.describe 'Addresses' do
       let(:address) { user.reload.shipping_address }
       let(:form) { page.shipping_form }
 
-      it_behaves_like 'submitted form with success result'
+      before do
+        page.fill_form_fields(form, params)
+        form.submit_button.click
+      end
+
+      it_behaves_like 'a successfull address change' do
+        let(:request_params) { params }
+      end
     end
 
     context 'when submit billing form with invalid data' do

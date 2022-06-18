@@ -1,0 +1,15 @@
+%tr
+  %td
+    %p.font-16.order-subtotal-title= t('.subtotal')
+  %td
+    %p.font-16.order-subtotal= order.subtotal_price
+%tr
+  %td
+    %p.font-16.coupon-title= t('.coupon')
+  %td
+    %p.font-16.discount= order.discount
+%tr
+  %td
+    %strong.font-18.order-total-title= t('.order_total')
+  %td
+    %strong.font-18.order-total= order.total_price

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Pages
-  module Addresses
+  module Sections
     class AddressForm < SitePrism::Section
       element :first_name_label, 'label.first-name-label', text: I18n.t('addresses.address_form.first_name')
       element :first_name_input, 'input[id*=firstName]'

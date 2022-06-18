@@ -1,0 +1,29 @@
+.form-group
+  = f.label :first_name, t('addresses.address_form.first_name'), class: 'control-label input-label first-name-label'
+  = f.input_field :first_name, id: 'firstName', class: 'form-control', placeholder: t('addresses.address_form.first_name')
+  = f.full_error :first_name, class: 'text-danger'
+.form-group
+  = f.label :last_name, t('addresses.address_form.last_name'), class: 'control-label input-label last-name-label'
+  = f.input_field :last_name, id: 'lastName', class: 'form-control', placeholder: t('addresses.address_form.last_name')
+  = f.full_error :last_name, class: 'text-danger'
+.form-group
+  = f.label :address, t('addresses.address_form.address'), class: 'control-label input-label address-label'
+  = f.input_field :address, id: 'address', class: 'form-control', placeholder: t('addresses.address_form.address')
+  = f.full_error :address, class: 'text-danger'
+.form-group
+  = f.label :city, t('addresses.address_form.city'), class: 'control-label input-label city-label'
+  = f.input_field :city, id: 'city', class: 'form-control', placeholder: t('addresses.address_form.city')
+  = f.full_error :city, class: 'text-danger'
+.form-group
+  = f.label :zip, t('addresses.address_form.zip'), class: 'control-label input-label zip-label'
+  = f.input_field :zip, id: 'zip', class: 'form-control', placeholder: t('addresses.address_form.zip')
+  = f.full_error :zip, class: 'text-danger'
+.form-group
+  = f.label :country_code, t('addresses.address_form.country'), class: 'control-label input-label country-label'
+  = f.input_field :country_code, as: :country, id: 'country', class: 'form-control',
+                  include_blank: t('.country_placeholder'), format: :with_data_attrs
+  = f.full_error :country_code, class: 'text-danger'
+.form-group.mb-60
+  = f.label :phone, t('addresses.address_form.phone'), class: 'control-label input-label phone-label'
+  = f.input_field :phone, id: 'phone', class: 'form-control', placeholder: t('addresses.address_form.phone_placeholder')
+  = f.full_error :phone, class: 'text-danger'

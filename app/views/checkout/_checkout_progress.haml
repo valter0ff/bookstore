@@ -1,0 +1,21 @@
+.checkout-progress
+  %ul.steps.list-inline
+    = tag.li class: ['step', ('active' if step == :address)] do
+      %span.step-number.step-one 1
+      %span.step-text.hidden-xs.address-label= t('.address')
+    %li.step-divider
+    = tag.li class: ['step', ('active' if step == :delivery)] do
+      %span.step-number.step-two 2
+      %span.step-text.hidden-xs.delivery-label= t('.delivery')
+    %li.step-divider
+    = tag.li class: ['step', ('active' if step == :payment)] do
+      %span.step-number.step-three 3
+      %span.step-text.hidden-xs.payment-label= t('.payment')
+    %li.step-divider
+    = tag.li class: ['step', ('active' if step == :confirm)] do
+      %span.step-number.step-four 4
+      %span.step-text.hidden-xs.confirm-label= t('.confirm')
+    %li.step-divider
+    = tag.li class: ['step', ('active' if step == :complete)] do
+      %span.step-number.step-five 5
+      %span.step-text.hidden-xs.complete-label= t('.complete')

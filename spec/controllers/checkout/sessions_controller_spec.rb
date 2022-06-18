@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe CheckoutsController, type: :controller do
+RSpec.describe Checkout::SessionsController, type: :controller do
   let(:success_status) { 200 }
 
   before { request.env['devise.mapping'] = Devise.mappings[:user] }
@@ -24,32 +24,42 @@ RSpec.describe CheckoutsController, type: :controller do
         get :new
       end
 
-      it { is_expected.to redirect_to(checkout_address_path) }
+      it { is_expected.to redirect_to(new_checkout_address_path) }
     end
   end
 
-  describe '#address' do
-    context 'when user is not logged in' do
-      before { get :address }
+  describe '#create' do
+    before { post :create, params: { user: { email: email, password: password } } }
 
-      it { is_expected.to redirect_to(checkout_login_path) }
-    end
+    context 'with correct credentials' do
+      let!(:user) { create(:user_account) }
+      let(:email) { user.email }
+      let(:password) { user.password }
+      let(:notice_message) { I18n.t('devise.sessions.signed_in') }
 
-    context 'when user is logged in' do
-      let(:user) { create(:user_account) }
-
-      before do
-        sign_in(user)
-        get :address
+      it 'sings in user' do
+        expect(controller.current_user).to eq(user)
       end
 
-      it { is_expected.to respond_with(success_status) }
-      it { is_expected.to render_template(:address) }
+      it { is_expected.to redirect_to(new_checkout_address_path) }
+      it { is_expected.to set_flash[:notice].to(notice_message) }
+    end
+
+    context 'with wrong credentials' do
+      let(:email) { FFaker::Internet.email }
+      let(:password) { FFaker::Internet.password }
+      let(:error_message) { I18n.t('devise.failure.invalid', authentication_keys: 'Email') }
+
+      it { is_expected.to render_template(:new) }
+
+      it 'assigns flash alert with corresponding error' do
+        expect(flash[:alert]).to match(error_message)
+      end
     end
   end
 
-  describe '#fast_sign_up' do
-    let(:make_request) { post :fast_sign_up, params: { user_account: { email: email } } }
+  describe '#sign_up' do
+    let(:make_request) { post :sign_up, params: { user_account: { email: email } } }
     let(:errors_path) { %w[activerecord errors models user_account attributes] }
 
     before do |example|
@@ -65,7 +75,7 @@ RSpec.describe CheckoutsController, type: :controller do
         expect { make_request }.to change(UserAccount, :count).by(1)
       end
 
-      it { is_expected.to redirect_to(checkout_address_path) }
+      it { is_expected.to redirect_to(new_checkout_address_path) }
       it { is_expected.to set_flash[:notice].to(notice_message) }
 
       it 'creates user account with provided email' do

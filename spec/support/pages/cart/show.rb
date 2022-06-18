@@ -41,15 +41,7 @@ module Pages
         end
       end
 
-      section :order_summary, '.order-summary' do
-        element :order_summary_title, '.order-summary-title'
-        element :order_subtotal_title, '.order-subtotal-title'
-        element :order_subtotal, '.order-subtotal'
-        element :coupon_title, '.coupon-title'
-        element :discount, '.discount'
-        element :order_total_title, '.order-total-title'
-        element :order_total, '.order-total'
-      end
+      section :order_summary, Pages::Sections::OrderSummary, '.order-summary'
     end
   end
 end
