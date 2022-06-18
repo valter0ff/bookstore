@@ -11,11 +11,6 @@ en:
         payment: Payment
         confirm: Confirm
         complete: Complete
-        step_one: 1
-        step_two: 2
-        step_three: 3
-        step_four: 4
-        step_five: 5
     order_summary_table:
       subtotal: 'SubTotal:'
       coupon: 'Coupon:'
