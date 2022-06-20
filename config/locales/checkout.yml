@@ -29,16 +29,25 @@ en:
         password_later: You’ll be able to create password later
         continue_to_checkout: Continue to Checkout
     addresses:
-      new:
+      edit:
         fields_required: all fields are required
         use_billing_address: Use billing address
         item_total: 'Item Total:'
         addresses_saved: Addresses information saved
     deliveries:
-      new:
+      edit:
         shipping_method: Shipping method
         method: Method
         days: Days
         price: Price
         shipping_method_saved: Shipping method saved
         choose_method: Please choose a shipping method
+    payments:
+      edit:
+        credit_card: Credit Card
+        card_number: Card Number
+        name_on_card: Name on Card
+        expiry_date: MM / YY
+        cvv_code: CVV
+        credit_card_saved: Credit card information saved
+        hint_info: 3-digit security code, usually found on the back of your card. American Express cards has 4-digit code, located on the front

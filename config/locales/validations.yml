@@ -36,4 +36,8 @@ en:
               invalid: "Format is incorrect. Can consist of a-z, A-Z, 0-9, or one of !#$%&'*+-/=?^_`{|}~."
             body:
               invalid: "Format is incorrect. Can consist of a-z, A-Z, 0-9, or one of !#$%&'*+-/=?^_`{|}~."
+        credit_card:
+          attributes:
+            number:
+              invalid: format is incorrect. Please enter a valid credit card number
 

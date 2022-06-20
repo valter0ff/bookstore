@@ -1,25 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.describe Checkout::AddressesController, type: :controller do
-  describe '#new' do
-    let(:success_status) { 200 }
-
+  describe '#edit' do
     context 'when user is not logged in' do
-      before { get :new }
-
-      it { is_expected.to redirect_to(new_checkout_session_path) }
+      it_behaves_like 'a redirect to checkout login page'
     end
 
     context 'when user is logged in' do
-      let(:user) { create(:user_account) }
-
-      before do
-        sign_in(user)
-        get :new
-      end
-
-      it { is_expected.to respond_with(success_status) }
-      it { is_expected.to render_template(:new) }
+      it_behaves_like 'a success render current page'
     end
   end
 
@@ -36,12 +24,12 @@ RSpec.describe Checkout::AddressesController, type: :controller do
     context 'when request successful' do
       let(:billing_attrs) { attributes_for(:billing_address) }
       let(:shipping_attrs) { attributes_for(:shipping_address) }
-      let(:success_message) { I18n.t('checkout.addresses.new.addresses_saved') }
+      let(:success_message) { I18n.t('checkout.addresses.edit.addresses_saved') }
 
       context 'when user doesn`t have addresses yet' do
         before { |example| make_request unless example.metadata[:skip_request] }
 
-        it { is_expected.to redirect_to(new_checkout_delivery_path) }
+        it { is_expected.to redirect_to(edit_checkout_delivery_path) }
         it { is_expected.to set_flash[:notice].to(success_message) }
 
         it_behaves_like 'a successfull address change' do
@@ -114,7 +102,7 @@ RSpec.describe Checkout::AddressesController, type: :controller do
 
       before { |example| make_request unless example.metadata[:skip_request] }
 
-      it { is_expected.to render_template(:new) }
+      it { is_expected.to render_template(:edit) }
 
       it 'doesn`t update user`s addresses' do
         user.reload

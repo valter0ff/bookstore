@@ -3,8 +3,8 @@
 module Pages
   module Checkout
     module Deliveries
-      class New < SitePrism::Page
-        set_url '/checkout/delivery/new'
+      class Edit < SitePrism::Page
+        set_url '/checkout/delivery/edit'
 
         element :flash_notice, '#flash_notice'
         element :flash_alert, '#flash_alert'

@@ -47,5 +47,7 @@ RSpec.describe UserAccount, type: :model do
     it { is_expected.to have_many(:orders) }
     it { is_expected.to have_one(:picture).dependent(:destroy) }
     it { is_expected.to accept_nested_attributes_for(:picture).allow_destroy(true) }
+    it { is_expected.to accept_nested_attributes_for(:billing_address).update_only(true) }
+    it { is_expected.to accept_nested_attributes_for(:shipping_address).update_only(true) }
   end
 end
