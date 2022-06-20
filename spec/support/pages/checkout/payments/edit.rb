@@ -23,7 +23,10 @@ module Pages
           element :expiry_date_input, '#expiry-date'
           element :cvv_code_label, '.cvv-code-label'
           element :cvv_code_input, '#cvv-code'
-          element :error_message, '.error.text-danger'
+          element :card_number_error, '#card-number-error'
+          element :holder_name_error, '#holder-name-error'
+          element :expiry_date_error, '#expiry-date-error'
+          element :cvv_code_error, '#cvv-code-error'
           element :submit_button, 'input.submit-btn'
 
           def fill_and_submit(params)

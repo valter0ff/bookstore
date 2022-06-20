@@ -9,23 +9,23 @@
           .form-group
             = c.label :number, t('.card_number'), class: 'control-label input-label card-number-label'
             = c.input_field :number, id: 'card-number', class: 'form-control', placeholder: t('.card_number')
-            = c.full_error :number, class: 'text-danger'
+            = c.full_error :number, class: 'text-danger', id: 'card-number-error'
           .row
             .col-sm-6
               .form-group
                 = c.label :holder_name, t('.name_on_card'), class: 'control-label input-label holder-name-label'
                 = c.input_field :holder_name, id: 'holder-name', class: 'form-control', placeholder: t('.name_on_card')
-                = c.full_error :holder_name, class: 'text-danger'
+                = c.full_error :holder_name, class: 'text-danger', id: 'holder-name-error'
             .col-sm-3
               .form-group
                 = c.label :expiry_date, t('.expiry_date'), class: 'control-label input-label expiry-date-label'
                 = c.input_field :expiry_date, id: 'expiry-date', class: 'form-control', placeholder: t('.expiry_date')
-                = c.full_error :expiry_date, class: 'text-danger'
+                = c.full_error :expiry_date, class: 'text-danger', id: 'expiry-date-error'
             .col-sm-3
               .form-group.relative
                 = c.label :cvv_code, t('.cvv_code'), class: 'control-label input-label cvv-code-label'
                 = c.input_field :cvv_code, id: 'cvv-code', class: 'form-control', type: 'password', placeholder: t('.cvv_code')
-                = c.full_error :cvv_code, class: 'text-danger'
+                = c.full_error :cvv_code, class: 'text-danger', id: 'cvv-code-error'
                 %i.fa.fa-question-circle.general-form-help{ title: t('.hint_info') }
       .general-text-align
         %p.in-gold-500.font-18.order-summary-title= t('carts.show.order_summary')

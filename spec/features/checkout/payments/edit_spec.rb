@@ -77,21 +77,61 @@ RSpec.describe 'Checkout::Payments->Edit', type: :feature do
     end
 
     context 'with all fields incorrect data' do
-      let(:params) do
-        { number: FFaker::Lorem.word,
-          holder_name: FFaker::Internet.email,
-          expiry_date: '',
-          cvv_code: '' }
-      end
-      let(:errors_path) { %w[activerecord errors models credit_card attributes] }
-      let(:format_error_message) { I18n.t('number.invalid', scope: errors_path) }
-      let(:invalid_error_message) { I18n.t('errors.messages.invalid') }
-      let(:blank_error_message) { I18n.t('activerecord.errors.messages.blank') }
+      context 'when all blank' do
+        let(:blank_error_message) { I18n.t('activerecord.errors.messages.blank') }
+        let(:params) { { number: '', holder_name: '', expiry_date: '', cvv_code: '' } }
 
-      it 'shows errors messages in form' do
-        expect(credit_card_form).to have_error_message(text: format_error_message)
-        expect(credit_card_form).to have_error_message(text: invalid_error_message)
-        expect(credit_card_form).to have_error_message(text: blank_error_message)
+        it 'shows errors messages in form' do
+          expect(credit_card_form).to have_card_number_error(text: blank_error_message)
+          expect(credit_card_form).to have_holder_name_error(text: blank_error_message)
+          expect(credit_card_form).to have_expiry_date_error(text: blank_error_message)
+          expect(credit_card_form).to have_cvv_code_error(text: blank_error_message)
+        end
+      end
+
+      context 'with invalid data format' do
+        let(:errors_path) { %w[activerecord errors models credit_card attributes] }
+        let(:number_invalid_error_message) { I18n.t('number.invalid', scope: errors_path) }
+        let(:shared_invalid_error_message) { I18n.t('errors.messages.invalid') }
+        let(:params) do
+          { number: FFaker::Lorem.word,
+            holder_name: FFaker::Internet.email,
+            expiry_date: FFaker::Lorem.word,
+            cvv_code: FFaker::Lorem.word }
+        end
+
+        it 'shows errors messages in form' do
+          expect(credit_card_form).to have_card_number_error(text: number_invalid_error_message)
+          expect(credit_card_form).to have_holder_name_error(text: shared_invalid_error_message)
+          expect(credit_card_form).to have_expiry_date_error(text: shared_invalid_error_message)
+          expect(credit_card_form).to have_cvv_code_error(text: shared_invalid_error_message)
+        end
+      end
+
+      context 'when fields data too long' do
+        let(:invalid_error_message) { I18n.t('errors.messages.invalid') }
+        let(:too_long_card_number_error) do
+          I18n.t('errors.messages.too_long',
+                 count: Constants::CreditCard::NUMBER_MAX_SIZE)
+        end
+        let(:too_long_holder_name_error) do
+          I18n.t('errors.messages.too_long',
+                 count: Constants::CreditCard::HOLDER_NAME_MAX_SIZE)
+        end
+        let(:shared_invalid_error_message) { I18n.t('errors.messages.invalid') }
+        let(:params) do
+          { number: FFaker::Bank.card_number.delete(' ') * rand(2..3),
+            holder_name: FFaker::Lorem.word * rand(30..40),
+            expiry_date: FFaker::Bank.card_expiry_date * rand(2..3),
+            cvv_code: rand(100..9999).to_s * rand(2..3) }
+        end
+
+        it 'shows errors messages in form' do
+          expect(credit_card_form).to have_card_number_error(text: too_long_card_number_error)
+          expect(credit_card_form).to have_holder_name_error(text: too_long_holder_name_error)
+          expect(credit_card_form).to have_expiry_date_error(text: shared_invalid_error_message)
+          expect(credit_card_form).to have_cvv_code_error(text: shared_invalid_error_message)
+        end
       end
     end
   end
