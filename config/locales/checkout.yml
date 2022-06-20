@@ -51,3 +51,17 @@ en:
         cvv_code: CVV
         credit_card_saved: Credit card information saved
         hint_info: 3-digit security code, usually found on the back of your card. American Express cards has 4-digit code, located on the front
+    confirms:
+      show:
+        shipments: Shipments
+        payment_information: Payment Information
+        edit: edit
+        book: Book
+        price: Price
+        quantity: Quantity
+        subtotal: Subtotal
+        place_order: Place Order
+      address:
+        edit: edit
+        phone: Phone
+

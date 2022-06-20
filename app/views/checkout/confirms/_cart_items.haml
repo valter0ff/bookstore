@@ -1,0 +1,15 @@
+- cart_items.each do |cart_item|
+  %tr
+    %td
+      .general-img-wrap-table
+        = image_tag cart_item.book.cover_image, class: 'cart-img-shadow pull-left', alt: 'design-book'
+    %td
+      %p.title= cart_item.book.title
+      %p.in-grey-600.fw-300.description
+        = truncate(cart_item.book.description, length: Constants::Book::DESCRIPTION_LENGTH)
+    %td
+      %span.font-16.in-gold-500.price= cart_item.book.price_with_currency
+    %td
+      %span.ml-30.quantity= cart_item.books_count
+    %td
+      %span.font-16.in-gold-500.subtotal= cart_item.subtotal_price

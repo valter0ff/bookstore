@@ -12,7 +12,8 @@ Rails.application.routes.draw do
     resource :address, only: %i[edit update]
     resource :delivery, only: %i[edit update]
     resource :payment, only: %i[edit update]
-    resource :confirm, only: %i[new create]
+    resource :confirm, only: %i[show update]
+    resource :complete, only: :show
   end
   devise_for :users,
              class_name: 'UserAccount',
