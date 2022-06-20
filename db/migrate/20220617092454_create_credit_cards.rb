@@ -4,7 +4,7 @@ class CreateCreditCards < ActiveRecord::Migration[6.1]
       t.string :number, null: false
       t.string :holder_name, null: false
       t.string :expiry_date, null: false
-      t.integer :cvv_code, null: false
+      t.string :cvv_code, null: false
       t.references :order, null: false, foreign_key: true
 
       t.timestamps

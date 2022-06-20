@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 2022_06_17_092454) do
     t.string "number", null: false
     t.string "holder_name", null: false
     t.string "expiry_date", null: false
-    t.integer "cvv_code", null: false
+    t.string "cvv_code", null: false
     t.bigint "order_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -11,7 +11,7 @@ RSpec.describe CreditCard, type: :model do
     it { is_expected.to have_db_column(:number).of_type(:string) }
     it { is_expected.to have_db_column(:holder_name).of_type(:string) }
     it { is_expected.to have_db_column(:expiry_date).of_type(:string) }
-    it { is_expected.to have_db_column(:cvv_code).of_type(:integer) }
+    it { is_expected.to have_db_column(:cvv_code).of_type(:string) }
   end
 
   describe 'database indexes exists' do
@@ -53,7 +53,7 @@ RSpec.describe CreditCard, type: :model do
       let(:invalid_error) { I18n.t('errors.messages.invalid') }
 
       it { is_expected.to validate_presence_of(:cvv_code).with_message(blank_error) }
-      it { is_expected.to allow_value(rand(100..9999)).for(:cvv_code) }
+      it { is_expected.to allow_value(rand(100..9999).to_s).for(:cvv_code) }
       it { is_expected.not_to allow_value(FFaker::Lorem.word).for(:cvv_code).with_message(invalid_error) }
     end
   end
