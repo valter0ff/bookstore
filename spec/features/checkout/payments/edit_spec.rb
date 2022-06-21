@@ -2,9 +2,12 @@
 
 RSpec.describe 'Checkout::Payments->Edit', type: :feature do
   let(:payments_edit_page) { Pages::Checkout::Payments::Edit.new }
-  let(:user) { create(:user_account) }
+  let(:user) { create(:user_account, use_billing_address: true) }
+  let(:shipping_method) { create(:shipping_method) }
 
   before do
+    create(:billing_address, user_account: user)
+    create(:order, user_account: user, shipping_method: shipping_method)
     sign_in(user)
     payments_edit_page.load
   end
@@ -68,7 +71,7 @@ RSpec.describe 'Checkout::Payments->Edit', type: :feature do
       end
 
       it 'redirects to checkout confirm page' do
-        expect(payments_edit_page).to have_current_path(new_checkout_confirm_path)
+        expect(payments_edit_page).to have_current_path(checkout_confirm_path)
       end
 
       it 'shows success flash message' do

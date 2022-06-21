@@ -26,7 +26,7 @@ RSpec.describe Checkout::PaymentsController, type: :controller do
       let(:card_attrs) { attributes_for(:credit_card) }
       let(:success_message) { I18n.t('checkout.payments.edit.credit_card_saved') }
 
-      it { is_expected.to redirect_to(new_checkout_confirm_path) }
+      it { is_expected.to redirect_to(checkout_confirm_path) }
       it { is_expected.to set_flash[:notice].to(success_message) }
 
       it 'updates credit card for order of current user' do

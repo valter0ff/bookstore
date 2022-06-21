@@ -2,6 +2,8 @@
 
 module Checkout
   class CompletesController < BaseCheckoutController
-    def new; end
+    def show
+      @completed_order = current_user.ordrers.where(step: :complete)
+    end
   end
 end
