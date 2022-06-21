@@ -11,6 +11,7 @@ module Checkout
         @order.update(associations_to_json)
         @order.to_complete_step!
         @order.in_progress!
+        redirect_to checkout_complete_path
       else
         render :show, alert: I18n.t('checkout.confirms.show.confirm_error')
       end

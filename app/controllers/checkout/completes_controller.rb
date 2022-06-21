@@ -3,7 +3,7 @@
 module Checkout
   class CompletesController < BaseCheckoutController
     def show
-      @completed_order = current_user.ordrers.where(step: :complete)
+      @completed_order = current_user.orders.where(step: :complete)
     end
   end
 end
