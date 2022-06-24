@@ -10,92 +10,30 @@
         %p.general-order-number.mb-0 Order #R25314582
         %p.general-address.mb-30 October 29, 2016
       %p.general-address
-        John Doe
-        %span.general-edit edit
-        %br
-        44 Fifth Ave v231
-        %br
-        New York NY 1001
-        %br
-        United States
-        %br
-        Phone +16507599755
+        = render 'checkout/address', address: @order.select_shipping_address
     .col-sm-6.hidden-xs.text-right
       %p.general-order-number.mb-0 Order #R25314582
       %p.general-address.mb-30 October 29, 2016
   .visible-xs
-    .general-cart-item.divider-lg
-      .general-img-wrap-table
-        %img.cart-img-shadow{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
-      %p.title Android Programming for Beginners
-      %P.in-grey-600.fw-300 A recipe-based book to help you efficiently create amazing PHP-based applications with Laravel 5.x
-      %table.table
-        %tr
-          %td
-            %span.in-grey-600 Price
-          %td
-            %span.font-16.in-gold-500 €28.50
-        %tr
-          %td.vertical-middle
-            %span.in-grey-600 Quantity
-          %td
-            %span 1
-        %tr
-          %td
-            %span.in-grey-600 SubTotal
-          %td
-            %span.font-16.in-gold-500 €32.90
-    .general-cart-item.divider-lg.mb-55
-      .general-img-wrap-table
-        %img.cart-img-shadow{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
-      %p.title Android Programming for Beginners
-      %table.table
-        %tr
-          %td
-            %span.in-grey-600 Price
-          %td
-            %span.font-16.in-gold-500 €28.50
-        %tr
-          %td.vertical-middle
-            %span.in-grey-600 Quantity
-          %td
-            %span 1
-        %tr
-          %td
-            %span.in-grey-600 SubTotal
-          %td
-            %span.font-16.in-gold-500 €32.90
+    = render 'checkout/cart_items_xs', cart_items: @cart_items
   .hidden-xs.divider-lg.pt-20
     %table.table.table-hover
       %thead
         %tr
           %th
-            %span.in-grey-600 Book
+            %span.in-grey-600.book-label= t('.book')
           %th.col-method
           %th
-            %span.in-grey-600 Price
+            %span.in-grey-600.price-label= t('.price')
           %th
-            %span.in-grey-600 Quantity
+            %span.in-grey-600.quantity-label= t('.quantity')
           %th
-            %span.in-grey-600 Total
+            %span.in-grey-600.sub-total-label= t('.subtotal')
       %tbody
-        %tr
-          %td
-            .general-img-wrap-table
-              %img.cart-img-shadow.pull-left{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
-          %td
-            %p.title Android Programming for Beginners
-            %p.in-grey-600.fw-300 Maximize the potential of Bootstrap with a collection of real-world site projects for better, faster, more responsive web applications
-          %td
-            %span.font-16.in-gold-500 €28.50
-          %td
-            %span.ml-30 1
-          %td
-            %span.font-16.in-gold-500 €32.90
+        = render 'checkout/cart_items', cart_items: @cart_items
   .text-center.general-text-right
     %p.in-gold-500.font-18= t('carts.show.order_summary')
     %table.general-summary-table.general-summary-table-right.general-text-right
       = render 'checkout/order_summary_table', order: @order, shipping_amount: true
   .text-center
-    %button.btn.btn-default.mb-20 Back to Store
     = link_to 'Back to Store', root_path, class: 'btn mb-20 submit-btn'

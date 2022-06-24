@@ -4,10 +4,10 @@
   .row.mb-20
     .col-sm-3
       %h3.general-subtitle= t('addresses.new.shipping_title')
-      = render 'address', address: @order.select_shipping_address
+      = render 'checkout/address', address: @order.select_shipping_address
     .col-sm-3
       %h3.general-subtitle= t('addresses.new.billing_title')
-      = render 'address', address: current_user.billing_address
+      = render 'checkout/address', address: current_user.billing_address
     .col-sm-3
       %h3.general-subtitle= t('.shipments')
       %p.general-address
@@ -21,7 +21,7 @@
         %br
         = @order.credit_card.expiry_date_full_year
   .visible-xs
-    = render 'cart_items_xs', cart_items: @cart_items
+    = render 'checkout/cart_items_xs', cart_items: @cart_items
   .hidden-xs.divider-lg.pt-20
     %table.table.table-hover
       %thead
@@ -36,7 +36,7 @@
           %th
             %span.in-grey-600.sub-total-label= t('.subtotal')
       %tbody
-        = render 'cart_items', cart_items: @cart_items
+        = render 'checkout/cart_items', cart_items: @cart_items
   .text-center.general-text-right
     %p.in-gold-500.font-18= t('carts.show.order_summary')
     %table.general-summary-table.general-summary-table-right.general-text-right

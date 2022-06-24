@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class CartItemsController < ClientController
+  before_action :set_order
   before_action :set_cart_item
   before_action :replace_books_quantity, only: %i[create update]
 

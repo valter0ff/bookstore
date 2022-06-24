@@ -7,6 +7,7 @@ module Checkout
       if @user.save
         @user.send_reset_password_instructions
         sign_in(@user)
+        set_order
         redirect_to edit_checkout_address_path, notice: I18n.t('devise.registrations.account_created')
       else
         render :new
@@ -24,6 +25,7 @@ module Checkout
     end
 
     def after_sign_in_path_for(_resource)
+      set_order if check_order
       edit_checkout_address_path
     end
   end
