@@ -19,9 +19,9 @@ module Checkout
     def check_current_step
       requested_step = request.controller_class.to_s.demodulize.downcase.sub('controller', '').singularize
       order_steps = Order.steps
-      return if order_steps[@order.step] > order_steps[requested_step]
+      return if order_steps[@order.step] >= order_steps[requested_step]
 
-      redirect_back(fallback_location: root_path, notice: I18n.t('checkout.errors.not_authorized'))
+      redirect_back(fallback_location: root_path, alert: I18n.t('checkout.errors.not_authorized'))
     end
   end
 end

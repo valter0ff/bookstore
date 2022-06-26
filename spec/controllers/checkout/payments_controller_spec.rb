@@ -7,7 +7,13 @@ RSpec.describe Checkout::PaymentsController, type: :controller do
     end
 
     context 'when user is logged in' do
+      before { order.payment! }
+
       it_behaves_like 'a success render current page'
+    end
+
+    context 'when order`s step less then requested step' do
+      it_behaves_like 'a redirect to root with `not authorized` alert'
     end
   end
 
@@ -18,6 +24,7 @@ RSpec.describe Checkout::PaymentsController, type: :controller do
     let(:params) { { order: { credit_card_attributes: card_attrs } } }
 
     before do |example|
+      create(:order, user_account: user, step: :payment)
       sign_in(user)
       make_request unless example.metadata[:skip_request]
     end

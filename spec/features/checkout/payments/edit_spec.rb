@@ -7,7 +7,7 @@ RSpec.describe 'Checkout::Payments->Edit', type: :feature do
 
   before do
     create(:billing_address, user_account: user)
-    create(:order, user_account: user, shipping_method: shipping_method)
+    create(:order, user_account: user, shipping_method: shipping_method, step: :payment)
     sign_in(user)
     payments_edit_page.load
   end

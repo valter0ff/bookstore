@@ -7,7 +7,13 @@ RSpec.describe Checkout::DeliveriesController, type: :controller do
     end
 
     context 'when user is logged in' do
+      before { order.delivery! }
+
       it_behaves_like 'a success render current page'
+    end
+
+    context 'when order`s step less then requested step' do
+      it_behaves_like 'a redirect to root with `not authorized` alert'
     end
 
     context 'when shipping methods exists' do
@@ -15,6 +21,7 @@ RSpec.describe Checkout::DeliveriesController, type: :controller do
 
       before do
         sign_in(user)
+        create(:order, user_account: user, step: :delivery)
         create_list(:shipping_method, rand(2..10))
         get :edit
       end
@@ -31,6 +38,7 @@ RSpec.describe Checkout::DeliveriesController, type: :controller do
     let(:order) { controller.current_user.reload_current_order }
 
     before do
+      create(:order, user_account: user, step: :delivery)
       sign_in(user)
       make_request
     end

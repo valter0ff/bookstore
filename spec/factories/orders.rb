@@ -5,5 +5,6 @@ FactoryBot.define do
     user_account
     coupon
     state { 0 }
+    step { 0 }
   end
 end

@@ -5,6 +5,7 @@ RSpec.describe 'Checkout::Deliveries->Edit', type: :feature do
   let(:user) { create(:user_account) }
 
   before do
+    create(:order, user_account: user, step: :delivery)
     sign_in(user)
     create_list(:shipping_method, rand(2..5))
     deliveries_edit_page.load
