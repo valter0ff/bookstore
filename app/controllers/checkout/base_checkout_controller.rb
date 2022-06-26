@@ -18,14 +18,10 @@ module Checkout
 
     def check_current_step
       requested_step = request.controller_class.to_s.demodulize.downcase.sub('controller', '').singularize
-      return if requested_step.to_sym == :complete
-
       order_steps = Order.steps
-      if order_steps[@order.step] < order_steps[requested_step]
-        routes = Rails.application.routes.url_helpers
-        link = routes.public_send("edit_checkout_#{@order.step}_path")
-        redirect_to link
-      end
+      return if order_steps[@order.step] > order_steps[requested_step]
+
+      redirect_back(fallback_location: root_path, notice: I18n.t('checkout.errors.not_authorized'))
     end
   end
 end

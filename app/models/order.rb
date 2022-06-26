@@ -43,19 +43,19 @@ class Order < ApplicationRecord
     state :address, initial: true
     state :delivery, :payment, :confirm, :complete
 
-    event :to_delivery_step do
+    event :delivery_step do
       transitions from: :address, to: :delivery
     end
 
-    event :to_payment_step do
+    event :payment_step do
       transitions from: :delivery, to: :payment
     end
 
-    event :to_confirm_step do
+    event :confirm_step do
       transitions from: :payment, to: :confirm
     end
 
-    event :to_complete_step do
+    event :complete_step do
       transitions from: :confirm, to: :complete
     end
   end

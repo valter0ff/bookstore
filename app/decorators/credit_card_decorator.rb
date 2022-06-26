@@ -4,7 +4,7 @@ class CreditCardDecorator < ApplicationDecorator
   delegate_all
 
   def masked_number
-    number[-4..-1].prepend('** ** ** ')
+    number[-4..].prepend('** ** ** ')
   end
 
   def expiry_date_full_year

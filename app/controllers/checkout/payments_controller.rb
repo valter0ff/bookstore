@@ -6,7 +6,7 @@ module Checkout
 
     def update
       if @order.update(permitted_params)
-        @order.to_confirm_step! if @order.may_to_confirm_step?
+        @order.confirm_step! if @order.may_confirm_step?
         redirect_to checkout_confirm_path, notice: I18n.t('checkout.payments.edit.credit_card_saved')
       else
         render :edit

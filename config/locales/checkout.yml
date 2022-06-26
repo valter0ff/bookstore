@@ -3,6 +3,8 @@ en:
     admin:
       deactivate: Deactivate
   checkout:
+    errors:
+      not_authorized: You're not authorized to perform this action
     shared:
       general_title: Checkout
       save_and_continue: Save and Continue
@@ -17,6 +19,14 @@ en:
       shipping: 'Shipping:'
       coupon: 'Coupon:'
       order_total: 'Order Total:'
+    address:
+      edit: edit
+      phone: Phone
+    cart_items:
+      book: Book
+      price: Price
+      quantity: Quantity
+      subtotal: SubTotal
     sessions:
       new:
         returning_customer: Returning Customer
@@ -56,13 +66,12 @@ en:
         shipments: Shipments
         payment_information: Payment Information
         edit: edit
-        book: Book
-        price: Price
-        quantity: Quantity
-        subtotal: Subtotal
         place_order: Place Order
         confirm_error: Something goes wrong
-      address:
-        edit: edit
-        phone: Phone
+    completes:
+      show:
+        thank_you_message: Thank You for your Order!
+        email_sent_message: "An order confirmation has been has been sent to %{user_email}"
+        back_to_store: Back to Store
+        order_number: "Order %{number}"
 
