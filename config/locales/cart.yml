@@ -11,3 +11,5 @@ en:
       order_summary: Order Summary
       checkout: Checkout
       confirm: Are you sure?
+      cart_empty: Cart is empty
+      back_to_store: Back to store
