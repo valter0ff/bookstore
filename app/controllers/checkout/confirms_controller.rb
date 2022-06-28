@@ -11,7 +11,8 @@ module Checkout
         Orders::ConfirmOrderService.call(current_user, @order)
         redirect_to checkout_complete_path(id: @order.id)
       else
-        render :show, alert: I18n.t('checkout.confirms.show.confirm_error')
+        flash.now[:alert] = I18n.t('checkout.confirms.show.confirm_error')
+        render :show
       end
     end
 

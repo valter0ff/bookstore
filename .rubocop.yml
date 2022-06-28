@@ -16,6 +16,10 @@ RSpec/DescribeClass:
   Exclude:
     - 'spec/features/**/*'
 
+RSpec/AnyInstance:
+  Exclude:
+    - 'spec/controllers/**/*'
+
 RSpec/MessageSpies:
   EnforcedStyle: receive
 

@@ -4,6 +4,7 @@ class AddStepAndJsonColumnsToOrders < ActiveRecord::Migration[6.1]
     add_column :orders, :shipping_address, :jsonb, default: '{}'
     add_column :orders, :billing_address, :jsonb, default: '{}'
     add_column :orders, :all_cart_items, :jsonb, default: '{}'
-    add_column :orders, :total_price, :string, null: true
+    add_column :orders, :summary_price, :string, null: true
+    add_column :orders, :completed_at, :datetime, precision: 6
   end
 end

@@ -3,17 +3,17 @@
 RSpec.describe Checkout::DeliveriesController, type: :controller do
   describe '#edit' do
     context 'when user is not logged in' do
-      it_behaves_like 'a redirect to checkout login page'
+      it_behaves_like 'a redirect to checkout login page', :edit
     end
 
     context 'when user is logged in' do
       before { order.delivery! }
 
-      it_behaves_like 'a success render current page'
+      it_behaves_like 'a success render current page', :edit
     end
 
     context 'when order`s step less then requested step' do
-      it_behaves_like 'a redirect to root with `not authorized` alert'
+      it_behaves_like 'a redirect to root with `not authorized` alert', :edit
     end
 
     context 'when shipping methods exists' do

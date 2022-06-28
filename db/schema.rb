@@ -156,7 +156,8 @@ ActiveRecord::Schema.define(version: 2022_06_20_175208) do
     t.jsonb "shipping_address", default: "{}"
     t.jsonb "billing_address", default: "{}"
     t.jsonb "all_cart_items", default: "{}"
-    t.string "total_price"
+    t.string "summary_price"
+    t.datetime "completed_at", precision: 6
     t.index ["coupon_id"], name: "index_orders_on_coupon_id"
     t.index ["shipping_method_id"], name: "index_orders_on_shipping_method_id"
     t.index ["user_account_id"], name: "index_orders_on_user_account_id"

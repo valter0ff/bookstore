@@ -3,11 +3,11 @@
 RSpec.describe Checkout::AddressesController, type: :controller do
   describe '#edit' do
     context 'when user is not logged in' do
-      it_behaves_like 'a redirect to checkout login page'
+      it_behaves_like 'a redirect to checkout login page', :edit
     end
 
     context 'when user is logged in' do
-      it_behaves_like 'a success render current page'
+      it_behaves_like 'a success render current page', :edit
     end
   end
 
