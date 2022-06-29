@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_20_175208) do
+ActiveRecord::Schema.define(version: 2022_06_28_185733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 2022_06_20_175208) do
     t.integer "books_count", default: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "book_price"
     t.index ["book_id"], name: "index_cart_items_on_book_id"
     t.index ["order_id"], name: "index_cart_items_on_order_id"
   end
@@ -155,8 +156,7 @@ ActiveRecord::Schema.define(version: 2022_06_20_175208) do
     t.integer "step", default: 0
     t.jsonb "shipping_address", default: "{}"
     t.jsonb "billing_address", default: "{}"
-    t.jsonb "all_cart_items", default: "{}"
-    t.string "summary_price"
+    t.string "shipping_price"
     t.datetime "completed_at", precision: 6
     t.index ["coupon_id"], name: "index_orders_on_coupon_id"
     t.index ["shipping_method_id"], name: "index_orders_on_shipping_method_id"

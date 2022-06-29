@@ -11,4 +11,15 @@ class Coupon < ApplicationRecord
   enum status: STATUSES
 
   validates :code, uniqueness: true
+
+  before_destroy :stop_destroy
+
+  private
+
+  def stop_destroy
+    return if active?
+
+    errors.add(:base, :undestroyable)
+    throw :abort
+  end
 end

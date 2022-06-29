@@ -4,10 +4,10 @@ RSpec.describe 'Checkout::Payments->Edit', type: :feature do
   let(:payments_edit_page) { Pages::Checkout::Payments::Edit.new }
   let(:user) { create(:user_account, use_billing_address: true) }
   let(:shipping_method) { create(:shipping_method) }
+  let!(:billing_address) { create(:billing_address, user_account: user) }
+  let!(:order) { create(:order, :payment, user_account: user, shipping_method: shipping_method) }
 
   before do
-    create(:billing_address, user_account: user)
-    create(:order, user_account: user, shipping_method: shipping_method, step: :payment)
     sign_in(user)
     payments_edit_page.load
   end
@@ -112,7 +112,6 @@ RSpec.describe 'Checkout::Payments->Edit', type: :feature do
       end
 
       context 'when fields data too long' do
-        let(:invalid_error_message) { I18n.t('errors.messages.invalid') }
         let(:too_long_card_number_error) do
           I18n.t('errors.messages.too_long',
                  count: Constants::CreditCard::NUMBER_MAX_SIZE)

@@ -30,7 +30,7 @@ class Order < ApplicationRecord
       transitions from: :in_queue, to: :in_delivery
     end
 
-    event :complete do
+    event :complete_delivery do
       transitions from: :in_delivery, to: :delivered, if: :in_delivery?
     end
 

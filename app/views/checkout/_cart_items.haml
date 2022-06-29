@@ -1,5 +1,5 @@
-%table.table.table-hover
-  %thead
+%table.table.table-hover.cart-items-table
+  %thead.cart-items-table-headers
     %tr
       %th
         %span.in-grey-600.book-label= t('.book')
@@ -12,7 +12,7 @@
         %span.in-grey-600.sub-total-label= t('.subtotal')
   %tbody
     - cart_items.each do |cart_item|
-      %tr
+      %tr.general-cart-item
         %td
           .general-img-wrap-table
             = image_tag cart_item.book.cover_image, class: 'cart-img-shadow pull-left', alt: 'design-book'
@@ -21,7 +21,7 @@
           %p.in-grey-600.fw-300.description
             = truncate(cart_item.book.description, length: Constants::Book::DESCRIPTION_LENGTH)
         %td
-          %span.font-16.in-gold-500.price= cart_item.book.price_with_currency
+          %span.font-16.in-gold-500.price= cart_item.book_price_with_currency
         %td
           %span.ml-30.quantity= cart_item.books_count
         %td

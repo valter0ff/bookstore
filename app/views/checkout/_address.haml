@@ -1,11 +1,11 @@
 %p.general-address
-  #{address.first_name} #{address.last_name}
-  = link_to t('.edit'), edit_checkout_address_path, class: 'general-edit'
+  %span.address-full-name #{address.first_name} #{address.last_name}
+  = link_to t('.edit'), edit_checkout_address_path, class: 'general-edit edit-link'
   %br
-  #{address.address}
+  %span.address-address #{address.address}
   %br
-  #{address.city} #{address.zip}
+  %span.address-city-zip #{address.city} #{address.zip}
   %br
-  #{address.country_name}
+  %span.address-country #{address.country_name}
   %br
-  #{t('.phone')} #{address.phone}
+  %span.address-phone #{t('.phone')} #{address.phone}

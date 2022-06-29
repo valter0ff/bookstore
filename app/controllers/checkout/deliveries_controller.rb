@@ -3,12 +3,11 @@
 module Checkout
   class DeliveriesController < BaseCheckoutController
     before_action :set_shipping_methods
-    before_action :set_shipping_method, only: :update
 
     def edit; end
 
     def update
-      if @shipping_method.present?
+      if shipping_method_exists?
         @order.update(permitted_params)
         @order.payment_step! if @order.may_payment_step?
         redirect_to edit_checkout_payment_path, notice: I18n.t('checkout.deliveries.edit.shipping_method_saved')
@@ -24,8 +23,8 @@ module Checkout
       params.require(:order).permit(:shipping_method_id)
     end
 
-    def set_shipping_method
-      @shipping_method = ShippingMethod.find_by(id: params[:order][:shipping_method_id])
+    def shipping_method_exists?
+      ShippingMethod.find_by(id: params[:order][:shipping_method_id]).present?
     end
 
     def set_shipping_methods

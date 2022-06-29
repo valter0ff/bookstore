@@ -18,11 +18,11 @@ RSpec.describe Checkout::DeliveriesController, type: :controller do
 
     context 'when shipping methods exists' do
       let(:user) { create(:user_account) }
+      let!(:order) { create(:order, :delivery, user_account: user) }
+      let!(:shipping_methods) { create_list(:shipping_method, rand(2..10)) }
 
       before do
         sign_in(user)
-        create(:order, user_account: user, step: :delivery)
-        create_list(:shipping_method, rand(2..10))
         get :edit
       end
 
@@ -35,10 +35,10 @@ RSpec.describe Checkout::DeliveriesController, type: :controller do
   describe '#update' do
     let(:user) { create(:user_account) }
     let(:make_request) { put :update, params: params }
-    let(:order) { controller.current_user.reload_current_order }
+    let(:current_order) { controller.current_user.reload_current_order }
+    let!(:order) { create(:order, :delivery, user_account: user) }
 
     before do
-      create(:order, user_account: user, step: :delivery)
       sign_in(user)
       make_request
     end
@@ -52,7 +52,7 @@ RSpec.describe Checkout::DeliveriesController, type: :controller do
       it { is_expected.to set_flash[:notice].to(success_message) }
 
       it 'updates shipping_method for order of current user' do
-        expect(order.shipping_method).to eq(shipping_method)
+        expect(current_order.shipping_method).to eq(shipping_method)
       end
     end
 

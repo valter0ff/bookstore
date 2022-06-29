@@ -18,30 +18,29 @@ RSpec.describe Checkout::ConfirmsController, type: :controller do
 
     context 'when order exists' do
       let(:user) { create(:user_account) }
-      let(:order) { create(:order, user_account: user) }
+      let(:order) { create(:order, user_account: user, step: :confirm) }
+      let!(:cart_items) { create_list(:cart_item, rand(2..5), order: order, book: create(:book, :with_picture)) }
 
       before do
-        create_list(:cart_item, rand(2..5), order: order, book: create(:book, :with_picture))
-        order.confirm!
         sign_in(user)
         get :show
       end
 
       it 'assigns cart_items with included books and pictures', bullet: :skip do
-        expect(assigns(:cart_items)).to eq(order.reload.cart_items.includes(book: :pictures))
+        expect(assigns(:cart_items)).to eq(order.cart_items)
       end
     end
   end
 
   describe '#update' do
     let(:user) { create(:user_account) }
-    let(:order) { create(:order, user_account: user) }
+    let!(:order) { create(:order, user_account: user, step: step) }
 
     context 'when order update success' do
       let(:params) { { id: order.id } }
+      let(:step) { :confirm }
 
       before do |example|
-        order.confirm!
         sign_in(user)
         put :update unless example.metadata[:skip_request]
       end
@@ -55,9 +54,19 @@ RSpec.describe Checkout::ConfirmsController, type: :controller do
     end
 
     context 'when order update not success' do
-      before { order.delivery! }
+      let(:error_message) { I18n.t('checkout.confirms.show.confirm_error') }
+      let(:step) { :complete }
 
-      it_behaves_like 'a redirect to root with `not authorized` alert', :update
+      before do
+        sign_in(user)
+        put :update
+      end
+
+      it { is_expected.to render_template(:show) }
+
+      it 'sets flash now error' do
+        expect(flash[:alert]).to eq(error_message)
+      end
     end
   end
 end

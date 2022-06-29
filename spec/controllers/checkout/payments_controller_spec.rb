@@ -20,11 +20,11 @@ RSpec.describe Checkout::PaymentsController, type: :controller do
   describe '#update' do
     let(:user) { create(:user_account) }
     let(:make_request) { put :update, params: params }
-    let(:order) { controller.current_user.reload_current_order }
+    let(:current_order) { controller.current_user.reload_current_order }
     let(:params) { { order: { credit_card_attributes: card_attrs } } }
+    let!(:order) { create(:order, :payment, user_account: user) }
 
     before do |example|
-      create(:order, user_account: user, step: :payment)
       sign_in(user)
       make_request unless example.metadata[:skip_request]
     end
@@ -37,7 +37,7 @@ RSpec.describe Checkout::PaymentsController, type: :controller do
       it { is_expected.to set_flash[:notice].to(success_message) }
 
       it 'updates credit card for order of current user' do
-        expect(order.credit_card.id).to eq(CreditCard.first.id)
+        expect(current_order.credit_card.id).to eq(CreditCard.first.id)
       end
 
       it 'creates new credit card in database', skip_request: true do

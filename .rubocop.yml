@@ -20,6 +20,11 @@ RSpec/AnyInstance:
   Exclude:
     - 'spec/controllers/**/*'
 
+RSpec/LetSetup:
+  Exclude:
+    - 'spec/features/**/*'
+    - 'spec/controllers/**/*'
+
 RSpec/MessageSpies:
   EnforcedStyle: receive
 

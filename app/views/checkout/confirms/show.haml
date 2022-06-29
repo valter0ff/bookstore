@@ -3,29 +3,29 @@
   = render 'checkout/checkout_progress', step: :confirm
   .row.mb-20
     .col-sm-3
-      %h3.general-subtitle= t('addresses.new.shipping_title')
+      %h3.general-subtitle.shipping-title= t('addresses.new.shipping_title')
       = render 'checkout/address', address: @order.select_shipping_address
     .col-sm-3
-      %h3.general-subtitle= t('addresses.new.billing_title')
+      %h3.general-subtitle.billing-title= t('addresses.new.billing_title')
       = render 'checkout/address', address: current_user.billing_address
     .col-sm-3
-      %h3.general-subtitle= t('.shipments')
+      %h3.general-subtitle.shipping-method-title= t('.shipments')
       %p.general-address
-        = @order.shipping_method.name
-        = link_to t('.edit'), edit_checkout_delivery_path, class: 'general-edit'
+        %span.shipping-method-name= @order.shipping_method.name
+        = link_to t('.edit'), edit_checkout_delivery_path, class: 'general-edit edit-link'
     .col-sm-3
-      %h3.general-subtitle= t('.payment_information')
+      %h3.general-subtitle.payment-title= t('.payment_information')
       %p.general-address
-        = @order.credit_card.masked_number
-        = link_to t('.edit'), edit_checkout_payment_path, class: 'general-edit'
+        %span.credit-card-number= @order.credit_card.masked_number
+        = link_to t('.edit'), edit_checkout_payment_path, class: 'general-edit edit-link'
         %br
-        = @order.credit_card.expiry_date_full_year
+        %span.credit-card-expiry-date= @order.credit_card.expiry_date_full_year
   .visible-xs
     = render 'checkout/cart_items_xs', cart_items: @cart_items
   .hidden-xs.divider-lg.pt-20
     = render 'checkout/cart_items', cart_items: @cart_items
   .text-center.general-text-right
-    %p.in-gold-500.font-18= t('carts.show.order_summary')
+    %p.in-gold-500.font-18.order-summary-title= t('carts.show.order_summary')
     %table.general-summary-table.general-summary-table-right.general-text-right
       = render 'checkout/order_summary_table', order: @order, shipping_amount: true
   .text-center

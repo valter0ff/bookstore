@@ -8,26 +8,33 @@ module Orders
     end
 
     def call
-      @order.update(step: :complete, state: :in_progress, **detailed_order_information)
+      save_book_prices
+      use_coupon
+      order.update(step: :complete, state: :in_progress, **detailed_order_information)
     end
 
     private
 
     attr_reader :current_user, :order
 
-    def detailed_order_information
-      { billing_address: current_user.billing_address.as_json,
-        shipping_address: order.select_shipping_address.as_json,
-        all_cart_items: json_cart_items,
-        summary_price: order.total_with_shipping,
-        completed_at: DateTime.now.in_time_zone,
-        number: order_number }
+    def save_book_prices
+      order.cart_items.each do |cart_item|
+        cart_item.update(book_price: cart_item.book.price)
+      end
     end
 
-    def json_cart_items
-      order.cart_items.as_json(only: :books_count,
-                               include: { book: { include: { pictures: { only: :image_data } },
-                                                  only: %i[title description price] } })
+    def use_coupon
+      return if order.coupon.blank?
+
+      order.coupon.used!
+    end
+
+    def detailed_order_information
+      { billing_address: current_user.billing_address.to_json,
+        shipping_address: order.select_shipping_address.to_json,
+        shipping_price: order.shipping_method.price,
+        completed_at: DateTime.now.in_time_zone,
+        number: order_number }
     end
 
     def order_number
