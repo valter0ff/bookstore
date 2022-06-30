@@ -13,6 +13,7 @@ module Pages
       sections :cart_items, '.general-cart-item' do
         element :book_image, '.cart-img-shadow.pull-left'
         element :book_title, 'p.title'
+        element :book_description, '.description'
         element :book_price, '.in-gold-500.price'
         element :book_quantity, 'span.quantity'
         element :subtotal_price, '.in-gold-500.subtotal'

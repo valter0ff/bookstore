@@ -7,7 +7,7 @@ RSpec.describe 'Checkout::Confirms->Show', type: :feature do
   let!(:order) { create(:order, :confirm, user_account: user) }
   let!(:shipping_method) { create(:shipping_method, orders: [order]) }
   let!(:credit_card) { create(:credit_card, order: order) }
-  let!(:cart_items) { create_list(:cart_item, rand(2..5), order: order) }
+  let!(:cart_item) { create(:cart_item, order: order) }
 
   before do
     sign_in(user)
@@ -52,7 +52,8 @@ RSpec.describe 'Checkout::Confirms->Show', type: :feature do
 
     context 'when cart items table' do
       let(:table_headers) { confirm_page.cart_items_table.table_headers }
-      let(:cart_item) { confirm_page.cart_items_table.cart_items.first }
+      let(:cart_item_block) { confirm_page.cart_items_table.cart_items.first }
+      let(:decorated_cart_item) { cart_item.decorate }
 
       it 'all headers present' do
         expect(table_headers).to have_book_label(text: I18n.t('checkout.cart_items.book'))
@@ -61,12 +62,13 @@ RSpec.describe 'Checkout::Confirms->Show', type: :feature do
         expect(table_headers).to have_subtotal_label(text: I18n.t('checkout.cart_items.subtotal'))
       end
 
-      it 'all elements present' do
-        expect(cart_item).to have_book_image
-        expect(cart_item).to have_book_title
-        expect(cart_item).to have_book_price
-        expect(cart_item).to have_book_quantity
-        expect(cart_item).to have_subtotal_price
+      it 'all elements present with correct values' do
+        expect(cart_item_block).to have_book_image
+        expect(cart_item_block).to have_book_title(text: decorated_cart_item.book.title)
+        expect(cart_item_block).to have_book_description(text: decorated_cart_item.book.short_description)
+        expect(cart_item_block).to have_book_price(text: decorated_cart_item.book_price_with_currency)
+        expect(cart_item_block).to have_book_quantity(text: cart_item.books_count)
+        expect(cart_item_block).to have_subtotal_price(text: decorated_cart_item.subtotal_price)
       end
     end
 
@@ -77,7 +79,19 @@ RSpec.describe 'Checkout::Confirms->Show', type: :feature do
 
       it 'have shipping amount' do
         expect(order_summary).to have_shipping_title(text: I18n.t('checkout.order_summary_table.shipping'))
-        expect(order_summary).to have_shipping_amount
+        expect(order_summary).to have_shipping_amount(text: shipping_method.decorate.price_with_currency)
+      end
+    end
+  end
+
+  describe 'place order' do
+    context 'when `place order` button click' do
+      let(:params) { { id: order.id } }
+
+      before { confirm_page.place_order_button.click }
+
+      it 'redirects to checkout complete page' do
+        expect(confirm_page).to have_current_path(checkout_complete_path(params))
       end
     end
   end

@@ -18,7 +18,7 @@ module Orders
     attr_reader :current_user, :order
 
     def save_book_prices
-      order.cart_items.each do |cart_item|
+      CartItem.where(order_id: order.id).find_each do |cart_item|
         cart_item.update(book_price: cart_item.book.price)
       end
     end

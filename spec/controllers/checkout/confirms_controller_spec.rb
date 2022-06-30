@@ -41,6 +41,7 @@ RSpec.describe Checkout::ConfirmsController, type: :controller do
       let(:step) { :confirm }
 
       before do |example|
+        allow_any_instance_of(Orders::ConfirmOrderService).to receive(:call)
         sign_in(user)
         put :update unless example.metadata[:skip_request]
       end

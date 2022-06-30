@@ -3,7 +3,7 @@
     .general-img-wrap-table
       = image_tag cart_item.book.cover_image, class: 'cart-img-shadow', alt: 'design-book'
     %p.title= cart_item.book.title
-    %P.in-grey-600.fw-300.description= cart_item.book.truncated_description
+    %P.in-grey-600.fw-300.description= cart_item.book.short_description
     %table.table
       %tr
         %td

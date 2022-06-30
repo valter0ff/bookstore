@@ -19,7 +19,7 @@
         %td
           %p.title= cart_item.book.title
           %p.in-grey-600.fw-300.description
-            = truncate(cart_item.book.description, length: Constants::Book::DESCRIPTION_LENGTH)
+            = cart_item.book.short_description
         %td
           %span.font-16.in-gold-500.price= cart_item.book_price_with_currency
         %td
