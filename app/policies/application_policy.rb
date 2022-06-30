@@ -36,6 +36,8 @@ class ApplicationPolicy
     true
   end
 
+  alias_method :destroy_all?, :destroy?
+
   def scope
     Pundit.policy_scope!(user, record.class)
   end

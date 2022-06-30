@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class CouponPolicy < ApplicationPolicy
-  def destroy?
+  def update?
     record.active?
   end
 
-  def destroy_all?
-    destroy?
+  def destroy?
+    update?
   end
 end
