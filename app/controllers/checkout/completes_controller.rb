@@ -2,12 +2,20 @@
 
 module Checkout
   class CompletesController < ClientController
-    before_action :authenticate_user!
-    skip_before_action :set_order
+    prepend_before_action :authenticate_user!
 
     def show
+      if @order.complete?
+        @cart_items = @order.cart_items.includes(book: :pictures)
+      else
+        redirect_back(fallback_location: root_path, alert: I18n.t('checkout.errors.not_authorized'))
+      end
+    end
+
+    private
+
+    def set_order
       @order = current_user.orders.find(params[:id]).decorate
-      @cart_items = @order.cart_items.includes(book: :pictures)
     end
   end
 end

@@ -29,6 +29,10 @@ class OrderDecorator < ApplicationDecorator
     completed_at.strftime('%B %d, %Y')
   end
 
+  def from_json_shipping_address
+    ShippingAddress.new.from_json(shipping_address)
+  end
+
   private
 
   def subtotal_value
@@ -53,6 +57,6 @@ class OrderDecorator < ApplicationDecorator
   end
 
   def shipping_method_price
-    shipping_method.try(:price) || 0
+    try(:shipping_price) || shipping_method.try(:price) || 0
   end
 end
