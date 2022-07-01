@@ -25,6 +25,10 @@ class OrderDecorator < ApplicationDecorator
     price_with_currency(total_with_shipping_value)
   end
 
+  def complete_date
+    completed_at.strftime('%B %d, %Y')
+  end
+
   private
 
   def subtotal_value
