@@ -21,6 +21,20 @@
   .text-center.general-text-right
     %p.in-gold-500.font-18.order-summary-title= t('carts.show.order_summary')
     %table.general-summary-table.general-summary-table-right.general-text-right
-      = render 'checkout/order_summary_table', order: @order, shipping_amount: true
+      %tr
+        %td
+          %p.font-16 Subtotal:
+        %td
+          %p.font-16 €117.69
+      %tr
+        %td
+          %p.font-16 Coupon:
+        %td
+          %p.font-16 €0.00
+      %tr
+        %td
+          %strong.font-18 Order Total:
+        %td
+          %strong.font-18 €117.69
   .text-center
     = link_to t('.back_to_store'), books_path, class: 'btn mb-20 btn-default'
