@@ -38,13 +38,7 @@ RSpec.describe 'Checkout::Confirms->Show', type: :feature do
     context 'when addresses blocks' do
       let(:address_block) { confirm_page.address_block.first }
 
-      it 'have all elements with correct text' do
-        expect(address_block).to have_address_full_name(text: "#{address.first_name} #{address.last_name}")
-        expect(address_block).to have_address_address(text: address.address)
-        expect(address_block).to have_address_city_zip(text: "#{address.city} #{address.zip}")
-        expect(address_block).to have_address_country(text: address.country_name)
-        expect(address_block).to have_address_phone(text: "#{I18n.t('checkout.address.phone')} #{address.phone}")
-      end
+      it_behaves_like 'address block have all elements'
     end
 
     context 'when cart items table' do
@@ -52,21 +46,7 @@ RSpec.describe 'Checkout::Confirms->Show', type: :feature do
       let(:cart_item_block) { confirm_page.cart_items_table.cart_items.first }
       let(:decorated_cart_item) { order.cart_items.first.decorate }
 
-      it 'all headers present' do
-        expect(table_headers).to have_book_label(text: I18n.t('checkout.cart_items.book'))
-        expect(table_headers).to have_price_label(text: I18n.t('checkout.cart_items.price'))
-        expect(table_headers).to have_quantity_label(text: I18n.t('checkout.cart_items.quantity'))
-        expect(table_headers).to have_subtotal_label(text: I18n.t('checkout.cart_items.subtotal'))
-      end
-
-      it 'all elements present with correct values' do
-        expect(cart_item_block).to have_book_image
-        expect(cart_item_block).to have_book_title(text: decorated_cart_item.book.title)
-        expect(cart_item_block).to have_book_description(text: decorated_cart_item.book.short_description)
-        expect(cart_item_block).to have_book_price(text: decorated_cart_item.book_price_with_currency)
-        expect(cart_item_block).to have_book_quantity(text: decorated_cart_item.books_count)
-        expect(cart_item_block).to have_subtotal_price(text: decorated_cart_item.subtotal_price)
-      end
+      it_behaves_like 'cart items table have all elements'
     end
 
     context 'when order summary table' do

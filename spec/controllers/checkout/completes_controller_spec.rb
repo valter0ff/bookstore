@@ -9,15 +9,11 @@ RSpec.describe Checkout::CompletesController, type: :controller do
     end
 
     context 'when user is logged in' do
-      let(:user) { create(:user_account, use_billing_address: true) }
-      let(:order) { create(:order, :filled, user_account: user, step: step) }
-      let!(:address) { create(:billing_address, user_account: user) }
+      let(:user) { create(:user_account) }
+      let(:order) { create(:order, :filled, :completed, user_account: user) }
 
       context 'when order step `complete`', bullet: :skip do
-        let(:step) { :complete }
-
         before do
-          Orders::ConfirmOrderService.call(user, order)
           sign_in(user)
           get :show, params: { id: order.id }
         end
@@ -34,14 +30,24 @@ RSpec.describe Checkout::CompletesController, type: :controller do
       end
 
       context 'when order`s step not complete' do
-        let(:step) { :payment }
-
         before do
+          order.payment!
           sign_in(user)
           get :show, params: { id: order.id }
         end
 
         it_behaves_like 'a redirect to root with `not authorized` alert'
+      end
+
+      context 'when no order id in params' do
+        let(:not_found_path) { '/404' }
+
+        before do
+          sign_in(user)
+          get :show
+        end
+
+        it { is_expected.to redirect_to(not_found_path) }
       end
     end
   end

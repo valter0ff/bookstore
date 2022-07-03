@@ -3,7 +3,7 @@
   = render 'checkout/checkout_progress', step: :complete
   .text-center.mb-40
     %h3.general-subtitle= t('.thank_you_message')
-    %p.fw-300= t('.email_sent_message', user_email: current_user.email)
+    %p.fw-300.email-sent-message= t('.email_sent_message', user_email: current_user.email)
   .row.mb-20
     .col-sm-6
       .visible-xs
@@ -13,7 +13,7 @@
         = render 'checkout/address', address: @order.from_json_shipping_address
     .col-sm-6.hidden-xs.text-right
       %p.general-order-number.mb-0= t('.order_number', number: "##{@order.number}")
-      %p.general-address.mb-30= @order.complete_date
+      %p.general-address.mb-30.complete-date= @order.complete_date
   .visible-xs
     = render 'checkout/cart_items_xs', cart_items: @cart_items
   .hidden-xs.divider-lg.pt-20
