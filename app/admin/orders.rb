@@ -31,4 +31,13 @@ ActiveAdmin.register Order do
   show do
     default_main_content
   end
+
+  member_action :get_payed, method: :put do
+    resource.get_payed!
+    redirect_to resource_path
+  end
+
+  action_item :get_payed, only: :show, if: proc { resource.may_get_payed? } do
+    button_to 'Get Payed', get_payed_admin_order_path(resource), method: :put
+  end
 end
