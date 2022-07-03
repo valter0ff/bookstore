@@ -1,0 +1,5 @@
+= form_tag(orders_path, method: :get, class: 'filter-dropdown') do
+  = select_tag 'filter_by',
+    options_for_select(t('orders.state_filter').invert, params[:filter_by]),
+    { onchange: 'this.form.submit();',
+    class: 'dropdown-toggle lead small select-tag' }

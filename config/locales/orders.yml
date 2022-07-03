@@ -1,5 +1,21 @@
 en:
   orders:
+    orders_table:
+      number: Number
+      completed_at: Completed at
+      status: Status
+      total: Total
+    index:
+      my_orders: My Orders
+      filter_by: Filter by
+    show:
+      order_number: "Order %{number}"
+    state_filter:
+      all_orders: All orders
+      in_progress: Waiting for processing
+      in_delivery: In delivery
+      delivered: Delivered
+      canceled: Canceled
     book_added: Book(s) added to cart
     order_updated: Order updated
     book_quantity_error: Quantity value must be a digit more then zero

@@ -33,6 +33,10 @@ class OrderDecorator < ApplicationDecorator
     Address.new.from_json(shipping_address)
   end
 
+  def from_json_billing_address
+    Address.new.from_json(billing_address)
+  end
+
   private
 
   def subtotal_value

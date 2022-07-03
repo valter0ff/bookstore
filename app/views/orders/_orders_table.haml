@@ -1,0 +1,22 @@
+%table.table.table-hover
+  %thead
+    %tr
+      %th
+        %span.in-grey-600.number-title= t('.number')
+      %th
+        %span.in-grey-600.completed-title= t('.completed_at')
+      %th
+        %span.in-grey-600.status-title= t('.status')
+      %th
+        %span.in-grey-600.total-title= t('.total')
+  %tbody
+    - orders.each do |order|
+      %tr
+        %td
+          = link_to order.number, order_path(order), class: 'general-order-number'
+        %td
+          %span.in-grey-900.font-16.fw-300.completed-at= order.completed_at.strftime("%F")
+        %td
+          %span.font-16.in-grey-900.fw-300.status= order.state.sub('_', ' ').capitalize
+        %td
+          %strong.font-16.price= order.total_with_shipping
