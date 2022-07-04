@@ -10,6 +10,8 @@ en:
       filter_by: Filter by
     show:
       order_number: "Order %{number}"
+      shipments: Shipments
+      payment_information: Payment Information
     state_filter:
       all_orders: All orders
       in_progress: Waiting for processing

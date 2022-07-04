@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class OrdersController < ClientController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[index show]
 
   def index
     @orders = Orders::FilterOrdersService.call(current_user.id, params[:filter_by])

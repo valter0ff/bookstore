@@ -1,17 +1,65 @@
 # frozen_string_literal: true
 
 RSpec.describe OrdersController, type: :controller do
-  let(:order) { create(:order, coupon: nil) }
+  describe '#index' do
+    context 'when user is not logged in' do
+      before { get :index }
 
-  before do
-    request.session[:order_id] = order.id
-    apply_coupon_on_order
+      it { is_expected.to redirect_to(new_user_session_path) }
+    end
+
+    context 'when user is logged in' do
+      let(:user) { create(:user_account) }
+      let!(:orders) { create_list(:order, rand(2..5), :filled, :completed, user_account: user) }
+      let(:success_status) { 200 }
+
+      before do
+        sign_in(user)
+        get :index
+      end
+
+      it { is_expected.to respond_with(success_status) }
+      it { is_expected.to render_template(:index) }
+
+      it 'assigns user`s orders with `complete` state to @orders', bullet: :skip do
+        expect(assigns(:orders).count).to eq(orders.count)
+      end
+    end
+  end
+
+  describe '#show' do
+    let(:user) { create(:user_account) }
+    let!(:order) { create(:order, :filled, :completed, user_account: user) }
+    let(:success_status) { 200 }
+    let(:params) { { id: order.id } }
+
+    before do
+      sign_in(user)
+      get :show, params: params
+    end
+
+    it { is_expected.to respond_with(success_status) }
+    it { is_expected.to render_template(:show) }
+
+    it 'decorates current order' do
+      expect(assigns(:current_order)).to eq(order.decorate)
+    end
+
+    it 'assigns cart_items variable', bullet: :skip do
+      expect(assigns(:cart_items)).to eq(order.cart_items)
+    end
   end
 
   describe '#apply_coupon' do
     let(:apply_coupon_on_order) { put :apply_coupon, params: params }
     let(:redirect_status) { 302 }
     let(:params) { { id: order.id, order: { coupon: { code: code } } } }
+    let(:order) { create(:order, coupon: nil) }
+
+    before do
+      request.session[:order_id] = order.id
+      apply_coupon_on_order
+    end
 
     context 'when coupon code exists' do
       let(:code) { coupon.code }
