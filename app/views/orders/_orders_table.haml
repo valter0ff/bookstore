@@ -1,5 +1,5 @@
-%table.table.table-hover
-  %thead
+%table.table.table-hover.orders-table
+  %thead.orders-table-headers
     %tr
       %th
         %span.in-grey-600.number-title= t('.number')
@@ -11,7 +11,7 @@
         %span.in-grey-600.total-title= t('.total')
   %tbody
     - orders.each do |order|
-      %tr
+      %tr.order-item
         %td
           = link_to order.number, order_path(order), class: 'general-order-number'
         %td
