@@ -5,6 +5,6 @@ module Constants
     CURRENCY = '€'
     CURRENCY_FORMAT = '%u%n'
     BEST_SELLERS_COUNT = 4
-    BEST_SELLERS_PROPERTY = 'popular_first'
+    LATEST_BOOKS_COUNT = 3
   end
 end
