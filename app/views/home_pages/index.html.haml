@@ -4,11 +4,12 @@
       %li.active{'data-target': "#slider", 'data-slide-to': "0"}
       %li{'data-target': "#slider", 'data-slide-to': "1"}
     .carousel-inner{role: "listbox"}
-      .item.active
-        = render 'book_card', book: @latest_books.first
-      - @latest_books.decorated_collection.last(2).each do |book|
-        .item
-          = render 'book_card', book: book
+      - unless @latest_books.decorated_collection.blank?
+        .item.active
+          = render 'book_card', book: @latest_books.first
+        - @latest_books.decorated_collection.last(2).each do |book|
+          .item
+            = render 'book_card', book: book
     %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
       %span.icon-prev{'aria-hidden': "true"}
       %span.sr-only= t('.previous_slider_button')
@@ -23,5 +24,6 @@
     =link_to t('.get_started_button'), books_path, class: 'btn btn-default'
   .mb-35#best_sellers
     %h3= t('.best_sellers_title')
-    .row
-      = render 'best_sellers', books: @best_sellers
+    - unless @best_sellers.decorated_collection.blank?
+      .row
+        = render 'best_sellers', books: @best_sellers
