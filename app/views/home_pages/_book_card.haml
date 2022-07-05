@@ -1,0 +1,15 @@
+.row
+  .col-sm-5
+    .general-img-wrap
+      = image_tag book.cover_image, class: 'img-shadow general-thumbnail-img', alt: 'design-book'
+  .col-sm-7
+    .mb-60
+      %h1.book-title= book.title
+      %p.lead.book-description= book.short_description
+      %p.lead.small.authors= book.all_authors
+      .general-align
+        = link_to book_cart_items_path(book_id: book.id, cart_item: { books_count: 1 }),
+            class: 'btn btn-primary',
+            method: :post do
+          Buy Now
+

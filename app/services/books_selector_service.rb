@@ -34,6 +34,6 @@ class BooksSelectorService < ApplicationService
   end
 
   def popular_books
-    @books.sort_by { |book| book.reviews.average(:rating) }.reverse
+    @books.sort_by { |book| book.reviews.average(:rating) || 0 }.reverse
   end
 end
