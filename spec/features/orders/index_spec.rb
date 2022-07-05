@@ -49,6 +49,15 @@ RSpec.describe 'Orders->Index', type: :feature do
     let(:order_items) { orders_index_page.orders_table.order_items }
     let(:option) { orders_index_page.filter_dropdown.find(:option, text: text) }
 
+    shared_examples 'a successfully used filter' do
+      before { option.select_option }
+
+      it 'shows only user`s orders with selected state' do
+        expect(order_items.first.link_to_order.text).to eq(order.number)
+        expect(order_items.count).to eq(1)
+      end
+    end
+
     before do
       sign_in(user)
       orders_index_page.load
@@ -62,46 +71,30 @@ RSpec.describe 'Orders->Index', type: :feature do
 
     context 'when select `In progress` option', js: true do
       let(:text) { I18n.t('orders.state_filter.in_progress') }
+      let(:order) { order_in_progress }
 
-      before { option.select_option }
-
-      it 'shows only user`s orders with `in_progress` state' do
-        expect(order_items.first.link_to_order.text).to eq(order_in_progress.number)
-        expect(order_items.count).to eq(1)
-      end
+      it_behaves_like 'a successfully used filter'
     end
 
     context 'when select `In delivery` option', js: true do
       let(:text) { I18n.t('orders.state_filter.in_delivery') }
+      let(:order) { order_in_delivery }
 
-      before { option.select_option }
-
-      it 'shows only user`s orders with `in_delivery` state' do
-        expect(order_items.first.link_to_order.text).to eq(order_in_delivery.number)
-        expect(order_items.count).to eq(1)
-      end
+      it_behaves_like 'a successfully used filter'
     end
 
     context 'when select `Delivered` option', js: true do
       let(:text) { I18n.t('orders.state_filter.delivered') }
+      let(:order) { order_delivered }
 
-      before { option.select_option }
-
-      it 'shows only user`s orders with `delivered` state' do
-        expect(order_items.first.link_to_order.text).to eq(order_delivered.number)
-        expect(order_items.count).to eq(1)
-      end
+      it_behaves_like 'a successfully used filter'
     end
 
     context 'when select `Canceled` option', js: true do
       let(:text) { I18n.t('orders.state_filter.canceled') }
+      let(:order) { order_canceled }
 
-      before { option.select_option }
-
-      it 'shows only user`s orders with `canceled` state' do
-        expect(order_items.first.link_to_order.text).to eq(order_canceled.number)
-        expect(order_items.count).to eq(1)
-      end
+      it_behaves_like 'a successfully used filter'
     end
   end
 end
