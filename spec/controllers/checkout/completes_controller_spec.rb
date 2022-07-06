@@ -10,9 +10,10 @@ RSpec.describe Checkout::CompletesController, type: :controller do
 
     context 'when user is logged in' do
       let(:user) { create(:user_account) }
-      let(:order) { create(:order, :filled, :completed, user_account: user) }
 
       context 'when order step `complete`', bullet: :skip do
+        let(:order) { create(:order, :filled, :completed, user_account: user) }
+
         before do
           sign_in(user)
           get :show, params: { id: order.id }
@@ -30,8 +31,9 @@ RSpec.describe Checkout::CompletesController, type: :controller do
       end
 
       context 'when order`s step not complete' do
+        let(:order) { create(:order, :payment, user_account: user) }
+
         before do
-          order.payment!
           sign_in(user)
           get :show, params: { id: order.id }
         end

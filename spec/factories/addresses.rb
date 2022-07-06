@@ -10,6 +10,6 @@ FactoryBot.define do
     zip { FFaker::AddressUS.zip_code }
     phone { FFaker::PhoneNumberPL.international_mobile_phone_number }
     type { %w[BillingAddress ShippingAddress].sample }
-    user_account_id { UserAccount.take.id }
+    user_account
   end
 end

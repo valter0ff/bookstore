@@ -30,7 +30,7 @@ class OrderDecorator < ApplicationDecorator
   end
 
   def from_json_shipping_address
-    ShippingAddress.new.from_json(shipping_address)
+    Address.new.from_json(shipping_address)
   end
 
   private
