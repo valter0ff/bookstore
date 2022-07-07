@@ -21,7 +21,7 @@ module Pages
 
         section :checkout_progress_bar, Pages::Sections::CheckoutProgressBar, '.checkout-progress'
         section :order_summary_table, Pages::Sections::OrderSummary, '.general-summary-table'
-        sections :address_block, Pages::Sections::AddressBlock, 'p.general-address'
+        sections :address_block, Pages::Sections::AddressBlock, '.address-block'
         section :cart_items_table, Pages::Sections::CartItemsTable, '.cart-items-table'
       end
     end
