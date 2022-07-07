@@ -13,9 +13,9 @@
   .col-sm-3
     %h3.general-subtitle.payment-title= t('.payment_information')
     %p.general-address
-      %span.credit-card-number= @current_order.credit_card.masked_number
+      %span.credit-card-number= @credit_card.masked_number
       %br
-      %span.credit-card-expiry-date= @current_order.credit_card.expiry_date_full_year
+      %span.credit-card-expiry-date= @credit_card.expiry_date_full_year
   .visible-xs
     = render 'checkout/cart_items_xs', cart_items: @cart_items
   .hidden-xs.divider-lg.pt-20

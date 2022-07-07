@@ -29,6 +29,14 @@ class OrderDecorator < ApplicationDecorator
     completed_at.strftime('%B %d, %Y')
   end
 
+  def complete_date_short
+    completed_at.strftime('%F')
+  end
+
+  def readable_state
+    state.sub('_', ' ').capitalize
+  end
+
   def from_json_shipping_address
     Address.new.from_json(shipping_address)
   end

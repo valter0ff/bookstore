@@ -10,12 +10,12 @@
         %td
           %span.in-grey-600.completed-title= t('orders.orders_table.completed_at')
         %td
-          %span.in-grey-900.font-16.fw-300.completed-at= order.completed_at.strftime("%F")
+          %span.in-grey-900.font-16.fw-300.completed-at= order.complete_date_short
       %tr
         %td
           %span.in-grey-600.status-title= t('orders.orders_table.status')
         %td
-          %span.font-16.in-grey-900.fw-300.status= order.state.sub('_', ' ').capitalize
+          %span.font-16.in-grey-900.fw-300.status= order.readable_state
       %tr
         %td
           %span.in-grey-600.total-title= t('orders.orders_table.total')
