@@ -40,8 +40,8 @@ RSpec.describe HomePagesController do
       end
 
       it 'assigns 4 books with max sales count to @best_sellers' do
-        expect(assigns(:best_sellers)).to eq(expected_best_sellers)
-        expect(assigns(:best_sellers)).not_to eq(Book.all)
+        expect(assigns(:best_sellers).object).to eq(expected_best_sellers)
+        expect(assigns(:best_sellers).object).not_to eq(Book.all)
       end
 
       it 'returns best sellers books in correct order' do
@@ -49,8 +49,8 @@ RSpec.describe HomePagesController do
       end
 
       it 'assigns 3 last added books to @latest_books' do
-        expect(assigns(:latest_books)).to eq(expected_latest_books)
-        expect(assigns(:latest_books)).not_to eq(Book.all)
+        expect(assigns(:latest_books).object).to eq(expected_latest_books)
+        expect(assigns(:latest_books).object).not_to eq(Book.all)
       end
 
       it 'returns latest books in correct order' do
