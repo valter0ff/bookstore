@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_28_185733) do
+ActiveRecord::Schema.define(version: 2022_07_05_152858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 2022_06_28_185733) do
     t.bigint "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "sales_count", default: 0
     t.index ["category_id"], name: "index_books_on_category_id"
     t.index ["title"], name: "index_books_on_title"
   end
@@ -156,7 +157,7 @@ ActiveRecord::Schema.define(version: 2022_06_28_185733) do
     t.integer "step", default: 0
     t.jsonb "shipping_address", default: "{}"
     t.jsonb "billing_address", default: "{}"
-    t.string "shipping_price"
+    t.float "shipping_price"
     t.datetime "completed_at", precision: 6
     t.index ["coupon_id"], name: "index_orders_on_coupon_id"
     t.index ["shipping_method_id"], name: "index_orders_on_shipping_method_id"

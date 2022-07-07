@@ -8,7 +8,7 @@ module Orders
     end
 
     def call
-      save_book_prices
+      save_book_prices_and_sales_count
       use_coupon
       order.update(step: :complete, state: :in_progress, **detailed_order_information)
     end
@@ -17,9 +17,11 @@ module Orders
 
     attr_reader :current_user, :order
 
-    def save_book_prices
-      CartItem.where(order_id: order.id).find_each do |cart_item|
+    def save_book_prices_and_sales_count
+      @order.cart_items.find_each do |cart_item|
         cart_item.update(book_price: cart_item.book.price)
+        book = cart_item.book
+        book.update(sales_count: book.sales_count += cart_item.books_count)
       end
     end
 

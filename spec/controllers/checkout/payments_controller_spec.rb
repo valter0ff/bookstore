@@ -3,17 +3,31 @@
 RSpec.describe Checkout::PaymentsController, type: :controller do
   describe '#edit' do
     context 'when user is not logged in' do
-      it_behaves_like 'a redirect to checkout login page', :edit
+      before { get :edit }
+
+      it_behaves_like 'a redirect to checkout login page'
     end
 
-    context 'when user is logged in' do
-      before { order.payment! }
+    context 'when user exists' do
+      let(:user) { create(:user_account) }
+      let!(:order) { create(:order, user_account: user, step: step) }
 
-      it_behaves_like 'a success render current page', :edit
-    end
+      before do
+        sign_in(user)
+        get :edit
+      end
 
-    context 'when order`s step less then requested step' do
-      it_behaves_like 'a redirect to root with `not authorized` alert', :edit
+      context 'when user is logged in' do
+        let(:step) { :payment }
+
+        it_behaves_like 'a success render current page', :edit
+      end
+
+      context 'when order`s step less then requested step' do
+        let(:step) { :delivery }
+
+        it_behaves_like 'a redirect to root with `not authorized` alert'
+      end
     end
   end
 

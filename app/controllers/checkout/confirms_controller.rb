@@ -8,7 +8,7 @@ module Checkout
 
     def update
       if @order.may_complete_step?
-        Orders::ConfirmOrderService.call(current_user, @order)
+        Orders::ConfirmOrderService.call(current_user, @order.model)
         redirect_to checkout_complete_path(id: @order.id)
       else
         flash.now[:alert] = I18n.t('checkout.confirms.show.confirm_error')

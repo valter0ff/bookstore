@@ -21,9 +21,7 @@ RSpec/AnyInstance:
     - 'spec/controllers/**/*'
 
 RSpec/LetSetup:
-  Exclude:
-    - 'spec/features/**/*'
-    - 'spec/controllers/**/*'
+  Enabled: false
 
 RSpec/MessageSpies:
   EnforcedStyle: receive

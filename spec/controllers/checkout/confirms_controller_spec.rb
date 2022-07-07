@@ -3,31 +3,39 @@
 RSpec.describe Checkout::ConfirmsController, type: :controller do
   describe '#show' do
     context 'when user is not logged in' do
-      it_behaves_like 'a redirect to checkout login page', :show
+      before { get :show }
+
+      it_behaves_like 'a redirect to checkout login page'
     end
 
-    context 'when user is logged in' do
-      before { order.confirm! }
-
-      it_behaves_like 'a success render current page', :show
-    end
-
-    context 'when order`s step less then requested step' do
-      it_behaves_like 'a redirect to root with `not authorized` alert', :show
-    end
-
-    context 'when order exists' do
+    context 'when user exists' do
       let(:user) { create(:user_account) }
-      let(:order) { create(:order, user_account: user, step: :confirm) }
-      let!(:cart_items) { create_list(:cart_item, rand(2..5), order: order, book: create(:book, :with_picture)) }
+      let!(:order) { create(:order, user_account: user, step: step) }
 
       before do
         sign_in(user)
         get :show
       end
 
-      it 'assigns cart_items with included books and pictures', bullet: :skip do
-        expect(assigns(:cart_items)).to eq(order.cart_items)
+      context 'when user is logged in' do
+        let(:step) { :confirm }
+
+        it_behaves_like 'a success render current page', :show
+      end
+
+      context 'when order`s step less then requested step' do
+        let(:step) { :payment }
+
+        it_behaves_like 'a redirect to root with `not authorized` alert'
+      end
+
+      context 'when order with cart items' do
+        let(:step) { :confirm }
+        let!(:cart_items) { create_list(:cart_item, rand(2..5), order: order) }
+
+        it 'assigns cart_items with included books and pictures', bullet: :skip do
+          expect(assigns(:cart_items)).to eq(order.cart_items)
+        end
       end
     end
   end
@@ -41,7 +49,7 @@ RSpec.describe Checkout::ConfirmsController, type: :controller do
       let(:step) { :confirm }
 
       before do |example|
-        allow_any_instance_of(Orders::ConfirmOrderService).to receive(:call)
+        allow(Orders::ConfirmOrderService).to receive(:call)
         sign_in(user)
         put :update unless example.metadata[:skip_request]
       end
@@ -49,7 +57,7 @@ RSpec.describe Checkout::ConfirmsController, type: :controller do
       it { is_expected.to redirect_to(checkout_complete_path(params)) }
 
       it 'calls Orders::ConfirmOrderService', skip_request: true do
-        expect_any_instance_of(Orders::ConfirmOrderService).to receive(:call)
+        expect(Orders::ConfirmOrderService).to receive(:call)
         put :update
       end
     end

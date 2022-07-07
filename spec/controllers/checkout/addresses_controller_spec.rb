@@ -3,10 +3,20 @@
 RSpec.describe Checkout::AddressesController, type: :controller do
   describe '#edit' do
     context 'when user is not logged in' do
-      it_behaves_like 'a redirect to checkout login page', :edit
+      before { get :edit }
+
+      it_behaves_like 'a redirect to checkout login page'
     end
 
     context 'when user is logged in' do
+      let(:user) { create(:user_account) }
+      let!(:order) { create(:order, :delivery, user_account: user) }
+
+      before do
+        sign_in(user)
+        get :edit
+      end
+
       it_behaves_like 'a success render current page', :edit
     end
   end

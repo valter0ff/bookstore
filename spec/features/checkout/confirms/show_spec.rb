@@ -4,10 +4,7 @@ RSpec.describe 'Checkout::Confirms->Show', type: :feature do
   let(:confirm_page) { Pages::Checkout::Confirms::Show.new }
   let(:user) { create(:user_account, use_billing_address: true) }
   let!(:address) { create(:billing_address, user_account: user) }
-  let!(:order) { create(:order, :confirm, user_account: user) }
-  let!(:shipping_method) { create(:shipping_method, orders: [order]) }
-  let!(:credit_card) { create(:credit_card, order: order) }
-  let!(:cart_item) { create(:cart_item, order: order) }
+  let!(:order) { create(:order, :confirm, :filled, user_account: user) }
 
   before do
     sign_in(user)
@@ -21,10 +18,10 @@ RSpec.describe 'Checkout::Confirms->Show', type: :feature do
         expect(confirm_page).to have_billing_address_title(text: I18n.t('addresses.new.billing_title'))
         expect(confirm_page).to have_shipping_address_title(text: I18n.t('addresses.new.shipping_title'))
         expect(confirm_page).to have_shipping_method_title(text: I18n.t('checkout.confirms.show.shipments'))
-        expect(confirm_page).to have_shipping_method_name(text: shipping_method.name)
+        expect(confirm_page).to have_shipping_method_name(text: order.shipping_method.name)
         expect(confirm_page).to have_payment_title(text: I18n.t('checkout.confirms.show.payment_information'))
-        expect(confirm_page).to have_credit_card_number(text: credit_card.decorate.masked_number)
-        expect(confirm_page).to have_credit_card_expiry_date(text: credit_card.decorate.expiry_date_full_year)
+        expect(confirm_page).to have_credit_card_number(text: order.credit_card.decorate.masked_number)
+        expect(confirm_page).to have_credit_card_expiry_date(text: order.credit_card.decorate.expiry_date_full_year)
         expect(confirm_page).to have_edit_links(text: I18n.t('checkout.confirms.show.edit'))
         expect(confirm_page).to have_order_summary_title(text: I18n.t('carts.show.order_summary'))
         expect(confirm_page).to have_place_order_button
@@ -53,7 +50,7 @@ RSpec.describe 'Checkout::Confirms->Show', type: :feature do
     context 'when cart items table' do
       let(:table_headers) { confirm_page.cart_items_table.table_headers }
       let(:cart_item_block) { confirm_page.cart_items_table.cart_items.first }
-      let(:decorated_cart_item) { cart_item.decorate }
+      let(:decorated_cart_item) { order.cart_items.first.decorate }
 
       it 'all headers present' do
         expect(table_headers).to have_book_label(text: I18n.t('checkout.cart_items.book'))
@@ -67,7 +64,7 @@ RSpec.describe 'Checkout::Confirms->Show', type: :feature do
         expect(cart_item_block).to have_book_title(text: decorated_cart_item.book.title)
         expect(cart_item_block).to have_book_description(text: decorated_cart_item.book.short_description)
         expect(cart_item_block).to have_book_price(text: decorated_cart_item.book_price_with_currency)
-        expect(cart_item_block).to have_book_quantity(text: cart_item.books_count)
+        expect(cart_item_block).to have_book_quantity(text: decorated_cart_item.books_count)
         expect(cart_item_block).to have_subtotal_price(text: decorated_cart_item.subtotal_price)
       end
     end
@@ -79,7 +76,7 @@ RSpec.describe 'Checkout::Confirms->Show', type: :feature do
 
       it 'have shipping amount' do
         expect(order_summary).to have_shipping_title(text: I18n.t('checkout.order_summary_table.shipping'))
-        expect(order_summary).to have_shipping_amount(text: shipping_method.decorate.price_with_currency)
+        expect(order_summary).to have_shipping_amount(text: order.shipping_method.decorate.price_with_currency)
       end
     end
   end
