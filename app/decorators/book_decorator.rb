@@ -33,7 +33,7 @@ class BookDecorator < ApplicationDecorator
   end
 
   def short_description
-    truncate(description, length: Constants::Book::DESCRIPTION_LENGTH)
+    description.split('.').first
   end
 
   def all_materials

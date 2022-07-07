@@ -3,6 +3,7 @@
 class OrderDecorator < ApplicationDecorator
   delegate_all
   decorates_association :cart_items
+  decorates_association :credit_card
 
   def subtotal_price
     price_with_currency(subtotal_value)

@@ -3,19 +3,40 @@
 RSpec.describe Checkout::PaymentsController, type: :controller do
   describe '#edit' do
     context 'when user is not logged in' do
+      before { get :edit }
+
       it_behaves_like 'a redirect to checkout login page'
     end
 
-    context 'when user is logged in' do
-      it_behaves_like 'a success render current page'
+    context 'when user exists' do
+      let(:user) { create(:user_account) }
+      let!(:order) { create(:order, user_account: user, step: step) }
+
+      before do
+        sign_in(user)
+        get :edit
+      end
+
+      context 'when user is logged in' do
+        let(:step) { :payment }
+
+        it_behaves_like 'a success render current page', :edit
+      end
+
+      context 'when order`s step less then requested step' do
+        let(:step) { :delivery }
+
+        it_behaves_like 'a redirect to root with `not authorized` alert'
+      end
     end
   end
 
   describe '#update' do
     let(:user) { create(:user_account) }
     let(:make_request) { put :update, params: params }
-    let(:order) { controller.current_user.reload_current_order }
+    let(:current_order) { controller.current_user.reload_current_order }
     let(:params) { { order: { credit_card_attributes: card_attrs } } }
+    let!(:order) { create(:order, :payment, user_account: user) }
 
     before do |example|
       sign_in(user)
@@ -26,11 +47,11 @@ RSpec.describe Checkout::PaymentsController, type: :controller do
       let(:card_attrs) { attributes_for(:credit_card) }
       let(:success_message) { I18n.t('checkout.payments.edit.credit_card_saved') }
 
-      it { is_expected.to redirect_to(new_checkout_confirm_path) }
+      it { is_expected.to redirect_to(checkout_confirm_path) }
       it { is_expected.to set_flash[:notice].to(success_message) }
 
       it 'updates credit card for order of current user' do
-        expect(order.credit_card.id).to eq(CreditCard.first.id)
+        expect(current_order.credit_card.id).to eq(CreditCard.first.id)
       end
 
       it 'creates new credit card in database', skip_request: true do

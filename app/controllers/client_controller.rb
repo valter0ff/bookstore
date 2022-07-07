@@ -19,7 +19,7 @@ class ClientController < ApplicationController
   end
 
   def set_total_books_count
-    @total_books_count = @order.cart_items.sum(&:books_count)
+    @total_books_count = @order.present? ? @order.cart_items.sum(&:books_count) : 0
   end
 
   def store_user_location!

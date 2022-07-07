@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_17_092454) do
+ActiveRecord::Schema.define(version: 2022_07_05_152858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 2022_06_17_092454) do
     t.bigint "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "sales_count", default: 0
     t.index ["category_id"], name: "index_books_on_category_id"
     t.index ["title"], name: "index_books_on_title"
   end
@@ -105,6 +106,7 @@ ActiveRecord::Schema.define(version: 2022_06_17_092454) do
     t.integer "books_count", default: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "book_price"
     t.index ["book_id"], name: "index_cart_items_on_book_id"
     t.index ["order_id"], name: "index_cart_items_on_order_id"
   end
@@ -152,6 +154,11 @@ ActiveRecord::Schema.define(version: 2022_06_17_092454) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "shipping_method_id"
+    t.integer "step", default: 0
+    t.jsonb "shipping_address", default: "{}"
+    t.jsonb "billing_address", default: "{}"
+    t.float "shipping_price"
+    t.datetime "completed_at", precision: 6
     t.index ["coupon_id"], name: "index_orders_on_coupon_id"
     t.index ["shipping_method_id"], name: "index_orders_on_shipping_method_id"
     t.index ["user_account_id"], name: "index_orders_on_user_account_id"

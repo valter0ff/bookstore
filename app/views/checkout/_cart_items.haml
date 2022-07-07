@@ -1,0 +1,28 @@
+%table.table.table-hover.cart-items-table
+  %thead.cart-items-table-headers
+    %tr
+      %th
+        %span.in-grey-600.book-label= t('.book')
+      %th.col-method
+      %th
+        %span.in-grey-600.price-label= t('.price')
+      %th
+        %span.in-grey-600.quantity-label= t('.quantity')
+      %th
+        %span.in-grey-600.sub-total-label= t('.subtotal')
+  %tbody
+    - cart_items.each do |cart_item|
+      %tr.general-cart-item
+        %td
+          .general-img-wrap-table
+            = image_tag cart_item.book.cover_image, class: 'cart-img-shadow pull-left', alt: 'design-book'
+        %td
+          %p.title= cart_item.book.title
+          %p.in-grey-600.fw-300.description
+            = cart_item.book.short_description
+        %td
+          %span.font-16.in-gold-500.price= cart_item.book_price_with_currency
+        %td
+          %span.ml-30.quantity= cart_item.books_count
+        %td
+          %span.font-16.in-gold-500.subtotal= cart_item.subtotal_price

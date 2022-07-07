@@ -1,0 +1,22 @@
+- cart_items.each do |cart_item|
+  .general-cart-item.divider-lg
+    .general-img-wrap-table
+      = image_tag cart_item.book.cover_image, class: 'cart-img-shadow', alt: 'design-book'
+    %p.title= cart_item.book.title
+    %P.in-grey-600.fw-300.description= cart_item.book.short_description
+    %table.table
+      %tr
+        %td
+          %span.in-grey-600.price-label= t('checkout.cart_items.price')
+        %td
+          %span.font-16.in-gold-500.price= cart_item.book_price_with_currency
+      %tr
+        %td.vertical-middle
+          %span.in-grey-600.quantity-label= t('checkout.cart_items.quantity')
+        %td
+          %span.quantity= cart_item.books_count
+      %tr
+        %td
+          %span.in-grey-600.sub-total-label= t('checkout.cart_items.subtotal')
+        %td
+          %span.font-16.in-gold-500.subtotal= cart_item.subtotal_price

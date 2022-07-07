@@ -1,9 +1,14 @@
 %main.container.general-main-wrap
   %h1.general-title-margin= t('checkout.shared.general_title')
-  = render 'checkout/checkout_progress', step: :confirm
+  = render 'checkout/checkout_progress', step: :complete
+  .text-center.mb-40
+    %h3.general-subtitle Thank You for your Order!
+    %p.fw-300 An order confirmation has been has been sent to John Doe0411@gmail.com
   .row.mb-20
-    .col-sm-3
-      %h3.general-subtitle Shipping Address
+    .col-sm-6
+      .visible-xs
+        %p.general-order-number.mb-0 Order #R25314582
+        %p.general-address.mb-30 October 29, 2016
       %p.general-address
         John Doe
         %span.general-edit edit
@@ -15,33 +20,9 @@
         United States
         %br
         Phone +16507599755
-    .col-sm-3
-      %h3.general-subtitle Billing Address
-      %p.general-address
-        John Doe
-        %span.general-edit edit
-        %br
-        44 Fifth Ave v231
-        %br
-        New York NY 1001
-        %br
-        United States
-        %br
-        Phone +16507599755
-    .col-sm-3
-      %h3.general-subtitle Shipments
-      %p.general-address
-        Delivery Next Day!
-        %span.general-edit edit
-        %br
-        By train
-    .col-sm-3
-      %h3.general-subtitle Payment Information
-      %p.general-address
-        ** ** ** 8756
-        %span.general-edit edit
-        %br
-        12/2018
+    .col-sm-6.hidden-xs.text-right
+      %p.general-order-number.mb-0 Order #R25314582
+      %p.general-address.mb-30 October 29, 2016
   .visible-xs
     .general-cart-item.divider-lg
       .general-img-wrap-table
@@ -78,12 +59,7 @@
           %td.vertical-middle
             %span.in-grey-600 Quantity
           %td
-            .input-group
-              %a.input-link{href: "#"}
-                %i.fa.fa-minus.line-heaght-40
-              %input.form-control.quantity-input{type: "text"}
-              %a.input-link{href: "#"}
-                %i.fa.fa-plus.line-heaght-40
+            %span 1
         %tr
           %td
             %span.in-grey-600 SubTotal
@@ -135,4 +111,5 @@
         %td
           %strong.font-18 €117.69
   .text-center
-    %button.btn.btn-default.mb-20 Place Order
+    %button.btn.btn-default.mb-20 Back to Store
+    = link_to 'Back to Store', root_path, class: 'btn mb-20 submit-btn'

@@ -6,6 +6,7 @@ module Checkout
 
     def update
       if current_user.update(permitted_params)
+        @order.delivery_step! if @order.may_delivery_step?
         redirect_to edit_checkout_delivery_path, notice: I18n.t('checkout.addresses.edit.addresses_saved')
       else
         render :edit

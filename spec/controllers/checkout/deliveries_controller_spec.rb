@@ -3,24 +3,39 @@
 RSpec.describe Checkout::DeliveriesController, type: :controller do
   describe '#edit' do
     context 'when user is not logged in' do
+      before { get :edit }
+
       it_behaves_like 'a redirect to checkout login page'
     end
 
-    context 'when user is logged in' do
-      it_behaves_like 'a success render current page'
-    end
-
-    context 'when shipping methods exists' do
+    context 'when user exists' do
       let(:user) { create(:user_account) }
+      let!(:order) { create(:order, user_account: user, step: step) }
 
       before do
         sign_in(user)
-        create_list(:shipping_method, rand(2..10))
         get :edit
       end
 
-      it 'assigns all shipping methods to variable and decorates all of them' do
-        expect(assigns(:shipping_methods)).to eq(ShippingMethod.all.decorate)
+      context 'when user is logged in' do
+        let(:step) { :delivery }
+
+        it_behaves_like 'a success render current page', :edit
+      end
+
+      context 'when order`s step less then requested step' do
+        let(:step) { :address }
+
+        it_behaves_like 'a redirect to root with `not authorized` alert'
+      end
+
+      context 'when shipping methods exists' do
+        let(:step) { :delivery }
+        let!(:shipping_methods) { create_list(:shipping_method, rand(2..10)) }
+
+        it 'assigns all shipping methods to variable and decorates all of them' do
+          expect(assigns(:shipping_methods)).to eq(ShippingMethod.all.decorate)
+        end
       end
     end
   end
@@ -28,7 +43,8 @@ RSpec.describe Checkout::DeliveriesController, type: :controller do
   describe '#update' do
     let(:user) { create(:user_account) }
     let(:make_request) { put :update, params: params }
-    let(:order) { controller.current_user.reload_current_order }
+    let(:current_order) { controller.current_user.reload_current_order }
+    let!(:order) { create(:order, :delivery, user_account: user) }
 
     before do
       sign_in(user)
@@ -44,7 +60,7 @@ RSpec.describe Checkout::DeliveriesController, type: :controller do
       it { is_expected.to set_flash[:notice].to(success_message) }
 
       it 'updates shipping_method for order of current user' do
-        expect(order.shipping_method).to eq(shipping_method)
+        expect(current_order.shipping_method).to eq(shipping_method)
       end
     end
 

@@ -16,6 +16,13 @@ RSpec/DescribeClass:
   Exclude:
     - 'spec/features/**/*'
 
+RSpec/AnyInstance:
+  Exclude:
+    - 'spec/controllers/**/*'
+
+RSpec/LetSetup:
+  Enabled: false
+
 RSpec/MessageSpies:
   EnforcedStyle: receive
 

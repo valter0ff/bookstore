@@ -1,0 +1,11 @@
+%p.general-address
+  %span.address-full-name #{address.first_name} #{address.last_name}
+  = link_to t('.edit'), edit_checkout_address_path, class: 'general-edit edit-link'
+  %br
+  %span.address-address #{address.address}
+  %br
+  %span.address-city-zip #{address.city} #{address.zip}
+  %br
+  %span.address-country #{address.country_name}
+  %br
+  %span.address-phone #{t('.phone')} #{address.phone}

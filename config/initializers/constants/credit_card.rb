@@ -9,5 +9,6 @@ module Constants
     HOLDER_NAME_MAX_SIZE = 50
     NUMBER_MIN_SIZE = 15
     NUMBER_MAX_SIZE = 16
+    NUMBER_PLACEHOLDER = '** ** ** '
   end
 end
