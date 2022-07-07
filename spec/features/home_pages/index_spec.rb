@@ -4,6 +4,7 @@ RSpec.describe 'HomePages' do
   describe '#index' do
     let(:home_page) { Pages::HomePages::Index.new }
     let(:categories) { I18n.t('partials.header.categories').values }
+    let!(:order) { create(:order, :filled, :completed) }
 
     before do
       categories.map { |name| create(:category, title: name) }

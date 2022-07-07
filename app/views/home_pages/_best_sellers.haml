@@ -1,0 +1,19 @@
+- books.each do |book|
+  .col-sm-6.col-md-3.book_card
+    .general-thumb-wrap
+      .thumbnail.general-thumbnail
+        = image_tag book.cover_image, class: 'img-shadow general-thumbnail-img', alt: 'design-book'
+        .thumb-hover
+          .general-thumb-link-wrap
+            = link_to book, class: 'thumb-hover-link show-link' do
+              %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
+            = link_to book_cart_items_path(book_id: book.id, cart_item: { books_count: 1 }),
+                class: 'thumb-hover-link buy-link',
+                method: :post do
+              %i.fa.fa-shopping-cart.thumb-icon
+    .mb-35
+      .clearfix
+        %p.pull-right.font-16.in-gold-500.price= book.price_with_currency
+        %p.title.mr-55.title= book.title
+      %span.divider-sm
+      %p.lead.small.authors= book.all_authors

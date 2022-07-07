@@ -8,7 +8,7 @@ class BooksController < ClientController
   before_action :set_cart_item, only: :show
 
   def index
-    @books = BooksSelectorService.call(@category, params[:sorted_by]).decorate
+    @books = BookDecorator.decorate_collection(BooksSelectorService.call(@category, params[:sorted_by]))
     @pagy, @books = pagy_array(@books.to_a, items: ITEMS_PER_PAGE, link_extra: 'data-remote="true"')
     respond_to :html, :js
   end

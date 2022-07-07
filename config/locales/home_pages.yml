@@ -7,4 +7,6 @@ en:
       best_sellers_title: Best Sellers
       buy_now_button: Buy Now
       previous_slider_button: Previous
-      next_slider_button: Next 
+      next_slider_button: Next
+    book_card:
+      buy_now: Buy Now
