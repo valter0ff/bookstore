@@ -11,5 +11,5 @@
         = link_to book_cart_items_path(book_id: book.id, cart_item: { books_count: 1 }),
             class: 'btn btn-primary',
             method: :post do
-          Buy Now
+          = t('.buy_now')
 

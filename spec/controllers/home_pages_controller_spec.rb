@@ -31,8 +31,8 @@ RSpec.describe HomePagesController do
     context 'when shows best sellers and latest books', bullet: :skip do
       let(:user) { create(:user_account) }
       let(:orders) { create_list(:order, rand(2..5), :confirm, :filled, user_account: user) }
-      let(:expected_best_sellers) { Book.order(sales_count: :desc).first(Constants::Shared::BEST_SELLERS_COUNT) }
-      let(:expected_latest_books) { Book.order(created_at: :desc).first(Constants::Shared::LATEST_BOOKS_COUNT) }
+      let(:expected_best_sellers) { Book.order(sales_count: :desc).limit(Constants::Shared::BEST_SELLERS_COUNT) }
+      let(:expected_latest_books) { Book.order(created_at: :desc).limit(Constants::Shared::LATEST_BOOKS_COUNT) }
 
       before do
         orders.each { |order| Orders::ConfirmOrderService.call(user, order) }
