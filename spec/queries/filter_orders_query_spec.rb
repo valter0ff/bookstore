@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Orders::FilterOrdersService do
+RSpec.describe FilterOrdersQuery do
   let(:orders) { described_class.call(user, filter_option) }
   let(:user) { create(:user_account) }
   let!(:order_in_progress) { create(:order, :completed, user_account: user) }
