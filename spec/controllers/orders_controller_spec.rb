@@ -21,15 +21,19 @@ RSpec.describe OrdersController, type: :controller do
       it { is_expected.to respond_with(success_status) }
       it { is_expected.to render_template(:index) }
 
-      it 'assigns user`s orders with `complete` state to @orders', bullet: :skip do
+      it 'assigns user`s orders to @orders with included cart_items and coupon' do
         expect(assigns(:orders).count).to eq(orders.count)
+        expect(assigns(:orders).first.cart_items).to eq(orders.first.cart_items)
+        expect(assigns(:orders).first.coupon).to eq(orders.first.coupon)
       end
     end
   end
 
   describe '#show' do
     let(:user) { create(:user_account) }
-    let!(:order) { create(:order, :filled, :completed, user_account: user) }
+    let(:order) { create(:order, :completed, user_account: user) }
+    let!(:cart_item) { create(:cart_item, order: order, book: book) }
+    let(:book) { create(:book, :with_picture) }
     let(:success_status) { 200 }
     let(:params) { { id: order.id } }
 
@@ -45,8 +49,10 @@ RSpec.describe OrdersController, type: :controller do
       expect(assigns(:current_order)).to eq(order.decorate)
     end
 
-    it 'assigns cart_items variable', bullet: :skip do
+    it 'assigns @cart_items with included book with it`s picture' do
       expect(assigns(:cart_items)).to eq(order.cart_items)
+      expect(assigns(:cart_items).first.book).to eq(book)
+      expect(assigns(:cart_items).first.book.pictures.first).to eq(book.pictures.first)
     end
   end
 
