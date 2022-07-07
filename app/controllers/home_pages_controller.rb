@@ -9,7 +9,7 @@ class HomePagesController < ClientController
   private
 
   def best_sellers_books
-    Book.includes(%i[authors pictures]).order(:sales_count).first(Constants::Shared::BEST_SELLERS_COUNT)
+    Book.includes(%i[authors pictures]).order(sales_count: :desc).first(Constants::Shared::BEST_SELLERS_COUNT)
   end
 
   def latest_added_books

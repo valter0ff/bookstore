@@ -31,7 +31,7 @@ RSpec.describe HomePagesController do
     context 'when shows best sellers and latest books', bullet: :skip do
       let(:user) { create(:user_account) }
       let(:orders) { create_list(:order, rand(2..5), :confirm, :filled, user_account: user) }
-      let(:expected_best_sellers) { Book.order(:sales_count).first(Constants::Shared::BEST_SELLERS_COUNT) }
+      let(:expected_best_sellers) { Book.order(sales_count: :desc).first(Constants::Shared::BEST_SELLERS_COUNT) }
       let(:expected_latest_books) { Book.order(created_at: :desc).first(Constants::Shared::LATEST_BOOKS_COUNT) }
 
       before do
@@ -44,9 +44,17 @@ RSpec.describe HomePagesController do
         expect(assigns(:best_sellers)).not_to eq(Book.all)
       end
 
+      it 'returns best sellers books in correct order' do
+        expect(assigns(:best_sellers)[0].sales_count).to be >= assigns(:best_sellers)[1].sales_count
+      end
+
       it 'assigns 3 last added books to @latest_books' do
         expect(assigns(:latest_books)).to eq(expected_latest_books)
         expect(assigns(:latest_books)).not_to eq(Book.all)
+      end
+
+      it 'returns latest books in correct order' do
+        expect(assigns(:latest_books)[0].created_at).to be > assigns(:latest_books)[1].created_at
       end
     end
   end
